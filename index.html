@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astartes Forge — Space Marine Army Cards</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">PRINT COMPANION FOR WARHAMMER 40,000</p><h1>Astartes Forge <span class="version-tag">v1.3 Verification</span></h1></div>
+    <div class="points-box"><span>Army total</span><strong id="pointsTotal">0</strong><span>points</span></div>
+  </header>
+  <nav class="tabs" aria-label="Main navigation">
+    <button class="tab active" data-view="builder">Army Forge</button>
+    <button class="tab" data-view="cards">Datasheets</button>
+    <button class="tab" data-view="reference">Rules & Stratagems</button>
+    <button class="tab" data-view="theme">Themes</button>
+    <button class="tab" data-view="print-center">Forge Army Pack</button>
+  </nav>
+  <main>
+    <section id="builder" class="view active-view">
+      <div class="builder-single">
+        <section class="panel roster-panel compact-panel">
+          <div class="section-head">
+            <div><p class="eyebrow">IMPORTED ARMY</p><h2 id="rosterTitle">No army imported</h2></div>
+            
+          </div>
+          <section class="import-box compact-import">
+            <div><p class="eyebrow">NEW RECRUIT IMPORT</p><h3>Import a roster</h3><p class="muted">Supports <code>.rosz</code>, <code>.ros</code>, <code>.xml</code> and recognised <code>.json</code> exports.</p></div>
+            <input id="newRecruitFile" type="file" accept=".rosz,.ros,.xml,.json,application/zip,text/xml,application/json" hidden />
+            <div class="import-actions primary-import-actions"><button id="importNewRecruit" class="primary" type="button">⚒ Import New Recruit Roster</button><button id="clearImportedData" class="ghost danger" type="button">Remove Imported Army</button></div>
+            <div id="importStatus" class="import-status"></div>
+          </section>
+          <div id="validationMessages"></div>
+          <details class="developer-panel panel-inset"><summary>Developer Mode</summary><p class="muted developer-note">Verification and diagnostic tools used while expanding detachment support.</p>
+            <section class="verification-tools">
+              <div class="verification-tools-head"><div><p class="eyebrow">LIVE BATCH TEST LAB</p><h3>Test multiple New Recruit rosters at once</h3><p class="muted">Select or drop several <code>.rosz</code> files. Results appear immediately; no JSON export is required.</p></div><button id="selectBatchRosters" class="primary" type="button">Select test rosters</button></div>
+              <input id="batchRosterFiles" type="file" accept=".rosz,.ros,.xml,.json,application/zip,text/xml,application/json" multiple hidden>
+              <div id="batchDropZone" class="batch-drop-zone" tabindex="0"><strong>Drop New Recruit rosters here</strong><span>or use “Select test rosters”</span></div>
+              <div class="batch-toolbar"><span id="batchSummary" class="muted">No batch tests run yet.</span><button id="clearBatchTests" class="ghost" type="button">Clear batch results</button></div>
+              <div id="batchTestResults"></div>
+            </section>
+            <section class="verification-tools legacy-verification">
+              <div class="verification-tools-head"><div><p class="eyebrow">CURRENT ROSTER</p><h3>Detailed verification</h3></div><button id="runVerification" class="primary" type="button">Run current verification</button></div>
+              <div id="verificationCurrent"></div>
+              <div id="verificationDashboard"></div>
+              <div class="import-actions"><button id="exportVerificationReport" class="ghost" type="button">Export verification report</button><button id="resetVerification" class="ghost danger" type="button">Reset verification results</button></div>
+            </section>
+            <div class="import-actions"><button id="exportImportDiagnostics" class="ghost" type="button">Export import diagnostics</button><button id="exportDetachmentDiagnostics" class="ghost" type="button">Export detachment diagnostics</button></div><details class="import-inspector"><summary>Import Inspector</summary><div id="importInspector"></div></details></details>
+          <div id="roster" class="roster grouped-roster"></div>
+        </section>
+      </div>
+    </section>
+    <section id="cards" class="view">
+      <div class="toolbar panel"><div><p class="eyebrow">AUTOMATICALLY GENERATED</p><h2>Datasheets</h2></div></div>
+      <div id="cardsContainer" class="cards-container"></div>
+    </section>
+    <section id="reference" class="view">
+      <div class="panel rules-toolbar">
+        <div><p class="eyebrow">BATTLE REFERENCE</p><h2>Rules & Detachments</h2><p class="muted">Imported roster rules are organised into army, detachment and Stratagem references.</p></div>
+<div class="phase-legend" aria-label="Stratagem phase colour legend">
+          <span class="phase-legend-title">Phase colours</span>
+          <span class="phase-key phase-command">Command</span>
+          <span class="phase-key phase-movement">Movement</span>
+          <span class="phase-key phase-shooting">Shooting</span>
+          <span class="phase-key phase-charge">Charge</span>
+          <span class="phase-key phase-fight">Fight</span>
+          <span class="phase-key phase-enemy">Enemy turn</span>
+          <span class="phase-key phase-any">Any phase</span>
+          <span class="phase-key phase-turn">Start / end</span>
+        </div>
+        <div class="rules-actions"><input id="rulesSearch" type="search" placeholder="Search rules or Stratagems" aria-label="Search rules"><select id="phaseFilter" aria-label="Filter Stratagems by phase"><option value="all">All phases</option><option value="command">Command</option><option value="movement">Movement</option><option value="shooting">Shooting</option><option value="charge">Charge</option><option value="fight">Fight</option><option value="any">Any phase</option></select><label class="usable-toggle"><input id="usableOnly" type="checkbox"> Only usable by this army</label><button id="printRules" class="primary">Print rules / PDF</button></div>
+      </div>
+      <div class="reference-grid rules-reference-grid">
+        <section class="panel rules-column"><p class="eyebrow">ARMY RULES</p><h2>Army Rules</h2><div id="armyRules"></div><p class="eyebrow reference-subhead">DETACHMENT</p><h2 id="referenceDetachmentTitle"></h2><div id="referenceRules"></div></section>
+        <section class="panel rules-column"><p class="eyebrow">STRATAGEMS</p><h2>Core Stratagems</h2><div id="coreStratagemList" class="stratagem-list"></div><h2 class="reference-subhead">Detachment Stratagems</h2><div id="stratagemList" class="stratagem-list"></div></section>
+      </div>
+    </section>
+    <section id="theme" class="view">
+      <div class="theme-toolbar panel"><div><p class="eyebrow">CARD STYLE</p><h2>Global and unit-specific layouts</h2><p class="muted">Start from a Chapter preset, then customise the global style or a single combined unit card.</p></div><button id="printCards" class="primary">Print / Save as PDF</button></div>
+      <div class="theme-grid">
+        <section class="panel">
+          <label>Chapter preset<select id="chapterPreset"><option value="space-wolves">Space Wolves</option><option value="ultramarines">Ultramarines</option><option value="blood-angels">Blood Angels</option><option value="dark-angels">Dark Angels</option><option value="black-templars">Black Templars</option><option value="imperial-fists">Imperial Fists</option><option value="salamanders">Salamanders</option><option value="white-scars">White Scars</option><option value="raven-guard">Raven Guard</option><option value="iron-hands">Iron Hands</option><option value="deathwatch">Deathwatch</option><option value="crimson-fists">Crimson Fists</option><option value="flesh-tearers">Flesh Tearers</option><option value="generic-astartes">Successor / Custom Chapter</option><option value="custom">Custom</option></select></label>
+          <label>Editing target<select id="themeTarget"><option value="global">Global layout</option></select></label>
+          <div id="themeTargetStatus" class="theme-target-status"></div>
+          <label>Primary colour <input id="themePrimary" type="color" value="#26374d" /></label><label>Accent colour <input id="themeAccent" type="color" value="#9d1f2f" /></label><label>Background <input id="themePaper" type="color" value="#f1eee5" /></label><label>Text colour <input id="themeInk" type="color" value="#111720" /></label>
+          <label>Decoration<select id="patternStyle"><option value="chapter">Chapter decoration</option><option value="runes">Runes</option><option value="clean">Clean</option><option value="ice">Ice texture</option></select></label>
+          <div class="theme-actions"><button id="resetTheme" class="ghost">Reset global style</button><button id="resetUnitTheme" class="ghost">Use global style</button></div>
+        </section>
+        <section class="panel preview-panel"><div class="section-head preview-heading"><p class="eyebrow">LIVE PREVIEW</p><span class="badge">1 card per A4</span></div><div id="themePreview"></div></section>
+      </div>
+    </section>
+
+    <section id="print-center" class="view">
+      <div class="panel print-center-toolbar">
+        <div><p class="eyebrow">PRINT-FIRST WORKFLOW</p><h2>Forge Army Pack</h2><p class="muted">Choose the pages you want to take to the table, then print or save the complete pack as one PDF.</p></div>
+        <button id="generateArmyPack" class="primary">⚒ Forge Army Pack</button>
+      </div>
+      <div class="print-center-grid">
+        <section class="panel pack-options">
+          <p class="eyebrow">PACK CONTENTS</p><h2>Included pages</h2>
+          <label class="pack-option"><input type="checkbox" data-pack-section="cover" checked><span><strong>Cover page</strong><small>Army, Chapter, detachment and points.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="overview" checked><span><strong>Army overview</strong><small>Compact roster grouped by battlefield role.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="datasheets" checked><span><strong>Datasheets</strong><small>One combined unit card per A4 page.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="army-rules" checked><span><strong>Army & detachment rules</strong><small>Only rules relevant to the imported roster.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="core-stratagems" checked><span><strong>Core Stratagems</strong><small>Compact playing-card reference grid.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="detachment-stratagems" checked><span><strong>Detachment Stratagems</strong><small>Selected detachment reference cards.</small></span></label>
+          <label class="pack-option"><input type="checkbox" data-pack-section="enhancements" checked><span><strong>Enhancements</strong><small>Only selected enhancements in the army.</small></span></label>
+          <p class="pack-note">The PDF uses the current Chapter theme and individual datasheet overrides.</p>
+        </section>
+        <section class="panel pack-preview-panel">
+          <div class="section-head"><div><p class="eyebrow">PACK PREVIEW</p><h2 id="packPreviewTitle">No army imported</h2></div><span id="packPageEstimate" class="badge">0 sections</span></div>
+          <div id="packPreview" class="pack-preview"></div>
+        </section>
+      </div>
+      <div id="armyPackPrint" class="army-pack-print" aria-hidden="true"></div>
+    </section>
+  </main>
+  <template id="unitCardTemplate"><article class="data-card"><header class="card-header"><div><p class="card-kicker"></p><h3 class="card-title"></h3></div><div class="card-points"></div></header><div class="card-body"></div></article></template>
+  <script src="rules-library.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
