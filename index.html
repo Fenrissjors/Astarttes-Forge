@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Astartes Forge — Space Marine Army Cards</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <div><p class="eyebrow">PRINT COMPANION FOR WARHAMMER 40,000</p><h1>Astartes Forge <span class="version-tag">v1.3 Verification</span></h1></div>
+    <div><p class="eyebrow">PRINT COMPANION FOR WARHAMMER 40,000</p><h1>Astartes Forge <span class="version-tag">v2.4.1 Rule Fix & Compact Dev Tools</span></h1></div>
     <div class="points-box"><span>Army total</span><strong id="pointsTotal">0</strong><span>points</span></div>
   </header>
   <nav class="tabs" aria-label="Main navigation">
@@ -33,27 +33,50 @@
             <div id="importStatus" class="import-status"></div>
           </section>
           <div id="validationMessages"></div>
-          <details class="developer-panel panel-inset"><summary>Developer Mode</summary><p class="muted developer-note">Verification and diagnostic tools used while expanding detachment support.</p>
-            <section class="verification-tools">
-              <div class="verification-tools-head"><div><p class="eyebrow">LIVE BATCH TEST LAB</p><h3>Test multiple New Recruit rosters at once</h3><p class="muted">Select or drop several <code>.rosz</code> files. Results appear immediately; no JSON export is required.</p></div><button id="selectBatchRosters" class="primary" type="button">Select test rosters</button></div>
-              <input id="batchRosterFiles" type="file" accept=".rosz,.ros,.xml,.json,application/zip,text/xml,application/json" multiple hidden>
-              <div id="batchDropZone" class="batch-drop-zone" tabindex="0"><strong>Drop New Recruit rosters here</strong><span>or use “Select test rosters”</span></div>
-              <div class="batch-toolbar"><span id="batchSummary" class="muted">No batch tests run yet.</span><button id="clearBatchTests" class="ghost" type="button">Clear batch results</button></div>
-              <div id="batchTestResults"></div>
-            </section>
-            <section class="verification-tools legacy-verification">
-              <div class="verification-tools-head"><div><p class="eyebrow">CURRENT ROSTER</p><h3>Detailed verification</h3></div><button id="runVerification" class="primary" type="button">Run current verification</button></div>
-              <div id="verificationCurrent"></div>
-              <div id="verificationDashboard"></div>
-              <div class="import-actions"><button id="exportVerificationReport" class="ghost" type="button">Export verification report</button><button id="resetVerification" class="ghost danger" type="button">Reset verification results</button></div>
-            </section>
-            <div class="import-actions"><button id="exportImportDiagnostics" class="ghost" type="button">Export import diagnostics</button><button id="exportDetachmentDiagnostics" class="ghost" type="button">Export detachment diagnostics</button></div><details class="import-inspector"><summary>Import Inspector</summary><div id="importInspector"></div></details></details>
+          <details class="developer-panel panel-inset"><summary>Developer Mode <span class="dev-summary-hint">tests · diagnostics · coverage</span></summary>
+            <p class="muted developer-note">Developer tools are grouped below. Open only the section you need.</p>
+            <div class="developer-quick-grid">
+              <details class="developer-subpanel" open>
+                <summary><span><strong>Batch Test Lab</strong><small>Test several New Recruit rosters together</small></span></summary>
+                <section class="verification-tools compact-dev-tool">
+                  <div class="verification-tools-head"><div><p class="eyebrow">LIVE BATCH TEST LAB</p><h3>Roster regression tests</h3></div><button id="selectBatchRosters" class="primary" type="button">Select rosters</button></div>
+                  <input id="batchRosterFiles" type="file" accept=".rosz,.ros,.xml,.json,application/zip,text/xml,application/json" multiple hidden>
+                  <div id="batchDropZone" class="batch-drop-zone" tabindex="0"><strong>Drop New Recruit rosters here</strong><span>or use “Select rosters”</span></div>
+                  <div class="batch-toolbar"><span id="batchSummary" class="muted">No batch tests run yet.</span><button id="clearBatchTests" class="ghost" type="button">Clear</button></div>
+                  <div id="batchTestResults"></div>
+                </section>
+              </details>
+              <details class="developer-subpanel">
+                <summary><span><strong>Library Coverage</strong><small>Rules, keyword and unit-library status</small></span></summary>
+                <section class="verification-tools compact-dev-tool data-quality-panel">
+                  <div class="verification-tools-head"><div><p class="eyebrow">DATA QUALITY</p><h3>Library coverage</h3></div><button id="refreshDataQuality" class="ghost" type="button">Refresh</button></div>
+                  <div id="dataQualityDashboard"></div>
+                </section>
+              </details>
+              <details class="developer-subpanel">
+                <summary><span><strong>Current Roster Verification</strong><small>Detailed PASS/FAIL checks for the loaded army</small></span></summary>
+                <section class="verification-tools legacy-verification compact-dev-tool">
+                  <div class="verification-tools-head"><div><p class="eyebrow">CURRENT ROSTER</p><h3>Detailed verification</h3></div><button id="runVerification" class="primary" type="button">Run verification</button></div>
+                  <div id="verificationCurrent"></div>
+                  <details class="developer-nested"><summary>Verification history</summary><div id="verificationDashboard"></div></details>
+                  <div class="import-actions"><button id="exportVerificationReport" class="ghost" type="button">Export report</button><button id="resetVerification" class="ghost danger" type="button">Reset results</button></div>
+                </section>
+              </details>
+              <details class="developer-subpanel">
+                <summary><span><strong>Diagnostics & Inspector</strong><small>Exports and raw import details</small></span></summary>
+                <section class="verification-tools compact-dev-tool">
+                  <div class="import-actions"><button id="exportImportDiagnostics" class="ghost" type="button">Import diagnostics</button><button id="exportDetachmentDiagnostics" class="ghost" type="button">Detachment diagnostics</button></div>
+                  <details class="import-inspector developer-nested"><summary>Import Inspector</summary><div id="importInspector"></div></details>
+                </section>
+              </details>
+            </div>
+          </details>
           <div id="roster" class="roster grouped-roster"></div>
         </section>
       </div>
     </section>
     <section id="cards" class="view">
-      <div class="toolbar panel"><div><p class="eyebrow">AUTOMATICALLY GENERATED</p><h2>Datasheets</h2></div></div>
+      <div class="toolbar panel datasheet-toolbar"><div><p class="eyebrow">AUTOMATICALLY GENERATED</p><h2>Datasheets</h2></div><label class="datasheet-layout-control"><span>Default combined sheet layout</span><select id="datasheetLayoutDefault"><option value="model">Grouped by model</option><option value="section">Grouped by section</option></select></label></div>
       <div id="cardsContainer" class="cards-container"></div>
     </section>
     <section id="reference" class="view">
@@ -118,7 +141,11 @@
     </section>
   </main>
   <template id="unitCardTemplate"><article class="data-card"><header class="card-header"><div><p class="card-kicker"></p><h3 class="card-title"></h3></div><div class="card-points"></div></header><div class="card-body"></div></article></template>
-  <script src="rules-library.js"></script>
-  <script src="app.js"></script>
+  <script src="src/libraries/keyword-library.js"></script>
+  <script src="src/libraries/unit-library.js"></script>
+  <script src="src/libraries/attachment-library.js"></script>
+  <script src="src/libraries/chapter-library.js"></script>
+  <script src="src/libraries/rules-library.js"></script>
+  <script src="src/app.js"></script>
 </body>
 </html>
