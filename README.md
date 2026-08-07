@@ -1,23 +1,44 @@
-# Astartes Forge v2.4.1
+# Astartes Forge v2.4.4 — Datasheet Structure
 
-Open `index.html` in a browser.
+Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 
-## Folder structure
+## Run
 
-- `index.html` — application entry point
-- `assets/css/` — visual styling
-- `src/` — application code
-- `src/libraries/` — Rules, Chapter, Keyword, Unit and Attachment libraries
-- `tests/rosters/generic/` — Generic Adeptus Astartes verification rosters
-- `tests/rosters/space-wolves/` — Space Wolves verification rosters
-- `tests/rosters/blood-angels/` — Blood Angels verification rosters
-- `tests/rosters/multi-detachment/` — multi-detachment and stress-test rosters
-- `tests/verify-libraries.js` — library consistency check
-- `docs/` — audit, testing and version documentation
+Open `index.html` in a modern browser, import a New Recruit roster in **Army Forge**, review Datasheets / Rules & Stratagems, then use **Forge Army Pack**.
 
-## v2.4.1 changes
+## Project structure
 
-- Detachment Rules are now taken from the exact selected detachment node in the New Recruit ROSZ whenever available. Rules from another detachment can no longer bleed into the current entry.
-- Rules Library remains the fallback only when the exact selected detachment has no exported Detachment Rule.
-- Developer Mode is split into compact collapsible sections: Batch Test Lab, Library Coverage, Current Roster Verification, and Diagnostics & Inspector.
-- The downloadable project is organised into clear source, library, test and documentation folders.
+```text
+Astartes-Forge-v2.4.4/
+├── index.html
+├── assets/
+│   └── css/
+├── src/
+│   ├── core/
+│   └── libraries/
+│       ├── attachments/
+│       ├── chapters/
+│       ├── keywords/
+│       ├── reference/
+│       ├── rules/
+│       └── units/
+├── tests/
+│   ├── rosters/
+│   ├── audit/
+│   └── scripts/
+├── docs/
+│   ├── audits/
+│   └── releases/
+├── CHANGELOG.md
+├── KNOWN_ISSUES.md
+└── ROADMAP.md
+```
+
+## Gold Master checks
+
+```bash
+node tests/scripts/verify-libraries.js
+python tests/scripts/audit_rosz.py
+```
+
+See `docs/releases/README-v2.4.4.md` and `docs/audits/GOLD-MASTER-AUDIT.md` for details.
