@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.8.1 — Source Integrity & Completeness
+- Replaced wording-based Precise values and distances validation with source-integrity validation.
+- Cross-checks selection/profile/rule ownership after normalisation.
+- Cross-checks weapon Range, Attacks, Skill, Strength, AP, Damage and source counts against the ROSZ source graph.
+- Adds Source intact / Source ambiguity / Data loss detected states.
+- Valid Warhammer wording such as 'within range of an objective' no longer produces a false failure.
+- No rules text is rewritten or guessed by the validator.
+
+# Changelog
+
 ## v2.8.0 — Chapter Scope & First Founding Expansion
 - Added 12 verified Space Marine / First Founding detachment entries.
 - Added New Recruit-derived chapter scope metadata and resolver.

@@ -1,4 +1,4 @@
-# Astartes Forge v2.8.0 — Chapter Scope & First Founding Expansion
+# Astartes Forge v2.8.1 — Source Integrity & Completeness
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 
@@ -6,7 +6,16 @@ Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 
 Open `index.html` in a modern browser, import a New Recruit roster in **Army Forge**, review Datasheets / Rules & Stratagems, then use **Forge Army Pack**.
 
-## What changed in v2.8.0
+## What changed in v2.8.1
+
+
+The old wording-based **Precise values and distances** validator has been removed. Astartes Forge now verifies whether imported New Recruit source data survives normalisation intact instead of judging Games Workshop wording.
+
+Batch verification now reports one of three source states:
+
+- **✓ Source intact** — source ownership and profile values were preserved.
+- **⚠ Source ambiguity** — the source itself cannot be fully proven (informational, not a failed check).
+- **× Data loss detected** — Astartes Forge demonstrably lost, reassigned or altered source data.
 
 New Recruit remains the authority for roster legality and catalogue availability. Astartes Forge now preserves that availability as **detachment scope metadata** instead of assuming that every Space Marine detachment is generic.
 
