@@ -1,4 +1,4 @@
-const APP_VERSION = '2.8.0-chapter-scope-first-founding';
+const APP_VERSION = '2.8.1-source-integrity-completeness';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
@@ -470,52 +470,86 @@ function exportTestReport(){
 }
 
 
-function libraryPrecisionIssues(entry){
-  if(!entry) return ['No Rules Library entry'];
-  const banned=[
-    /\bnearby\b/i,/\bclose enough\b/i,/\bclose to\b/i,
-    /\bimproved (?:reliability|resilience|survivability|protection|output|benefit)\b/i,
-    /\bstronger\b/i,/\bsmall number\b/i,/\blonger range\b/i
-  ];
-  const hasVagueImprove=(text)=>{
-    const value=String(text||'');
-    if(!/\bimprov(?:e|es|ed|ing)\b/i.test(value)) return false;
-    // Explicit numeric characteristic changes are precise even when the value
-    // appears late in the sentence, e.g. "Improve the Armour Penetration
-    // characteristic of melee weapons ... by 1."
-    const sentences=value.split(/(?<=[.!?])\s+/);
-    return sentences.some(sentence=>{
-      if(!/\bimprov(?:e|es|ed|ing)\b/i.test(sentence)) return false;
-      return !/(?:\bby\s+(?:D?\d+(?:\+\d+)?|one|two|three)\b|\bto\s+(?:D?\d+(?:\+\d+)?|\d+\+|one|two|three)\b|\badd\s+(?:D?\d+|one|two|three)\b|\bsubtract\s+(?:D?\d+|one|two|three)\b)/i.test(sentence);
+function sourceIntegrityReport(imported, mergedDetachments=[]) {
+  const graph=imported?.importGraph?.sourceGraph;
+  if(!graph) return {ok:true,status:'ambiguity',detail:'Source ambiguity: this import has no lossless ROSZ source graph, so completeness cannot be proven automatically.'};
+
+  const selections=new Map((graph.selections||[]).map(x=>[x.id,x]));
+  const profiles=new Map((graph.profiles||[]).map(x=>[x.id,x]));
+  const rules=new Map((graph.rules||[]).map(x=>[x.id,x]));
+  const errors=[];
+  const warnings=[];
+  const fail=message=>{ if(errors.length<12) errors.push(message); };
+  const warn=message=>{ if(warnings.length<8) warnings.push(message); };
+
+  // Prove that the source graph itself has not lost ownership links.
+  (graph.selections||[]).forEach(sel=>{
+    if(sel.parentId && !selections.has(sel.parentId)) fail(`Selection ${sel.name||sel.id} references missing parent ${sel.parentId}`);
+    (sel.childIds||[]).forEach(id=>{ if(!selections.has(id)) fail(`Selection ${sel.name||sel.id} references missing child ${id}`); });
+  });
+  (graph.profiles||[]).forEach(profile=>{ if(!selections.has(profile.ownerSelectionId)) fail(`Profile ${profile.name||profile.id} has no source owner`); });
+  (graph.rules||[]).forEach(rule=>{ if(!selections.has(rule.ownerSelectionId)) fail(`Rule ${rule.name||rule.id} has no source owner`); });
+  (graph.categories||[]).forEach(category=>{ if(!selections.has(category.ownerSelectionId)) fail(`Category ${category.name||category.id} has no source owner`); });
+  (graph.costs||[]).forEach(cost=>{ if(!selections.has(cost.ownerSelectionId)) fail(`Cost ${cost.name||cost.id} has no source owner`); });
+
+  const profileValue=(profile,patterns)=>profile?.characteristics?.find(c=>patterns.some(p=>p.test(c.name||'')))?.value ?? '—';
+  const normalisedWeapons=[];
+  (imported.units||[]).forEach(unit=>{
+    if(unit.sourceSelectionId && !selections.has(unit.sourceSelectionId)) fail(`Unit ${unit.name} lost its source selection`);
+    (unit.modelProfiles||[]).forEach(model=>{
+      if(model.sourceSelectionId && !selections.has(model.sourceSelectionId)) fail(`${unit.name}: model ${model.name} lost its source selection`);
+      if(model.sourceProfileId && !profiles.has(model.sourceProfileId)) fail(`${unit.name}: model ${model.name} lost its source profile`);
     });
-  };
-  const issues=[];
-  const hasUnqualifiedWithinRange=(text)=>{
-    const value=String(text||'');
-    const re=/\bwithin range\b/gi;
-    let match;
-    while((match=re.exec(value))){
-      const tail=value.slice(match.index,match.index+120);
-      // Objective control/range is defined by the core rules and does not need an inch value
-      // repeated in the detachment text. Allow named objective states such as "Vowed objective".
-      if(/^within range\s+of\s+(?:(?:an?|the)\s+)?(?:[\w’'\-]+\s+){0,5}objective(?:\s+marker)?\b/i.test(tail)) continue;
-      return true;
-    }
-    return false;
-  };
-  const scan=(label,text)=>{
-    const value=String(text||'');
-    if(hasUnqualifiedWithinRange(value)){ issues.push(`${label}: ${value}`); return; }
-    if(hasVagueImprove(value)){ issues.push(`${label}: ${value}`); return; }
-    for(const rule of banned){ if(rule.test(value)){ issues.push(`${label}: ${value}`); break; } }
-  };
-  (entry.rules||[]).forEach(x=>scan(`Rule ${x.name}`,x.text));
-  (entry.enhancements||[]).forEach(x=>scan(`Enhancement ${x.name}`,x.text));
-  (entry.stratagems||[]).forEach(x=>{ scan(`Stratagem ${x.name} WHEN`,x.when); scan(`Stratagem ${x.name} TARGET`,x.target); scan(`Stratagem ${x.name} EFFECT`,x.effect); scan(`Stratagem ${x.name} RESTRICTIONS`,x.restrictions); });
-  return issues;
+    (unit.weapons||[]).forEach(weapon=>{
+      normalisedWeapons.push(weapon);
+      if(!weapon.sourceSelectionId || !selections.has(weapon.sourceSelectionId)) fail(`${unit.name}: weapon ${weapon.name} lost its source selection`);
+      if(!weapon.sourceProfileId || !profiles.has(weapon.sourceProfileId)) { fail(`${unit.name}: weapon ${weapon.name} lost its source profile`); return; }
+      const source=profiles.get(weapon.sourceProfileId);
+      const owner=selections.get(weapon.sourceSelectionId);
+      if(source.ownerSelectionId!==weapon.sourceSelectionId) fail(`${unit.name}: weapon ${weapon.name} source ownership changed`);
+      const expectedCount=Math.max(1,Number(owner?.number||1));
+      if(Number(weapon.count||1)!==expectedCount) fail(`${unit.name}: weapon ${weapon.name} count changed (${expectedCount} → ${weapon.count})`);
+      const pairs=[
+        ['Range',weapon.range,profileValue(source,[/^Range$/i,/Rng/i])],
+        ['A',weapon.a,profileValue(source,[/^A$/i,/Attacks/i])],
+        ['Skill',weapon.skill,profileValue(source,[/^BS$/i,/^WS$/i,/Skill/i])],
+        ['S',weapon.s,profileValue(source,[/^S$/i,/Strength/i])],
+        ['AP',weapon.ap,profileValue(source,[/^AP$/i])],
+        ['D',weapon.d,profileValue(source,[/^D$/i,/Damage/i])]
+      ];
+      pairs.forEach(([label,actual,expected])=>{
+        if(String(actual??'—').trim()!==String(expected??'—').trim()) fail(`${unit.name}: ${weapon.name} ${label} changed (${expected} → ${actual})`);
+      });
+    });
+    (unit.structuredAbilities||[]).forEach(ability=>{
+      if(ability.sourceSelectionId && !selections.has(ability.sourceSelectionId)) fail(`${unit.name}: ability ${ability.name} lost its source selection`);
+      if(ability.sourceProfileId && !profiles.has(ability.sourceProfileId)) fail(`${unit.name}: ability ${ability.name} lost its source profile`);
+    });
+    (unit.structuredRules||[]).forEach(rule=>{
+      if(rule.sourceSelectionId && !selections.has(rule.sourceSelectionId)) fail(`${unit.name}: rule ${rule.name} lost its source selection`);
+      if(rule.sourceRuleId && !rules.has(rule.sourceRuleId)) fail(`${unit.name}: rule ${rule.name} lost its source rule`);
+    });
+  });
+
+  (mergedDetachments||[]).forEach(det=>{
+    if(det.sourceSelectionId && !selections.has(det.sourceSelectionId)) fail(`${det.name}: detachment source selection was lost`);
+    if(/^New Recruit/i.test(det.detachmentRuleSource||'') && !(det.rules||[]).length) fail(`${det.name}: New Recruit detachment rule was not preserved`);
+    (det.rules||[]).forEach(rule=>{
+      if(rule.sourceType==='direct-rule' && rule.sourceId && ![...rules.values()].some(x=>x.sourceId===rule.sourceId || x.id===rule.sourceId)) fail(`${det.name}: rule ${rule.name} no longer maps to its source rule`);
+      if(rule.sourceType==='direct-profile' && rule.sourceId && ![...profiles.values()].some(x=>x.sourceId===rule.sourceId || x.id===rule.sourceId)) fail(`${det.name}: rule ${rule.name} no longer maps to its source profile`);
+    });
+  });
+
+  // A source warning is informational only. It must never become a fabricated rules error.
+  const sourceWarnings=imported?.sourceInspection?.warnings||[];
+  sourceWarnings.forEach(x=>warn(String(x)));
+
+  if(errors.length) return {ok:false,status:'loss',detail:`Data loss detected: ${errors.slice(0,3).join(' | ')}`};
+  if(warnings.length) return {ok:true,status:'ambiguity',detail:`Source intact; source ambiguity noted: ${warnings.slice(0,2).join(' | ')}`};
+  return {ok:true,status:'intact',detail:`Source intact · ${(graph.selections||[]).length} selections · ${(graph.profiles||[]).length} profiles · ${(graph.rules||[]).length} rules · ${normalisedWeapons.length} normalised weapon profiles cross-checked`};
 }
 
-function batchCheck(id,label,ok,detail=''){ return {id,label,ok:Boolean(ok),detail:String(detail||'')}; }
+function batchCheck(id,label,ok,detail='',status=''){ return {id,label,ok:Boolean(ok),detail:String(detail||''),status:status||((ok)?'intact':'loss')}; }
 function analyseImportedRoster(imported,fileName=''){
   const rawDetachments=(Array.isArray(imported.detachmentsData)&&imported.detachmentsData.length)
     ? imported.detachmentsData
@@ -542,7 +576,7 @@ function analyseImportedRoster(imported,fileName=''){
   const allRules=detachmentRows.length>0&&detachmentRows.every(r=>ruleExpectationSatisfied(r.loadedRules,r.expectation?.detachmentRules) && (r.merged.rules||[]).every(detachmentRuleHasMeaningfulContent));
   const allStrats=detachmentRows.length>0&&detachmentRows.every(r=>Number.isInteger(r.expectation?.stratagems)&&r.loadedStrats===r.expectation.stratagems);
   const allEnh=detachmentRows.length>0&&detachmentRows.every(r=>Number.isInteger(r.expectation?.enhancements)&&r.loadedEnh===r.expectation.enhancements);
-  const precisionIssues=detachmentRows.flatMap(r=>libraryPrecisionIssues(r.libraryEntry).map(x=>`${r.merged.name}: ${x}`));
+  const integrity=sourceIntegrityReport(imported,mergedDetachments);
   const checks=[
     batchCheck('parse','ROSZ parsed',units.length>0,`${units.length} units · ${entries.length} entries`),
     batchCheck('detachment','Detachments recognised',mergedDetachments.length>0,mergedDetachments.map(d=>`${d.name}${d.dp?` (${d.dp}DP)`:''}`).join(' + ')||'No detachment found'),
@@ -553,7 +587,7 @@ function analyseImportedRoster(imported,fileName=''){
     batchCheck('rules','Detachment rules',allRules,detachmentRows.map(r=>{const c=detachmentStructureCounts(r.merged);return `${r.merged.name}: ${c.rules} rule(s), ${c.subRules} sub-rule(s), ${c.restrictions} restriction(s)`}).join(' · ')),
     batchCheck('stratagems','Detachment Stratagems',allStrats,detail('loadedStrats','stratagems')),
     batchCheck('enhancements','Enhancements',allEnh,detail('loadedEnh','enhancements')),
-    batchCheck('precision','Precise values and distances',precisionIssues.length===0,precisionIssues.length?precisionIssues.slice(0,3).join(' | '):'All modifiers and distances are numeric')
+    batchCheck('integrity','Source integrity & completeness',integrity.ok,integrity.detail,integrity.status)
   ];
   return {id:crypto.randomUUID(),fileName,name:imported.name||fileName,detachment:mergedDetachments.map(d=>d.name).join(' + '),points:imported.points||0,units:units.length,passed:checks.filter(c=>c.ok).length,total:checks.length,checks,imported};
 }
@@ -579,7 +613,7 @@ function renderBatchTestResults(){
   if(!results.length){summary.textContent=batchTestRuntime.running?'Preparing tests…':'No batch tests run yet.';host.innerHTML='';return;}
   const passed=results.filter(r=>r.passed===r.total).length;
   summary.textContent=batchTestRuntime.running?`Testing ${results.length} roster(s)…`:`${passed}/${results.length} rosters fully passed · ${results.reduce((s,r)=>s+r.passed,0)}/${results.reduce((s,r)=>s+r.total,0)} checks passed`;
-  host.innerHTML=`<div class="batch-results-grid">${results.map(r=>{const ok=r.passed===r.total;return `<article class="batch-result-card ${ok?'pass':'fail'}"><div class="batch-result-head"><div><h4>${escapeHtml(r.detachment||r.name)}</h4><small>${escapeHtml(r.fileName)} · ${r.units} units · ${r.points} pts</small></div><span class="batch-score">${r.passed}/${r.total}</span></div><div class="batch-checks">${r.checks.map(c=>`<div class="batch-check ${c.ok?'ok':'fail'}"><span class="batch-check-icon">${c.ok?'✓':'×'}</span><div><b>${escapeHtml(c.label)}</b><small>${escapeHtml(c.detail)}</small></div></div>`).join('')}</div>${batchTestRuntime.importedById.has(r.id)?`<div class="batch-actions"><button class="ghost" data-load-batch="${r.id}" type="button">Load in app</button></div>`:''}</article>`}).join('')}</div>`;
+  host.innerHTML=`<div class="batch-results-grid">${results.map(r=>{const ok=r.passed===r.total;return `<article class="batch-result-card ${ok?'pass':'fail'}"><div class="batch-result-head"><div><h4>${escapeHtml(r.detachment||r.name)}</h4><small>${escapeHtml(r.fileName)} · ${r.units} units · ${r.points} pts</small></div><span class="batch-score">${r.passed}/${r.total}</span></div><div class="batch-checks">${r.checks.map(c=>{const stateClass=c.status==='ambiguity'?'warn':(c.ok?'ok':'fail');const icon=c.status==='ambiguity'?'⚠':(c.ok?'✓':'×');return `<div class="batch-check ${stateClass}"><span class="batch-check-icon">${icon}</span><div><b>${escapeHtml(c.label)}</b><small>${escapeHtml(c.detail)}</small></div></div>`}).join('')}</div>${batchTestRuntime.importedById.has(r.id)?`<div class="batch-actions"><button class="ghost" data-load-batch="${r.id}" type="button">Load in app</button></div>`:''}</article>`}).join('')}</div>`;
 }
 function loadBatchRoster(id){
   const imported=batchTestRuntime.importedById.get(id); if(!imported)return;
