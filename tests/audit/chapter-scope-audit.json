@@ -1,0 +1,103 @@
+{
+  "version": "2.8.0",
+  "authority": "New Recruit catalogue availability",
+  "results": [
+    {
+      "detachment": "Armoured Speartip",
+      "scope": "generic-astartes",
+      "file": "tests/rosters/generic/Space Marines - Armoured Speartip -1.rosz",
+      "disposition": "Take and Hold",
+      "dp": 3,
+      "ok": true
+    },
+    {
+      "detachment": "Bastion Task Force",
+      "scope": "generic-astartes",
+      "file": "tests/rosters/generic/Space Marines - Bastion Task Force -2.rosz",
+      "disposition": "Take and Hold",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Ceramite Sentinels",
+      "scope": "generic-astartes",
+      "file": "tests/rosters/generic/Space Marines - Ceramite Sentinels -3.rosz",
+      "disposition": "Take and Hold",
+      "dp": 3,
+      "ok": true
+    },
+    {
+      "detachment": "Headhunter Task Force",
+      "scope": "generic-astartes",
+      "file": "tests/rosters/generic/Space Marines - Headhunter Task Force - 4.rosz",
+      "disposition": "Priority Assets",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Orbital Assault Force",
+      "scope": "generic-astartes",
+      "file": "tests/rosters/generic/Space Marines - Orbital Assault Force - 5.rosz",
+      "disposition": "Take and Hold",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Blade of Ultramar",
+      "scope": "ultramarines",
+      "file": "tests/rosters/ultramarines/Ultra marines - Blade of Ultramar - 6.rosz",
+      "disposition": "Priority Assets",
+      "dp": 3,
+      "ok": true
+    },
+    {
+      "detachment": "Reclamation Force",
+      "scope": "ultramarines",
+      "file": "tests/rosters/ultramarines/Ultra marines - Reclamation Force - 10 .rosz",
+      "disposition": "Take and Hold",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Emperor's Shield",
+      "scope": "imperial-fists",
+      "file": "tests/rosters/imperial-fists/Imperial Fists - Emperor's Shield - 7.rosz",
+      "disposition": "Purge the Foe",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Forgefather's Seekers",
+      "scope": "salamanders",
+      "file": "tests/rosters/salamanders/Salamanders - Forgefather's Seekers - 8.rosz",
+      "disposition": "Priority Assets",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Hammer of Avernii",
+      "scope": "iron-hands",
+      "file": "tests/rosters/iron-hands/Iron Hands- Hammer of Avernii -9.rosz",
+      "disposition": "Purge the Foe",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Shadowmark Talon",
+      "scope": "raven-guard",
+      "file": "tests/rosters/raven-guard/Raven Guard - Shadowmark Talon - 11.rosz",
+      "disposition": "Disruption",
+      "dp": 2,
+      "ok": true
+    },
+    {
+      "detachment": "Spearpoint Task Force",
+      "scope": "white-scars",
+      "file": "tests/rosters/white-scars/White Scars - Spearpoint Task Force - 12.rosz",
+      "disposition": "Disruption",
+      "dp": 2,
+      "ok": true
+    }
+  ],
+  "errors": []
+}
