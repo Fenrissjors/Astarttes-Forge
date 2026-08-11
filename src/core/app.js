@@ -1,4 +1,4 @@
-const APP_VERSION = '2.8.1-source-integrity-completeness';
+const APP_VERSION = '2.8.2-provenance-aware-source-integrity';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
@@ -482,7 +482,8 @@ function sourceIntegrityReport(imported, mergedDetachments=[]) {
   const fail=message=>{ if(errors.length<12) errors.push(message); };
   const warn=message=>{ if(warnings.length<8) warnings.push(message); };
 
-  // Prove that the source graph itself has not lost ownership links.
+  // Layer 1 — prove the lossless source graph is internally complete.
+  // Source ownership lives here. Presentation rows are allowed to merge later.
   (graph.selections||[]).forEach(sel=>{
     if(sel.parentId && !selections.has(sel.parentId)) fail(`Selection ${sel.name||sel.id} references missing parent ${sel.parentId}`);
     (sel.childIds||[]).forEach(id=>{ if(!selections.has(id)) fail(`Selection ${sel.name||sel.id} references missing child ${id}`); });
@@ -493,34 +494,70 @@ function sourceIntegrityReport(imported, mergedDetachments=[]) {
   (graph.costs||[]).forEach(cost=>{ if(!selections.has(cost.ownerSelectionId)) fail(`Cost ${cost.name||cost.id} has no source owner`); });
 
   const profileValue=(profile,patterns)=>profile?.characteristics?.find(c=>patterns.some(p=>p.test(c.name||'')))?.value ?? '—';
-  const normalisedWeapons=[];
+  const unitRootIds=new Set((imported.units||[]).map(u=>u.sourceSelectionId).filter(Boolean));
+  const representedWeaponProfiles=new Set();
+  const renderedWeaponRows=[];
+
+  const provenanceForWeapon=weapon=>{
+    const records=Array.isArray(weapon?.sourceProfiles) && weapon.sourceProfiles.length
+      ? weapon.sourceProfiles
+      : [{
+          sourceSelectionId:weapon?.sourceSelectionId||'',
+          sourceProfileId:weapon?.sourceProfileId||'',
+          modelSourceSelectionId:weapon?.modelSourceSelectionId||'',
+          count:Number(weapon?.count||1)
+        }];
+    return records.filter(Boolean);
+  };
+
+  const compareWeaponValues=(unitName,weapon,source)=>{
+    const pairs=[
+      ['Range',weapon.range,profileValue(source,[/^Range$/i,/Rng/i])],
+      ['A',weapon.a,profileValue(source,[/^A$/i,/Attacks/i])],
+      ['Skill',weapon.skill,profileValue(source,[/^BS$/i,/^WS$/i,/Skill/i])],
+      ['S',weapon.s,profileValue(source,[/^S$/i,/Strength/i])],
+      ['AP',weapon.ap,profileValue(source,[/^AP$/i])],
+      ['D',weapon.d,profileValue(source,[/^D$/i,/Damage/i])]
+    ];
+    pairs.forEach(([label,actual,expected])=>{
+      if(String(actual??'—').trim()!==String(expected??'—').trim()) fail(`${unitName}: ${weapon.name} ${label} changed (${expected} → ${actual})`);
+    });
+  };
+
   (imported.units||[]).forEach(unit=>{
     if(unit.sourceSelectionId && !selections.has(unit.sourceSelectionId)) fail(`Unit ${unit.name} lost its source selection`);
     (unit.modelProfiles||[]).forEach(model=>{
       if(model.sourceSelectionId && !selections.has(model.sourceSelectionId)) fail(`${unit.name}: model ${model.name} lost its source selection`);
       if(model.sourceProfileId && !profiles.has(model.sourceProfileId)) fail(`${unit.name}: model ${model.name} lost its source profile`);
     });
+
     (unit.weapons||[]).forEach(weapon=>{
-      normalisedWeapons.push(weapon);
-      if(!weapon.sourceSelectionId || !selections.has(weapon.sourceSelectionId)) fail(`${unit.name}: weapon ${weapon.name} lost its source selection`);
-      if(!weapon.sourceProfileId || !profiles.has(weapon.sourceProfileId)) { fail(`${unit.name}: weapon ${weapon.name} lost its source profile`); return; }
-      const source=profiles.get(weapon.sourceProfileId);
-      const owner=selections.get(weapon.sourceSelectionId);
-      if(source.ownerSelectionId!==weapon.sourceSelectionId) fail(`${unit.name}: weapon ${weapon.name} source ownership changed`);
-      const expectedCount=Math.max(1,Number(owner?.number||1));
-      if(Number(weapon.count||1)!==expectedCount) fail(`${unit.name}: weapon ${weapon.name} count changed (${expectedCount} → ${weapon.count})`);
-      const pairs=[
-        ['Range',weapon.range,profileValue(source,[/^Range$/i,/Rng/i])],
-        ['A',weapon.a,profileValue(source,[/^A$/i,/Attacks/i])],
-        ['Skill',weapon.skill,profileValue(source,[/^BS$/i,/^WS$/i,/Skill/i])],
-        ['S',weapon.s,profileValue(source,[/^S$/i,/Strength/i])],
-        ['AP',weapon.ap,profileValue(source,[/^AP$/i])],
-        ['D',weapon.d,profileValue(source,[/^D$/i,/Damage/i])]
-      ];
-      pairs.forEach(([label,actual,expected])=>{
-        if(String(actual??'—').trim()!==String(expected??'—').trim()) fail(`${unit.name}: ${weapon.name} ${label} changed (${expected} → ${actual})`);
+      renderedWeaponRows.push(weapon);
+      const provenance=provenanceForWeapon(weapon);
+      if(!provenance.length){ fail(`${unit.name}: weapon ${weapon.name} has no source provenance`); return; }
+      const sourceProfiles=[];
+      provenance.forEach(record=>{
+        if(!record.sourceProfileId || !profiles.has(record.sourceProfileId)){
+          fail(`${unit.name}: weapon ${weapon.name} lost source profile ${record.sourceProfileId||'(missing id)'}`);
+          return;
+        }
+        const source=profiles.get(record.sourceProfileId);
+        representedWeaponProfiles.add(record.sourceProfileId);
+        sourceProfiles.push(source);
+        // Do not compare a presentation owner to the source owner. A merged row can
+        // legitimately represent profiles from several model/weapon selections.
+        // Exact ownership remains authoritative in source.ownerSelectionId.
+        if(!selections.has(source.ownerSelectionId)) fail(`${unit.name}: weapon ${weapon.name} source profile ${source.name||source.id} has no valid owner`);
       });
+      // A visible row may merge only identical profiles. Checking it against every
+      // represented source profile proves that aggregation has not changed stats.
+      sourceProfiles.forEach(source=>compareWeaponValues(unit.name,weapon,source));
+      if(Array.isArray(weapon.sourceProfiles) && weapon.sourceProfiles.length){
+        const expectedCount=weapon.sourceProfiles.reduce((sum,r)=>sum+Math.max(1,Number(r.count||1)),0);
+        if(Number(weapon.count||0)!==expectedCount) fail(`${unit.name}: weapon ${weapon.name} merged count changed (${expectedCount} → ${weapon.count})`);
+      }
     });
+
     (unit.structuredAbilities||[]).forEach(ability=>{
       if(ability.sourceSelectionId && !selections.has(ability.sourceSelectionId)) fail(`${unit.name}: ability ${ability.name} lost its source selection`);
       if(ability.sourceProfileId && !profiles.has(ability.sourceProfileId)) fail(`${unit.name}: ability ${ability.name} lost its source profile`);
@@ -529,6 +566,18 @@ function sourceIntegrityReport(imported, mergedDetachments=[]) {
       if(rule.sourceSelectionId && !selections.has(rule.sourceSelectionId)) fail(`${unit.name}: rule ${rule.name} lost its source selection`);
       if(rule.sourceRuleId && !rules.has(rule.sourceRuleId)) fail(`${unit.name}: rule ${rule.name} lost its source rule`);
     });
+  });
+
+  // Layer 2 — coverage. Every weapon profile belonging to an imported unit must
+  // still be represented by at least one normalised/presentation provenance set.
+  // This catches real data loss while allowing intentional many-to-one rendering.
+  const expectedWeaponProfiles=(graph.profiles||[]).filter(profile=>{
+    if(!graphProfileLooksLikeWeapon(profile)) return false;
+    const owner=selections.get(profile.ownerSelectionId);
+    return Boolean(owner && unitRootIds.has(owner.topId||owner.id));
+  });
+  expectedWeaponProfiles.forEach(profile=>{
+    if(!representedWeaponProfiles.has(profile.id)) fail(`Weapon profile ${profile.name||profile.id} is present in ROSZ but absent from normalised provenance`);
   });
 
   (mergedDetachments||[]).forEach(det=>{
@@ -540,13 +589,15 @@ function sourceIntegrityReport(imported, mergedDetachments=[]) {
     });
   });
 
-  // A source warning is informational only. It must never become a fabricated rules error.
+  // Source warnings are informational. They never fabricate a Warhammer rules error.
   const sourceWarnings=imported?.sourceInspection?.warnings||[];
   sourceWarnings.forEach(x=>warn(String(x)));
 
   if(errors.length) return {ok:false,status:'loss',detail:`Data loss detected: ${errors.slice(0,3).join(' | ')}`};
-  if(warnings.length) return {ok:true,status:'ambiguity',detail:`Source intact; source ambiguity noted: ${warnings.slice(0,2).join(' | ')}`};
-  return {ok:true,status:'intact',detail:`Source intact · ${(graph.selections||[]).length} selections · ${(graph.profiles||[]).length} profiles · ${(graph.rules||[]).length} rules · ${normalisedWeapons.length} normalised weapon profiles cross-checked`};
+  const mergeCount=renderedWeaponRows.filter(w=>Array.isArray(w.sourceProfiles)&&w.sourceProfiles.length>1).length;
+  const coverage=`${representedWeaponProfiles.size}/${expectedWeaponProfiles.length} unit weapon source profiles represented`;
+  if(warnings.length) return {ok:true,status:'ambiguity',detail:`Source intact · ${coverage}${mergeCount?` · ${mergeCount} merged presentation row(s)`:''}; source ambiguity noted: ${warnings.slice(0,2).join(' | ')}`};
+  return {ok:true,status:'intact',detail:`Source intact · ${coverage}${mergeCount?` · ${mergeCount} merged presentation row(s)`:''} · ${(graph.selections||[]).length} selections · ${(graph.rules||[]).length} rules`};
 }
 
 function batchCheck(id,label,ok,detail='',status=''){ return {id,label,ok:Boolean(ok),detail:String(detail||''),status:status||((ok)?'intact':'loss')}; }

@@ -1,10 +1,16 @@
-# Astartes Forge v2.8.1 — Source Integrity & Completeness
+# Astartes Forge v2.8.2 — Provenance-Aware Source Integrity
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 
 ## Run
 
 Open `index.html` in a modern browser, import a New Recruit roster in **Army Forge**, review Datasheets / Rules & Stratagems, then use **Forge Army Pack**.
+
+## What changed in v2.8.2
+
+The Source Integrity & Completeness check is now provenance-aware. Presentation rows may merge identical weapon profiles from multiple New Recruit owners without being reported as data loss. Exact ownership remains preserved in the lossless Source Graph, while merged rows retain all contributing source profile IDs.
+
+The validator now checks source-profile coverage and characteristic preservation. A red `Data loss detected` result is reserved for genuinely missing/changed source data. Legitimate many-to-one presentation merges remain `Source intact`.
 
 ## What changed in v2.8.1
 

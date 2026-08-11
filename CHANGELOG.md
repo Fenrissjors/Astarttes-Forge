@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.8.2 — Provenance-Aware Source Integrity
+- Fixed false `source ownership changed` failures for legitimate identical weapon-profile merges.
+- Integrity validation now treats the lossless Source Graph as ownership authority.
+- Merged presentation rows are validated through complete source-profile provenance sets.
+- Added source-profile coverage checks so genuinely missing ROSZ weapon profiles still fail.
+- Weapon characteristics are cross-checked against every source profile represented by a merged row.
+- Merged counts are checked against the summed provenance counts when provenance is available.
+
 ## v2.8.1 — Source Integrity & Completeness
 - Replaced wording-based Precise values and distances validation with source-integrity validation.
 - Cross-checks selection/profile/rule ownership after normalisation.
