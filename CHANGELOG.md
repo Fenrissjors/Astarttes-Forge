@@ -1,8 +1,56 @@
-# v2.4.5
-- Fixed false import-failed status caused by post-import renderer exceptions.
-- Removed selected detachment rules from Army Rules, including duplicate Saga of the Bold.
-
 # Changelog
+
+## v2.8.0 — Chapter Scope & First Founding Expansion
+- Added 12 verified Space Marine / First Founding detachment entries.
+- Added New Recruit-derived chapter scope metadata and resolver.
+- Added Ultramarines, Imperial Fists, Salamanders, Iron Hands, Raven Guard and White Scars verification modules.
+- Updated generic Adeptus Astartes verification coverage from 10 to 15 detachments.
+- Added concise printable Stratagem/Enhancement fallbacks for all 12 detachments.
+- Added official MFM enhancement metadata while preserving New Recruit as authority where chapter catalogue disposition differs.
+- Added 12 ROSZ fixtures and chapter-scope corpus audit.
+- Verification scope now builds dynamically from Chapter Library modules.
+
+v2.7.1
+- Source-first Army Rule Resolver (including Templar Vows).
+- Precision-validator fix for explicit `improve ... by N` modifiers.
+
+
+## v2.6.2 — Context-Aware Validation
+- Fixed false-positive precision failures for named/objective-marker range terminology.
+- Retains structure-aware v2.6.1 data model unchanged.
+
+## v2.6.1 — Structure-Aware Data Model
+
+- Preserves New Recruit parent/child ownership after normalization instead of flattening relationships.
+- Adds per-unit structured source trees for models, weapons, abilities, rules and enhancements.
+- Adds detachment source trees and source-selection links to the normalized Army Model.
+- Detachment rule rendering now preserves source order between prose, sub-rules and restrictions.
+- Structure validation accepts legitimate rules expressed through sub-rules while still rejecting restriction-only records.
+- Precision validation understands “within range of an objective marker” as rules terminology instead of an omitted inch value.
+- Source & Edition Inspector now reports preserved ownership links and Structure-Aware Model status.
+- Added a structure corpus audit across the complete ROSZ regression suite.
+
+## v2.6.0 — Dark Angels Module
+- Added all 8 current Dark Angels detachments to the central Rules Library.
+- Added 8 Dark Angels verification rosters plus a stress-test roster.
+- New Recruit remains authoritative for selected Detachment Rules, units, weapons, keywords, enhancements and attachments.
+- Added compact fallback Stratagem/Enhancement references for Dark Age Arsenal, Darkflight Pursuit, Interrogation Conclave, Company of Hunters, Inner Circle Task Force, Lion's Blade Task Force, Unforgiven Task Force and Wrath of the Rock.
+- Extended Chapter Coverage and Verification Dashboard to Dark Angels.
+
+## 2.5.0 — Source & Edition Inspector
+- Added edition-schema library and explicit New Recruit game-system detection.
+- Added compact Source & Edition Inspector to Developer Mode.
+- Added schema fingerprinting for profile types and characteristics.
+- Added unknown-field migration warnings and exportable source-inspection JSON.
+- Added Chapter discovery and ROSZ-vs-library fallback overview.
+- Preserved all v2.4.7 rendering, rules, datasheet and print behaviour.
+
+
+## v2.4.7 — Rules Render & Dedup Fix
+- Canonical WHEN / TARGET / EFFECT / optional RESTRICTION Stratagem card rendering.
+- Consolidated duplicate structured fields from New Recruit.
+- Robust detachment-rule deduplication against Army Rules.
+- Restored safe post-import UI rendering while keeping dashboard scope fix.
 
 ## v2.4.3 — Gold Master
 - Added Gold Master official metadata reference library.
@@ -19,3 +67,18 @@
 - Restored Deadly Demise visibility without core-rule explanation text.
 - Added imported Enhancement badges to Characters in Army Forge.
 - Added Invulnerable Save shield display above the normal Save characteristic using exact ROSZ data.
+
+## v2.5.1 — Datasheet Cleanup
+- Parameterised weapon keyword families are deduplicated per weapon profile. Source priority is exact profile characteristic, then weapon-name bracket, then exact local weapon rule.
+- Single-unit datasheets no longer repeat the unit name in stat, weapon, ability, and rule section labels.
+- Combined Leader/Support/bodyguard sheets retain explicit model/source labels for clarity.
+
+## v2.7.0 — Black Templars Module
+- Added Black Templars as a first-class Chapter module in the Unified/Structure-Aware engine.
+- Added verification support for Marshal's Household, The Living Miracle, Wrathful Procession, Companions of Vehemence, Godhammer Assault Force and Vindication Task Force.
+- Added current concise Enhancement and Stratagem reference data for all six Black Templars detachments.
+- Kept Detachment Rules, roster composition, model/weapon data and attachment eligibility New Recruit-first.
+- Current New Recruit metadata is authoritative for updated disposition values, including The Living Miracle = Disruption and Godhammer Assault Force = Purge the Foe.
+- Added seven Black Templars ROSZ regression files including a multi-detachment stress test.
+- Expanded verification scope from 33 to 39 detachments.
+- Regression corpus now audits 49 roster files (48 unique).
