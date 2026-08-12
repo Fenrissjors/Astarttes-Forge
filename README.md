@@ -1,6 +1,10 @@
-# Astartes Forge v2.8.2 — Provenance-Aware Source Integrity
+# Astartes Forge v2.9.2 — Illustrated Chapter Identity & Rules Layout
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
+
+## v2.9.2
+
+Presentation-only revision on top of the provenance-aware v2.8.2 data engine. Detachment rules are rendered from generic source hierarchy, Stratagem cards have stronger phase identity, chapter ornamentation is richer, the decoration intensity slider is removed, and chapter emblem slots use published chapter heraldry.
 
 ## Run
 
@@ -22,6 +26,9 @@ Batch verification now reports one of three source states:
 - **✓ Source intact** — source ownership and profile values were preserved.
 - **⚠ Source ambiguity** — the source itself cannot be fully proven (informational, not a failed check).
 - **× Data loss detected** — Astartes Forge demonstrably lost, reassigned or altered source data.
+
+
+Presentation has been rebuilt around a warm parchment material, dimensional chapter banners, physical-card inspired Stratagem references and optional Chapter Decoration Packs. Army and Detachment Rules now use clean bullet hierarchy, and every datasheet can display a chapter/faction emblem. The Theme tab can independently toggle ornaments, emblem, weathering and banner depth and adjust ornament intensity.
 
 New Recruit remains the authority for roster legality and catalogue availability. Astartes Forge now preserves that availability as **detachment scope metadata** instead of assuming that every Space Marine detachment is generic.
 

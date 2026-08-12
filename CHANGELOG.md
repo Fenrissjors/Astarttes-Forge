@@ -100,3 +100,24 @@ v2.7.1
 - Added seven Black Templars ROSZ regression files including a multi-detachment stress test.
 - Expanded verification scope from 33 to 39 detachments.
 - Regression corpus now audits 49 roster files (48 unique).
+
+## v2.9.0 — Chapter Identity & Card Design Engine
+- Rebuilt Stratagem cards around a physical-card inspired hierarchy.
+- Reworked Army/Detachment rule typography into bullets.
+- Added parchment surfaces and dimensional banner treatment.
+- Added per-chapter/faction datasheet emblems.
+- Added Chapter Decoration Packs and theme controls.
+- Retained v2.8.2 provenance-aware Source Integrity unchanged.
+
+
+## v2.9.2
+- Generic source-hierarchy detachment rule renderer.
+- Published Chapter heraldry image slots.
+- Fuller Chapter ornament packs; intensity slider removed.
+- Stronger phase-colour Stratagem cards and centered spine labels.
+
+## v2.9.2
+- Fixed Card Material selector and Chapter emblem identity persistence.
+- Simplified Chapter preset list.
+- Improved Army Forge attachment controls and Enhancement labels.
+- Expanded Chapter ornamentation, led by a full Space Wolves Fenrisian treatment.

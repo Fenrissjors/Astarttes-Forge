@@ -1111,3 +1111,195 @@ input, select { width: 100%; padding: 10px 11px; border-radius: 9px; border: 1px
 
 /* v2.5 Source & Edition Inspector */
 .source-inspector-status{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.035);margin-bottom:10px}.source-inspector-status>div{display:grid;gap:2px}.source-inspector-status strong{font-size:1rem}.source-inspector-status small{opacity:.72}.source-status-pill{font-size:.72rem;font-weight:800;letter-spacing:.08em;padding:5px 8px;border-radius:999px;border:1px solid currentColor}.source-inspector-status.ok .source-status-pill{color:#73d59a}.source-inspector-status.warning .source-status-pill{color:#e8be63}.source-inspector-status.fail .source-status-pill{color:#ef7b7b}.source-inspector-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}.source-inspector-grid article{display:grid;gap:2px;padding:10px;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.025)}.source-inspector-grid strong{font-size:.9rem;overflow-wrap:anywhere}.source-inspector-grid span{font-size:.72rem;opacity:.7}.source-flow{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:11px 0;padding:9px 10px;border-radius:9px;background:rgba(0,0,0,.16);font-size:.76rem}.source-flow span{padding:4px 7px;border:1px solid var(--line);border-radius:6px}.source-warning-list{margin:8px 0}.source-warning-list p{margin:4px 0;color:#e8be63}.source-inspector-details{display:grid;gap:6px;margin-top:9px}.source-inspector-details details{border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:rgba(255,255,255,.02)}.source-inspector-details summary{cursor:pointer;font-weight:700;font-size:.82rem}.source-kv{display:grid;grid-template-columns:minmax(120px,.45fr) 1fr;gap:5px 10px;font-size:.78rem}.source-kv dt{font-weight:700;opacity:.7}.source-kv dd{margin:0;overflow-wrap:anywhere}.source-chip-list{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.source-chip-list span{font-size:.72rem;border:1px solid var(--line);padding:4px 6px;border-radius:999px}.source-chip-list span.unknown{border-color:#d88;color:#f0a0a0}
+
+/* ========================================================================== */
+/* Astartes Forge v2.9.0 — Chapter Identity & Card Design Engine              */
+/* ========================================================================== */
+
+:root{
+  --parchment:#efe3c8;
+  --parchment-deep:#ddc9a3;
+  --parchment-ink:#201b15;
+}
+
+/* Parchment foundation + dimensional surfaces */
+.data-card,
+body.print-rules .official-rule,
+body.print-rules .warhammer-stratagem,
+body.print-pack .official-rule,
+body.print-pack .warhammer-stratagem{
+  background:
+    radial-gradient(circle at 18% 13%,rgba(255,255,255,.34),transparent 26%),
+    radial-gradient(circle at 82% 74%,rgba(118,79,28,.08),transparent 34%),
+    linear-gradient(105deg,rgba(120,80,28,.035) 1px,transparent 1px) 0 0/19px 23px,
+    var(--card-paper,var(--paper,var(--parchment)));
+}
+.data-card{position:relative;overflow:hidden;border-color:color-mix(in srgb,var(--card-primary) 58%,#6d583a);box-shadow:0 13px 30px rgba(28,20,9,.23),inset 0 0 0 1px rgba(255,255,255,.32),inset 0 0 38px rgba(96,62,22,.09)}
+.data-card:not(.weathering-off)::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.45;background:repeating-linear-gradient(17deg,rgba(83,55,20,.018) 0 1px,transparent 1px 8px),radial-gradient(ellipse at 0 0,rgba(77,45,13,.12),transparent 18%),radial-gradient(ellipse at 100% 100%,rgba(77,45,13,.1),transparent 20%)}
+.data-card .card-body,.data-card .card-header{position:relative;z-index:2}
+
+.card-header{position:relative;padding-right:92px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--card-primary) 88%,white 7%),color-mix(in srgb,var(--card-primary) 84%,black 18%))!important;border-bottom:4px solid var(--card-accent)!important;box-shadow:0 6px 13px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.15)}
+.banner-depth-off .card-header,.banner-depth-off .attached-banner,.banner-depth-off .unit-divider span{background:var(--card-primary)!important;box-shadow:none!important}
+.chapter-emblem{position:absolute;right:18px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:58px;height:58px;border:2px solid color-mix(in srgb,var(--card-accent) 70%,white);border-radius:10px;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(0,0,0,.16)),color-mix(in srgb,var(--card-primary) 92%,black);color:var(--card-accent);font-size:2rem;font-weight:950;line-height:1;box-shadow:0 4px 10px rgba(0,0,0,.3),inset 0 0 0 2px rgba(255,255,255,.08);text-shadow:0 2px 2px rgba(0,0,0,.45)}
+
+/* Chapter-specific ornament layer. Decorative only; never consumes layout. */
+.data-card.pattern-chapter:not(.decorations-off)::before{opacity:calc(.08 + var(--decoration-intensity,.55) * .25)!important;filter:drop-shadow(0 3px 2px rgba(0,0,0,.16));z-index:1!important}
+.data-card:not(.decorations-off) .card-body::before,.data-card:not(.decorations-off) .card-body::after{content:"";position:absolute;pointer-events:none;z-index:-1;opacity:calc(.08 + var(--decoration-intensity,.55) * .2)}
+.chapter-space-wolves:not(.decorations-off) .card-body::before{right:1.5%;top:3%;width:12%;height:28%;background:repeating-linear-gradient(135deg,transparent 0 9px,var(--card-primary) 10px 13px,transparent 14px 22px);clip-path:polygon(50% 0,100% 20%,65% 45%,100% 70%,52% 100%,0 73%,35% 47%,0 20%)}
+.chapter-space-wolves:not(.decorations-off) .card-body::after{left:0;bottom:0;width:38%;height:8%;background:linear-gradient(160deg,transparent 0 30%,rgba(179,220,238,.65) 31% 48%,transparent 49% 60%,rgba(179,220,238,.5) 61% 75%,transparent 76%);}
+.chapter-salamanders:not(.decorations-off) .card-body::before{right:0;top:0;width:22%;height:42%;background:radial-gradient(circle at 25% 25%,transparent 0 30%,var(--card-primary) 31% 40%,transparent 41%) 0 0/24px 24px;}
+.chapter-salamanders:not(.decorations-off) .card-body::after{left:-2%;bottom:-1%;width:44%;height:11%;background:linear-gradient(5deg,rgba(46,22,4,.62),transparent 68%);filter:blur(2px)}
+.chapter-blood-angels:not(.decorations-off) .card-body::before{right:2%;top:4%;width:18%;height:28%;background:radial-gradient(ellipse at center,var(--card-accent) 0 14%,transparent 15%),linear-gradient(60deg,transparent 40%,var(--card-primary) 42% 46%,transparent 48%),linear-gradient(-60deg,transparent 40%,var(--card-primary) 42% 46%,transparent 48%)}
+.chapter-dark-angels:not(.decorations-off) .card-body::before{right:1%;top:2%;width:17%;height:34%;background:linear-gradient(90deg,transparent 46%,var(--card-accent) 47% 53%,transparent 54%),linear-gradient(35deg,transparent 46%,var(--card-primary) 47% 52%,transparent 53%),linear-gradient(-35deg,transparent 46%,var(--card-primary) 47% 52%,transparent 53%)}
+.chapter-black-templars:not(.decorations-off) .card-body::before{right:2%;top:3%;width:15%;aspect-ratio:1;background:linear-gradient(45deg,transparent 34%,var(--card-primary) 35% 46%,transparent 47%),linear-gradient(-45deg,transparent 34%,var(--card-primary) 35% 46%,transparent 47%);transform:rotate(45deg)}
+.chapter-ultramarines:not(.decorations-off) .card-body::before{right:2%;top:4%;width:19%;height:28%;border:8px double color-mix(in srgb,var(--card-primary) 65%,transparent);border-top:0;border-radius:0 0 50% 50%}
+.chapter-imperial-fists:not(.decorations-off) .card-body::before{right:0;top:0;width:26%;height:11%;background:repeating-linear-gradient(90deg,var(--card-primary) 0 16px,transparent 16px 30px)}
+.chapter-raven-guard:not(.decorations-off) .card-body::before{right:1%;top:4%;width:22%;height:25%;background:repeating-linear-gradient(160deg,transparent 0 8px,var(--card-primary) 9px 11px,transparent 12px 18px);clip-path:polygon(0 50%,100% 0,72% 50%,100% 100%)}
+.chapter-white-scars:not(.decorations-off) .card-body::before{right:0;top:4%;width:24%;height:23%;background:linear-gradient(125deg,transparent 0 34%,var(--card-accent) 35% 43%,transparent 44% 50%,var(--card-primary) 51% 59%,transparent 60%)}
+.chapter-iron-hands:not(.decorations-off) .card-body::before{right:1%;top:2%;width:18%;aspect-ratio:1;border:7px dotted var(--card-primary);border-radius:50%;box-shadow:inset 0 0 0 8px transparent,inset 0 0 0 12px var(--card-accent)}
+
+.attached-banner,.unit-divider span{background:linear-gradient(180deg,color-mix(in srgb,var(--card-accent) 90%,white 7%),color-mix(in srgb,var(--card-accent) 88%,black 16%))!important;box-shadow:0 4px 8px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.18)}
+
+/* Army & detachment rules: bullets instead of repeated EFFECT labels. */
+.rule-bullets{margin:0;padding:11px 15px 13px 31px;display:grid;gap:8px;list-style:disc}
+.rule-bullets li{padding-left:2px;line-height:1.48}
+.army-rule-list{padding:0!important}
+.detachment-rule-body{padding:0!important}
+.detachment-subrule{position:relative;padding:10px 13px 10px 31px;border-top:1px solid rgba(90,65,35,.2)}
+.detachment-subrule::before{content:"•";position:absolute;left:15px;top:9px;font-size:1.15rem;color:var(--accent);font-weight:900}
+.detachment-subrule strong{display:block;margin-bottom:3px;color:var(--primary)}
+.detachment-subrule p,.detachment-restrictions p{margin:0;line-height:1.48}
+.detachment-restrictions{padding:10px 13px;border-top:1px solid rgba(90,65,35,.25);background:rgba(120,60,20,.06)}
+
+/* Warhammer-inspired Stratagem card presentation. */
+.stratagem-list{grid-template-columns:repeat(auto-fit,minmax(315px,1fr));gap:14px!important}
+.warhammer-stratagem{position:relative;display:grid!important;grid-template-columns:68px 1fr;min-height:255px;border:1px solid color-mix(in srgb,var(--primary) 75%,#342719)!important;border-radius:3px!important;background:linear-gradient(100deg,#efe6d2,#f5eddd 62%,#e8dbc1)!important;color:#171411!important;box-shadow:0 7px 18px rgba(21,15,8,.25),inset 0 0 26px rgba(89,58,20,.08)!important;overflow:hidden}
+.warhammer-stratagem .stratagem-spine{position:relative;display:flex;flex-direction:column;align-items:center;background:linear-gradient(90deg,color-mix(in srgb,var(--primary) 88%,black),var(--primary),color-mix(in srgb,var(--primary) 82%,white));color:var(--primary-text,#fff);padding:9px 4px 12px;box-shadow:5px 0 10px rgba(0,0,0,.18)}
+.phase-mark{display:grid;place-items:center;width:47px;height:47px;background:#f7f0df;color:var(--primary);border:3px solid var(--primary);transform:rotate(45deg);font-size:1.35rem;font-weight:950;box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.phase-mark::first-letter{transform:rotate(-45deg)}
+.cp-diamond{margin-top:19px;display:grid;place-items:center;width:51px;height:51px;background:#f7f0df;color:var(--primary);border:3px solid var(--primary);transform:rotate(45deg);font-size:1.3rem;font-weight:950;line-height:.9;box-shadow:0 3px 7px rgba(0,0,0,.22)}
+.cp-diamond>*{transform:rotate(-45deg)}
+.cp-diamond small{font-size:.55rem;letter-spacing:.06em}
+.turn-tag{margin-top:auto;width:60px;padding:5px 2px;background:#f7f0df;color:var(--primary);border:2px solid var(--primary);font-size:.72rem;line-height:1.05;text-align:center;font-weight:950}
+.stratagem-content{min-width:0;padding:0 13px 12px}
+.warhammer-stratagem header{padding:12px 0 7px!important;background:none!important;color:var(--primary)!important;border-bottom:2px solid var(--primary)!important;box-shadow:none!important}
+.warhammer-stratagem h3{margin:0!important;padding:0!important;background:none!important;color:var(--primary)!important;border:0!important;font-size:1.05rem;letter-spacing:.055em;text-transform:uppercase}
+.stratagem-type{display:block;margin-top:4px;font-size:.63rem;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#4f463b}
+.warhammer-stratagem .stratagem-fields{display:grid;gap:9px;padding-top:9px}
+.stratagem-field{display:block!important;border:0!important;padding:0!important;background:none!important}
+.stratagem-field strong{display:inline!important;padding:0!important;background:none!important;color:var(--primary)!important;font-size:.72rem!important;letter-spacing:.035em!important}
+.stratagem-field p{display:inline!important;margin:0 0 0 4px!important;padding:0!important;color:#171411!important;line-height:1.35!important;font-size:.82rem}
+.field-restriction{padding-top:4px!important;border-top:1px dotted rgba(72,54,31,.45)!important}
+
+/* Phase accent stripe remains useful, but presentation stays chapter themed. */
+.warhammer-stratagem.phase-command{--phase-accent:#8b6a1e}.warhammer-stratagem.phase-movement{--phase-accent:#366f82}.warhammer-stratagem.phase-shooting{--phase-accent:#9a392b}.warhammer-stratagem.phase-charge{--phase-accent:#b45c22}.warhammer-stratagem.phase-fight{--phase-accent:#7d252b}.warhammer-stratagem.phase-enemy{--phase-accent:#6b4a78}.warhammer-stratagem.phase-any{--phase-accent:#4f5860}
+.warhammer-stratagem{border-top:5px solid var(--phase-accent,var(--accent))!important}
+
+/* Theme controls */
+.decoration-controls{display:grid;gap:9px;margin:12px 0;padding:12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(0,0,0,.11)}
+.decoration-controls legend{padding:0 6px;font-weight:900;letter-spacing:.04em}
+.toggle-row{display:flex!important;align-items:center;gap:9px!important;margin:0!important}
+.toggle-row input{width:auto!important}
+.decoration-controls input[type="range"]{width:100%}
+#decorationReadout{display:block;line-height:1.35;text-transform:uppercase;letter-spacing:.04em}
+
+@media print{
+  .chapter-emblem{box-shadow:none!important}
+  .data-card:not(.decorations-off) .card-body::before,.data-card:not(.decorations-off) .card-body::after{opacity:calc(.05 + var(--decoration-intensity,.55) * .14)!important}
+  .warhammer-stratagem{break-inside:avoid;box-shadow:none!important;background:#f5eddd!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .warhammer-stratagem .stratagem-spine{background:var(--primary)!important}
+  .warhammer-stratagem header{background:none!important;color:var(--primary)!important}
+  .warhammer-stratagem h3,.warhammer-stratagem .stratagem-field strong{color:var(--primary)!important}
+  .warhammer-stratagem .stratagem-field p{color:#171411!important}
+}
+
+/* Parchment rule cards in the on-screen reference workspace. */
+#reference .official-rule{background:linear-gradient(105deg,rgba(120,80,28,.025) 1px,transparent 1px) 0 0/17px 21px,var(--paper,#efe3c8)!important;color:var(--paper-text,#201b15)!important;border-color:color-mix(in srgb,var(--primary) 58%,#6d583a)!important;box-shadow:0 7px 18px rgba(17,12,6,.2)}
+#reference .official-rule>h3{background:linear-gradient(180deg,color-mix(in srgb,var(--primary) 90%,white 5%),color-mix(in srgb,var(--primary) 84%,black 17%))!important;color:var(--primary-text,#fff)!important;box-shadow:0 4px 8px rgba(0,0,0,.18)}
+#reference .official-rule-text,#reference .official-rule-text p,#reference .rule-bullets,#reference .detachment-subrule,#reference .detachment-restrictions{color:#201b15!important}
+#reference .detachment-subrule strong,#reference .detachment-restrictions strong{color:var(--primary)!important}
+
+@media print{
+  body.print-rules .official-rule,body.print-pack .official-rule{background:#f2e6cc!important;color:#171411!important}
+  body.print-rules .official-rule-text,body.print-pack .official-rule-text,body.print-rules .rule-bullets,body.print-pack .rule-bullets{color:#171411!important;background:transparent!important}
+}
+
+
+/* v2.9.2 — Illustrated Chapter Identity & generic source-hierarchy rules */
+.chapter-emblem{overflow:hidden;padding:5px;background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(0,0,0,.22)),color-mix(in srgb,var(--card-primary) 92%,black)}
+.chapter-emblem-image{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 2px 2px rgba(0,0,0,.35))}
+.phase-mark .chapter-emblem-image{width:38px;height:38px;object-fit:contain;transform:rotate(-45deg);filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+
+/* Remove the abstract v2.9.0 shapes and replace them with fuller, recognisable ornament groups. */
+.data-card.pattern-chapter::before{display:none!important}
+.data-card:not(.decorations-off) .card-body::before,.data-card:not(.decorations-off) .card-body::after{opacity:.28!important;z-index:-1!important;filter:none!important}
+.chapter-space-wolves:not(.decorations-off) .card-body::before{right:-8px;top:3%;width:94px;height:250px;background:linear-gradient(90deg,transparent 0 24%,rgba(74,101,122,.18) 25% 30%,transparent 31%),repeating-linear-gradient(180deg,transparent 0 25px,rgba(71,102,128,.32) 26px 29px,transparent 30px 48px);clip-path:polygon(50% 0,75% 12%,58% 27%,82% 42%,58% 56%,78% 72%,50% 100%,22% 72%,42% 56%,18% 42%,42% 27%,25% 12%)}
+.chapter-space-wolves:not(.decorations-off) .card-body::after{left:-12px;bottom:-6px;width:46%;height:90px;background:radial-gradient(ellipse at 15% 70%,rgba(105,78,48,.46) 0 18%,transparent 19%),radial-gradient(ellipse at 33% 64%,rgba(122,93,57,.4) 0 20%,transparent 21%),linear-gradient(170deg,transparent 0 36%,rgba(198,226,238,.55) 37% 43%,rgba(117,161,182,.35) 44% 51%,transparent 52%)}
+.chapter-salamanders:not(.decorations-off) .card-body::before{right:-5px;top:8%;width:115px;height:310px;background:radial-gradient(ellipse at 50% 0,rgba(24,88,53,.32) 0 42%,transparent 43%) 0 0/42px 30px,radial-gradient(ellipse at 0 50%,rgba(20,68,43,.24) 0 42%,transparent 43%) 21px 15px/42px 30px}
+.chapter-salamanders:not(.decorations-off) .card-body::after{left:-8px;bottom:-8px;width:55%;height:78px;background:radial-gradient(circle at 8% 110%,rgba(78,31,10,.65) 0 16%,transparent 17%),radial-gradient(circle at 28% 110%,rgba(75,29,8,.52) 0 15%,transparent 16%),linear-gradient(8deg,rgba(56,29,12,.5),rgba(120,54,16,.24) 40%,transparent 70%);clip-path:polygon(0 28%,8% 41%,14% 28%,22% 50%,31% 32%,41% 54%,52% 35%,63% 55%,76% 31%,88% 48%,100% 25%,100% 100%,0 100%)}
+.chapter-blood-angels:not(.decorations-off) .card-body::before{right:-4px;top:9%;width:120px;height:230px;background:radial-gradient(ellipse at 52% 40%,rgba(157,23,28,.34) 0 11%,transparent 12%),linear-gradient(58deg,transparent 37%,rgba(133,26,31,.28) 38% 45%,transparent 46%),linear-gradient(-58deg,transparent 37%,rgba(133,26,31,.28) 38% 45%,transparent 46%)}
+.chapter-dark-angels:not(.decorations-off) .card-body::before{right:-15px;top:5%;width:125px;height:280px;background:linear-gradient(90deg,transparent 46%,rgba(213,199,163,.35) 47% 53%,transparent 54%),linear-gradient(35deg,transparent 42%,rgba(32,78,56,.3) 43% 50%,transparent 51%),linear-gradient(-35deg,transparent 42%,rgba(32,78,56,.3) 43% 50%,transparent 51%)}
+.chapter-black-templars:not(.decorations-off) .card-body::before{right:-15px;top:8%;width:120px;height:260px;background:repeating-linear-gradient(90deg,transparent 0 34px,rgba(20,20,20,.2) 35px 39px,transparent 40px 76px),repeating-linear-gradient(0deg,transparent 0 30px,rgba(20,20,20,.18) 31px 35px,transparent 36px 68px);transform:rotate(8deg)}
+.chapter-ultramarines:not(.decorations-off) .card-body::before{right:-5px;top:7%;width:110px;height:260px;border:12px double rgba(22,75,155,.22);border-top:0;border-radius:0 0 55% 55%;box-sizing:border-box}
+.chapter-imperial-fists:not(.decorations-off) .card-body::before{right:-4px;top:4%;width:120px;height:260px;background:repeating-linear-gradient(0deg,transparent 0 30px,rgba(87,70,7,.2) 31px 39px,transparent 40px 65px);clip-path:polygon(0 10%,18% 10%,18% 0,36% 0,36% 10%,55% 10%,55% 0,74% 0,74% 10%,100% 10%,100% 100%,0 100%)}
+.chapter-raven-guard:not(.decorations-off) .card-body::before{right:-6px;top:6%;width:125px;height:270px;background:repeating-linear-gradient(160deg,transparent 0 12px,rgba(28,32,40,.22) 13px 16px,transparent 17px 29px);clip-path:polygon(0 16%,100% 0,66% 28%,100% 45%,58% 58%,91% 82%,0 100%,32% 67%)}
+.chapter-white-scars:not(.decorations-off) .card-body::before{right:-8px;top:5%;width:130px;height:280px;background:linear-gradient(125deg,transparent 0 32%,rgba(181,31,46,.32) 33% 40%,transparent 41% 48%,rgba(181,31,46,.22) 49% 56%,transparent 57% 64%,rgba(181,31,46,.28) 65% 72%,transparent 73%)}
+.chapter-iron-hands:not(.decorations-off) .card-body::before{right:-8px;top:5%;width:120px;height:260px;background:radial-gradient(circle at 50% 28%,transparent 0 22%,rgba(40,44,49,.26) 23% 29%,transparent 30%),repeating-radial-gradient(circle at 50% 28%,transparent 0 8px,rgba(40,44,49,.16) 9px 11px,transparent 12px 20px)}
+
+/* New Recruit-like detachment rule hierarchy: no forced bulleting of prose. */
+.detachment-rule-text.source-hierarchy{padding:0!important;background:linear-gradient(90deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
+.detachment-prose{margin:0!important;padding:13px 18px!important;line-height:1.52;border-top:1px solid rgba(90,65,35,.13)}
+.detachment-prose:first-child{border-top:0}
+.detachment-source-heading{margin:0;padding:11px 18px 7px;color:var(--primary);font-size:.88rem;letter-spacing:.045em;text-transform:uppercase;border-top:1px solid rgba(90,65,35,.18);background:color-mix(in srgb,var(--primary) 7%,transparent)}
+.detachment-named-option{padding:10px 18px 11px 24px;border-top:1px solid rgba(90,65,35,.13);border-left:4px solid var(--accent);background:rgba(255,255,255,.035)}
+.detachment-named-option strong{display:block;margin-bottom:3px;color:var(--primary);font-size:.88rem}
+.detachment-named-option p{margin:0;line-height:1.48}
+.detachment-bullet{display:grid;grid-template-columns:14px 1fr;gap:8px;padding:8px 18px;border-top:1px solid rgba(90,65,35,.1)}
+.detachment-bullet>span{color:var(--accent);font-weight:950}.detachment-bullet p{margin:0;line-height:1.48}
+.detachment-restrictions{margin:0!important;padding:11px 18px!important;border-top:1px solid rgba(90,65,35,.22)!important;background:rgba(120,60,20,.07)!important}
+
+/* Stronger phase identity and true centering on Stratagem cards. */
+.warhammer-stratagem{border-left:7px solid var(--phase-accent)!important}
+.warhammer-stratagem .stratagem-spine{box-shadow:inset -5px 0 0 var(--phase-accent),5px 0 10px rgba(0,0,0,.18)}
+.phase-mark,.cp-diamond{display:grid!important;place-items:center!important}
+.turn-tag{min-height:52px;display:grid;place-items:center;margin-top:auto;padding:4px!important;box-sizing:border-box}
+.stratagem-type{color:var(--phase-accent)!important;border-left:5px solid var(--phase-accent);padding:3px 7px;background:color-mix(in srgb,var(--phase-accent) 10%,transparent);font-weight:950}
+.warhammer-stratagem header{border-bottom:3px solid var(--phase-accent)!important}
+.warhammer-stratagem .stratagem-fields{gap:11px}
+.stratagem-field{padding:2px 0!important}
+.stratagem-field strong{color:var(--phase-accent)!important;font-size:.75rem!important}
+
+/* v2.9.2 — functional materials + full-page chapter ornamentation */
+.data-card.pattern-clean{background:linear-gradient(100deg,#f7f1df,var(--card-paper) 52%,#f7f1df)!important}
+.data-card.pattern-aged{background:
+ radial-gradient(ellipse at 0 0,rgba(93,51,16,.20),transparent 23%),radial-gradient(ellipse at 100% 100%,rgba(84,43,10,.18),transparent 25%),
+ repeating-linear-gradient(7deg,rgba(83,55,20,.025) 0 1px,transparent 1px 7px),var(--card-paper)!important}
+.data-card.pattern-weathered{background:
+ radial-gradient(circle at 5% 7%,rgba(72,38,9,.26),transparent 12%),radial-gradient(circle at 95% 90%,rgba(72,38,9,.22),transparent 16%),
+ linear-gradient(90deg,rgba(72,38,9,.13),transparent 4%,transparent 96%,rgba(72,38,9,.13)),
+ repeating-linear-gradient(23deg,rgba(63,42,18,.035) 0 1px,transparent 1px 6px),var(--card-paper)!important}
+.data-card.pattern-ice{background:linear-gradient(150deg,rgba(218,244,255,.72),transparent 28%),linear-gradient(25deg,transparent 70%,rgba(163,218,239,.32)),var(--card-paper)!important}
+.data-card.pattern-chapter{background:repeating-linear-gradient(8deg,rgba(83,55,20,.018) 0 1px,transparent 1px 7px),var(--card-paper)!important}
+
+/* Space Wolves: oversized codex-page treatment inspired by Fenrisian ice, pelts, bones and rune manuscripts. */
+.chapter-space-wolves:not(.decorations-off) .card-header::after{content:"";position:absolute;z-index:5;left:4%;right:7%;bottom:-25px;height:31px;pointer-events:none;background:linear-gradient(155deg,transparent 0 8%,rgba(224,248,255,.95) 9% 20%,transparent 21%) 0 0/44px 31px repeat-x;filter:drop-shadow(0 4px 3px rgba(18,56,74,.34))}
+.chapter-space-wolves:not(.decorations-off) .card-body{background-image:url("../ornaments/space-wolves-runes.svg");background-repeat:repeat-y;background-position:97% 8%;background-size:42% auto}
+.chapter-space-wolves:not(.decorations-off) .card-body::before{content:""!important;position:absolute!important;left:-18px!important;right:auto!important;top:38%!important;width:145px!important;height:235px!important;opacity:.72!important;background:url("../ornaments/space-wolves-pelt.svg") center/contain no-repeat!important;clip-path:none!important;z-index:-1!important}
+.chapter-space-wolves:not(.decorations-off) .card-body::after{content:""!important;position:absolute!important;left:8%!important;bottom:3px!important;width:76%!important;height:74px!important;opacity:.88!important;background:url("../ornaments/space-wolves-bone.svg") center bottom/contain no-repeat!important;clip-path:none!important;z-index:-1!important}
+
+/* Other Chapter packs use broad page-scale ornamentation rather than tiny CSS marks. */
+.chapter-salamanders:not(.decorations-off) .card-body{background-image:radial-gradient(ellipse at 94% 18%,rgba(22,92,54,.15) 0 16px,transparent 17px),radial-gradient(ellipse at 89% 23%,rgba(22,92,54,.12) 0 20px,transparent 21px);background-size:54px 42px}
+.chapter-salamanders:not(.decorations-off) .card-header::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:18px;background:linear-gradient(165deg,transparent 0 9%,rgba(49,25,9,.72) 10% 14%,transparent 15% 28%,rgba(75,34,9,.65) 29% 35%,transparent 36%) 0 0/75px 18px repeat-x}
+.chapter-dark-angels:not(.decorations-off) .card-body{background-image:linear-gradient(115deg,transparent 75%,rgba(32,78,56,.09) 76% 78%,transparent 79%),repeating-linear-gradient(170deg,transparent 0 38px,rgba(110,88,54,.07) 39px 41px,transparent 42px 78px)}
+.chapter-black-templars:not(.decorations-off) .card-body{background-image:repeating-linear-gradient(42deg,transparent 0 68px,rgba(20,20,20,.055) 69px 74px,transparent 75px 142px)}
+.chapter-blood-angels:not(.decorations-off) .card-body{background-image:radial-gradient(ellipse at 91% 14%,rgba(159,23,28,.10) 0 18px,transparent 19px),linear-gradient(60deg,transparent 82%,rgba(159,23,28,.07) 83% 86%,transparent 87%)}
+.chapter-ultramarines:not(.decorations-off) .card-body{background-image:radial-gradient(ellipse at 95% 22%,transparent 0 56px,rgba(22,75,155,.08) 57px 63px,transparent 64px)}
+.chapter-imperial-fists:not(.decorations-off) .card-body{background-image:repeating-linear-gradient(0deg,transparent 0 62px,rgba(98,76,4,.06) 63px 69px,transparent 70px 126px)}
+.chapter-raven-guard:not(.decorations-off) .card-body{background-image:repeating-linear-gradient(160deg,transparent 0 45px,rgba(28,32,40,.055) 46px 50px,transparent 51px 96px)}
+.chapter-white-scars:not(.decorations-off) .card-body{background-image:linear-gradient(125deg,transparent 78%,rgba(181,31,46,.10) 79% 82%,transparent 83% 87%,rgba(181,31,46,.07) 88% 91%,transparent 92%)}
+.chapter-iron-hands:not(.decorations-off) .card-body{background-image:repeating-radial-gradient(circle at 94% 18%,transparent 0 22px,rgba(40,44,49,.06) 23px 27px,transparent 28px 48px)}
+
+@media print{
+ .chapter-space-wolves:not(.decorations-off) .card-header::after{filter:none!important}
+ .data-card.pattern-aged,.data-card.pattern-weathered,.data-card.pattern-ice,.data-card.pattern-clean,.data-card.pattern-chapter{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}

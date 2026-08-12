@@ -1,4 +1,4 @@
-const APP_VERSION = '2.8.2-provenance-aware-source-integrity';
+const APP_VERSION = '2.9.2-illustrated-chapter-identity-rules-layout';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
@@ -46,21 +46,21 @@ const coreStratagems = [
 ];
 
 const chapterThemes = {
-  'space-wolves': {primary:'#354a5f', accent:'#b31f2b', paper:'#edf1f2', ink:'#111820', pattern:'chapter', chapter:'space-wolves'},
-  'ultramarines': {primary:'#164b9b', accent:'#d4af37', paper:'#f3f4f7', ink:'#111827', pattern:'chapter', chapter:'ultramarines'},
-  'blood-angels': {primary:'#9f171c', accent:'#f0c245', paper:'#f5eee8', ink:'#1c1111', pattern:'chapter', chapter:'blood-angels'},
-  'dark-angels': {primary:'#173b2b', accent:'#d8c9a7', paper:'#eef0e8', ink:'#101713', pattern:'chapter', chapter:'dark-angels'},
-  'black-templars': {primary:'#17191d', accent:'#f1eee6', paper:'#f3f1eb', ink:'#101114', pattern:'chapter', chapter:'black-templars'},
-  'imperial-fists': {primary:'#d4a800', accent:'#b3261e', paper:'#f6f1df', ink:'#1b1810', pattern:'chapter', chapter:'imperial-fists'},
-  'salamanders': {primary:'#176f45', accent:'#111111', paper:'#edf2ec', ink:'#101713', pattern:'chapter', chapter:'salamanders'},
-  'white-scars': {primary:'#e7e7e4', accent:'#b51f2e', paper:'#f7f7f4', ink:'#171717', pattern:'chapter', chapter:'white-scars'},
-  'raven-guard': {primary:'#1c2028', accent:'#b9c2cb', paper:'#eef0f2', ink:'#111318', pattern:'chapter', chapter:'raven-guard'},
-  'iron-hands': {primary:'#17191d', accent:'#aeb7c2', paper:'#eceff1', ink:'#111318', pattern:'chapter', chapter:'iron-hands'},
-  'deathwatch': {primary:'#111318', accent:'#c3c8ce', paper:'#eef0f2', ink:'#111318', pattern:'chapter', chapter:'deathwatch'},
-  'crimson-fists': {primary:'#183d79', accent:'#b21f2d', paper:'#eef1f5', ink:'#111827', pattern:'chapter', chapter:'crimson-fists'},
-  'flesh-tearers': {primary:'#68151b', accent:'#17191d', paper:'#f2ece8', ink:'#1a1112', pattern:'chapter', chapter:'flesh-tearers'},
-  'generic-astartes': {primary:'#334155', accent:'#c7a64b', paper:'#f1f3f5', ink:'#111827', pattern:'chapter', chapter:'generic-astartes'}
-};
+  'space-wolves': {primary:'#354a5f', accent:'#b31f2b', paper:'#efe4ca', ink:'#211d16', pattern:'chapter', chapter:'space-wolves', decorations:true, decorationIntensity:72, emblem:true, weathering:true, bannerDepth:true},
+  'ultramarines': {primary:'#164b9b', accent:'#d4af37', paper:'#f0e4c8', ink:'#211d16', pattern:'chapter', chapter:'ultramarines', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
+  'blood-angels': {primary:'#9f171c', accent:'#f0c245', paper:'#f1e3c7', ink:'#241813', pattern:'chapter', chapter:'blood-angels', decorations:true, decorationIntensity:58, emblem:true, weathering:true, bannerDepth:true},
+  'dark-angels': {primary:'#173b2b', accent:'#d8c9a7', paper:'#eee2c8', ink:'#171c16', pattern:'chapter', chapter:'dark-angels', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true},
+  'black-templars': {primary:'#17191d', accent:'#d8cbb0', paper:'#eee1c7', ink:'#171513', pattern:'chapter', chapter:'black-templars', decorations:true, decorationIntensity:62, emblem:true, weathering:true, bannerDepth:true},
+  'imperial-fists': {primary:'#c99f00', accent:'#a72820', paper:'#f1e4c4', ink:'#211b10', pattern:'chapter', chapter:'imperial-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
+  'salamanders': {primary:'#176f45', accent:'#151515', paper:'#ead9bd', ink:'#191812', pattern:'chapter', chapter:'salamanders', decorations:true, decorationIntensity:70, emblem:true, weathering:true, bannerDepth:true},
+  'white-scars': {primary:'#e4e0d6', accent:'#b51f2e', paper:'#f0e4ca', ink:'#171717', pattern:'chapter', chapter:'white-scars', decorations:true, decorationIntensity:46, emblem:true, weathering:true, bannerDepth:true},
+  'raven-guard': {primary:'#1c2028', accent:'#aeb7c2', paper:'#ebe0c8', ink:'#171717', pattern:'chapter', chapter:'raven-guard', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true},
+  'iron-hands': {primary:'#17191d', accent:'#9ba5af', paper:'#e9dfca', ink:'#171717', pattern:'chapter', chapter:'iron-hands', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true},
+  'deathwatch': {primary:'#111318', accent:'#aeb6bf', paper:'#ebe0c9', ink:'#171717', pattern:'chapter', chapter:'deathwatch', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true},
+  'crimson-fists': {primary:'#183d79', accent:'#b21f2d', paper:'#eee2c9', ink:'#171717', pattern:'chapter', chapter:'crimson-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
+  'flesh-tearers': {primary:'#68151b', accent:'#17191d', paper:'#ecddc5', ink:'#1a1112', pattern:'chapter', chapter:'flesh-tearers', decorations:true, decorationIntensity:60, emblem:true, weathering:true, bannerDepth:true},
+  'generic-astartes': {primary:'#334155', accent:'#b8963e', paper:'#eee2c8', ink:'#171717', pattern:'chapter', chapter:'generic-astartes', decorations:true, decorationIntensity:38, emblem:true, weathering:true, bannerDepth:true}
+}
 const defaultTheme = {...chapterThemes['space-wolves']};
 
 // Sprint 1: Smart Theme Engine ---------------------------------------------
@@ -289,6 +289,7 @@ function bindEvents() {
   $('#themeTarget').addEventListener('change', e => { state.themeTarget = e.target.value; syncThemeControls(); renderThemePreview(); });
   ['themePrimary','themeAccent','themePaper','themeInk'].forEach(id => $('#' + id).addEventListener('input', updateTheme));
   $('#patternStyle').addEventListener('change', updateTheme);
+  ['themeDecorations','themeEmblem','themeWeathering','themeBannerDepth'].forEach(id=>$('#'+id)?.addEventListener('change',updateTheme));
   $('#resetTheme').addEventListener('click', () => { state.chapterPreset = 'space-wolves'; state.theme = {...chapterThemes['space-wolves']}; applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
   $('#resetUnitTheme').addEventListener('click', () => { const entry = state.roster.find(x => x.id === state.themeTarget); if (!entry) return; entry.cardStyle = {}; saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
 }
@@ -743,7 +744,7 @@ function renderRoster() {
       const status=linkedHost?`<span class="link-status linked">Attached to ${escapeHtml(unitById(linkedHost.unitId).name)}</span>`:supportError?'<span class="link-status error">Support must be attached to a bodyguard unit</span>':unit.leader?'<span class="link-status available">May deploy independently or attach to a unit</span>':`${entry.leaderId?`<span class="link-status linked">Leader: ${escapeHtml(unitById(state.roster.find(x=>x.id===entry.leaderId)?.unitId)?.name||'')}</span>`:''}${entry.supportId?`<span class="link-status linked">Support: ${escapeHtml(unitById(state.roster.find(x=>x.id===entry.supportId)?.unitId)?.name||'')}</span>`:''}`;
       const enhancementMarkup=(unit.selectedEnhancements||[]).length ? `<div class="forge-enhancements">${unit.selectedEnhancements.map(e=>`<span class="enhancement-chip">Enhancement: ${escapeHtml(e.name||e)}</span>`).join('')}</div>` : '';
       article.innerHTML=`<div class="roster-unit-header"><div><h3>${escapeHtml(unit.name)}</h3><div class="meta">${escapeHtml(unit.size)} · ${unit.points} pts</div>${enhancementMarkup}${status}</div><button class="small-button remove">Remove</button></div><div class="config-grid compact-config">
-      ${!unit.leader && !unit.support?`<label>Attached Leader<select class="leader-select"><option value="">None</option>${validLeaders.map(l=>`<option value="${l.id}" ${entry.leaderId===l.id?'selected':''}>${escapeHtml(unitById(l.unitId).name)}</option>`).join('')}</select></label><label>Attached Support<select class="support-select"><option value="">None</option>${validSupports.map(l=>`<option value="${l.id}" ${entry.supportId===l.id?'selected':''}>${escapeHtml(unitById(l.unitId).name)}</option>`).join('')}</select></label>`:''}
+      ${!unit.leader && !unit.support?`${validLeaders.length?`<label>Attached Leader<select class="leader-select"><option value="">None</option>${validLeaders.map(l=>{const lu=unitById(l.unitId);const enh=allEnhancements().find(e=>e.id===l.enhancementId)||(lu?.selectedEnhancements||[])[0];const enhName=enh?.name||enh||'';return `<option value="${l.id}" ${entry.leaderId===l.id?'selected':''}>${escapeHtml(lu.name)}${enhName?` — ${escapeHtml(enhName)}`:''}</option>`;}).join('')}</select></label>`:''}${validSupports.length?`<label>Attached Support<select class="support-select"><option value="">None</option>${validSupports.map(l=>`<option value="${l.id}" ${entry.supportId===l.id?'selected':''}>${escapeHtml(unitById(l.unitId).name)}</option>`).join('')}</select></label>`:''}`:''}
       </div>`;
       article.querySelector('.remove').addEventListener('click',()=>{state.roster=state.roster.filter(x=>x.id!==entry.id).map(x=>({...x,leaderId:x.leaderId===entry.id?'':x.leaderId,supportId:x.supportId===entry.id?'':x.supportId}));saveState();renderAll();});
       article.querySelector('.leader-select')?.addEventListener('change',e=>{const requested=e.target.value;if(requested)state.roster.forEach(other=>{if(other.id!==entry.id&&other.leaderId===requested)other.leaderId=''});entry.leaderId=requested;saveState();renderAll();});
@@ -1099,6 +1100,30 @@ function factionNameFor(unit) {
   return 'Adeptus Astartes';
 }
 
+function chapterEmblemFor(chapter='generic-astartes') {
+  // Published Chapter heraldry. Keep emblem identity independent from palette/material edits.
+  const files={
+    'space-wolves':'Spacewolvesymbol.png','ultramarines':'Ultramarinessymbol.png','blood-angels':'Bloodangelsymbol.png',
+    'dark-angels':'Darkangelsymbol.png','black-templars':'BlackTemplarssymbol.png','imperial-fists':'IFsymbol.png',
+    'salamanders':'Salamanderssymbol.png','white-scars':'WhiteScarssymbol.png','raven-guard':'RavenGuardsymbol.png',
+    'iron-hands':'Iron_Hands-logo.png','deathwatch':'Deathwatchsymbol2.png','generic-astartes':'Aquila1transparent.png'
+  };
+  const file=files[chapter]||files['generic-astartes'];
+  return `https://wh40k.lexicanum.com/wiki/Special:Redirect/file/${encodeURIComponent(file)}`;
+}
+function chapterEmblemMarkup(chapter='generic-astartes', alt='Chapter emblem') {
+  return `<img class="chapter-emblem-image" src="${chapterEmblemFor(chapter)}" alt="${escapeHtml(alt)}" referrerpolicy="no-referrer" loading="lazy">`;
+}
+function chapterDecorationLabel(chapter='generic-astartes') {
+  const labels={
+    'space-wolves':'RUNES · ICE · PELTS','ultramarines':'LAURELS · ROMAN ORNAMENT','blood-angels':'WINGS · DROPS · SEALS',
+    'dark-angels':'HOODS · WINGS · PARCHMENT','black-templars':'CHAINS · CROSSES · SEALS','imperial-fists':'FORTRESS · INDUSTRIAL',
+    'salamanders':'SCALES · SCORCHED PARCHMENT','white-scars':'LIGHTNING · WIND MARKS','raven-guard':'FEATHERS · SHADOW TEARS',
+    'iron-hands':'MECHANICAL · CABLES','deathwatch':'WATCH HERALDRY · METAL','generic-astartes':'AQUILA · PURITY SEALS'
+  };
+  return labels[chapter] || 'CHAPTER ORNAMENTS';
+}
+
 function abilityTextWeight(unit){
   const abilities=[...(unit?.abilities||[]),...(unit?.modelAbilities||[]).flatMap(group=>group?.abilities||[])];
   return abilities.reduce((sum,a)=>sum+String(typeof a==='string'?a:(a?.text||a?.description||a?.name||'')).length,0);
@@ -1188,15 +1213,25 @@ function createCard(entry, unit, isPreview=false) {
   const clone = $('#unitCardTemplate').content.cloneNode(true);
   const card = clone.querySelector('.data-card');
   const style = smartTheme(isPreview ? state.theme : cardStyleFor(entry));
-  card.classList.add(`pattern-${style.pattern}`, `chapter-${style.chapter || state.chapterPreset || 'custom'}`);
+  const detectedChapter=chapterPresetForName(detectChapterName([...(unit?.tags||[])]) || factionNameFor(unit));
+  const chapterKey=detectedChapter!=='generic-astartes' ? detectedChapter : (style.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes') || 'generic-astartes');
+  card.classList.add(`pattern-${style.pattern}`, `chapter-${chapterKey}`);
+  card.classList.toggle('decorations-off', style.decorations===false);
+  card.classList.toggle('weathering-off', style.weathering===false);
+  card.classList.toggle('banner-depth-off', style.bannerDepth===false);
   card.style.setProperty('--card-primary', style.primary);
   card.style.setProperty('--card-accent', style.accent);
   card.style.setProperty('--card-paper', style.paper);
+  card.style.setProperty('--card-parchment', style.paper);
   card.style.setProperty('--card-ink', style.paperText);
   card.style.setProperty('--card-primary-text', style.primaryText);
   card.style.setProperty('--card-accent-text', style.accentText);
   card.style.setProperty('--card-paper-text', style.paperText);
   clone.querySelector('.card-kicker').textContent = factionNameFor(unit);
+  const header=clone.querySelector('.card-header');
+  if(header && style.emblem!==false){
+    const emblem=document.createElement('div'); emblem.className='chapter-emblem'; emblem.setAttribute('aria-label',`${factionNameFor(unit)} emblem`); emblem.innerHTML=chapterEmblemMarkup(chapterKey, `${factionNameFor(unit)} emblem`); header.append(emblem);
+  }
   const leaderEntry = entry.leaderId ? state.roster.find(x => x.id === entry.leaderId) : null;
   const leader = leaderEntry ? unitById(leaderEntry.unitId) : null;
   const supportEntry = entry.supportId ? state.roster.find(x => x.id === entry.supportId) : null;
@@ -1351,71 +1386,55 @@ function mergeStratagemReferences(imported=[], library=[]) {
   });
   return [...byName.values()];
 }
+function looksLikeRuleHeading(line='') {
+  const value=String(line||'').trim();
+  if(!value || value.length>72 || /[.!?;:]$/.test(value)) return false;
+  const words=value.split(/\s+/).filter(Boolean);
+  if(words.length<2 || words.length>10) return false;
+  const significant=words.filter(w=>/[A-Za-z]/.test(w));
+  const titleish=significant.filter(w=>/^[A-Z0-9][A-Za-z0-9'’\-]*$/.test(w) || /^(of|the|and|or|to|a|an|in|on|for|as)$/i.test(w)).length;
+  return titleish/Math.max(1,significant.length)>=0.75;
+}
 function parseDetachmentRuleSections(text='') {
   const clean=cleanCodexText(text);
-  if(!clean) return {body:'', restrictions:[], subRules:[], blocks:[]};
-
-  const restrictionRegex=/(?:^|\n)\s*Restrictions?\s*:\s*/ig;
-  const matches=[...clean.matchAll(restrictionRegex)];
-  let body=clean;
-  const restrictions=[];
-  if(matches.length){
-    const first=matches[0];
-    body=clean.slice(0,first.index).trim();
-    for(let i=0;i<matches.length;i++){
-      const start=matches[i].index + matches[i][0].length;
-      const end=i+1<matches.length ? matches[i+1].index : clean.length;
-      const value=clean.slice(start,end).trim();
-      if(value) restrictions.push(value);
+  if(!clean) return {body:'',restrictions:[],subRules:[],blocks:[]};
+  const blocks=[]; const subRules=[]; const restrictions=[];
+  const lines=clean.split('\n'); let prose=[];
+  const flush=()=>{const t=prose.join(' ').replace(/\s+/g,' ').trim(); prose=[]; if(t) blocks.push({type:'prose',text:t});};
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i].trim(); if(!line){flush(); continue;}
+    const restriction=line.match(/^Restrictions?\s*:\s*(.*)$/i);
+    if(restriction){flush(); const t=restriction[1].trim(); if(t){restrictions.push(t);blocks.push({type:'restriction',text:t});} continue;}
+    const bullet=line.match(/^(?:—|-|•|▪|◦|■)\s*(.+)$/);
+    if(bullet){flush(); const item={name:'',text:bullet[1].trim(),kind:'bullet'};subRules.push(item);blocks.push({type:'bullet',...item});continue;}
+    const labelled=line.match(/^([^:]{2,72})\s*:\s*(.+)$/);
+    if(labelled && !/^(WHEN|TARGET|EFFECT|DURATION|RESTRICTIONS?)$/i.test(labelled[1].trim())){
+      flush(); const item={name:labelled[1].trim(),text:labelled[2].trim(),kind:'named'};subRules.push(item);blocks.push({type:'named',...item});continue;
     }
+    const next=(lines[i+1]||'').trim();
+    if(looksLikeRuleHeading(line) && next && !/^[-—•▪◦■]/.test(next)){
+      flush(); blocks.push({type:'heading',text:line}); continue;
+    }
+    prose.push(line);
   }
-
-  // Preserve source order so an affected unit remains next to its upgrade/rule.
-  const subRules=[]; const blocks=[]; const proseLines=[];
-  const flushProse=()=>{
-    const value=proseLines.join('\n').replace(/\n{3,}/g,'\n\n').trim();
-    proseLines.length=0;
-    if(value) blocks.push({type:'prose',text:value});
-  };
-  for(const line of body.split('\n')){
-    const trimmed=line.trim();
-    if(!trimmed){ proseLines.push(''); continue; }
-    const bullet=trimmed.match(/^(?:—|-|•|▪|◦|■)\s*(.+)$/);
-    if(bullet){
-      flushProse();
-      const item={name:'',text:bullet[1].trim()}; subRules.push(item); blocks.push({type:'subRule',...item});
-      continue;
-    }
-    const labelled=trimmed.match(/^([A-Z][A-Z0-9 '’\-]{2,60})\s*:\s*(.+)$/);
-    if(labelled && !/^(WHEN|TARGET|EFFECT|DURATION|RESTRICTIONS?)$/i.test(labelled[1])){
-      flushProse();
-      const item={name:labelled[1].trim(),text:labelled[2].trim()}; subRules.push(item); blocks.push({type:'subRule',...item});
-      continue;
-    }
-    proseLines.push(trimmed);
-  }
-  flushProse();
-  restrictions.forEach(value=>blocks.push({type:'restriction',text:value}));
-  const proseBody=blocks.filter(b=>b.type==='prose').map(b=>b.text).join('\n\n').trim();
-  return {body:proseBody,restrictions,subRules,blocks};
+  flush();
+  const body=blocks.filter(b=>b.type==='prose').map(b=>b.text).join('\n\n');
+  return {body,restrictions,subRules,blocks};
 }
 function detachmentRuleStructure(rule={}) {
   const parsed=rule.sections || parseDetachmentRuleSections(rule.text||'');
-  const blocks=Array.isArray(parsed.blocks)&&parsed.blocks.length ? parsed.blocks : [
-    ...(parsed.body?[{type:'prose',text:parsed.body}]:[]),
-    ...(Array.isArray(parsed.subRules)?parsed.subRules.map(x=>({type:'subRule',...x})):[]),
-    ...(Array.isArray(parsed.restrictions)?parsed.restrictions.map(text=>({type:'restriction',text})):[])
-  ];
-  return {body:parsed.body||'',restrictions:Array.isArray(parsed.restrictions)?parsed.restrictions:[],subRules:Array.isArray(parsed.subRules)?parsed.subRules:[],blocks};
+  return {body:parsed.body||'',restrictions:parsed.restrictions||[],subRules:parsed.subRules||[],blocks:parsed.blocks||[]};
 }
 function formatDetachmentRuleText(rule={}) {
-  const structure=detachmentRuleStructure(rule);
-  const html=(structure.blocks||[]).map(block=>{
-    if(block.type==='subRule') return `<div class=\"detachment-subrule\">${block.name?`<strong>${escapeHtml(block.name)}</strong>`:''}<p>${escapeHtml(block.text||'').replace(/\n/g,'<br>')}</p></div>`;
-    if(block.type==='restriction') return `<div class=\"detachment-restrictions\"><strong>RESTRICTIONS</strong><p>${escapeHtml(block.text||'').replace(/\n/g,'<br>')}</p></div>`;
-    return `<div class=\"detachment-rule-body\">${String(block.text||'').split(/\n\n+/).map(p=>`<p>${escapeHtml(p).replace(/\n/g,'<br>')}</p>`).join('')}</div>`;
+  const s=detachmentRuleStructure(rule);
+  const html=(s.blocks||[]).map(block=>{
+    if(block.type==='heading') return `<h4 class="detachment-source-heading">${escapeHtml(block.text)}</h4>`;
+    if(block.type==='named') return `<section class="detachment-named-option"><strong>${escapeHtml(block.name)}</strong><p>${escapeHtml(block.text).replace(/\n/g,'<br>')}</p></section>`;
+    if(block.type==='bullet') return `<div class="detachment-bullet"><span aria-hidden="true">•</span><p>${escapeHtml(block.text)}</p></div>`;
+    if(block.type==='restriction') return `<aside class="detachment-restrictions"><strong>RESTRICTIONS</strong><p>${escapeHtml(block.text).replace(/\n/g,'<br>')}</p></aside>`;
+    return `<p class="detachment-prose">${escapeHtml(block.text).replace(/\n/g,'<br>')}</p>`;
   }).join('');
-  return `<div class=\"official-rule-text detachment-rule-text\">${html}</div>`;
+  return `<div class="official-rule-text detachment-rule-text source-hierarchy">${html}</div>`;
 }
 function detachmentRuleHasMeaningfulContent(rule={}) {
   const s=detachmentRuleStructure(rule);
@@ -1453,18 +1472,29 @@ function detachmentStructureCounts(det={}) {
   return {rules:rules.length,withBody,subRules,restrictions};
 }
 
-function formatOfficialRuleText(text='') {
+function bulletParagraphs(text='') {
+  const clean=cleanCodexText(text);
+  if(!clean) return '';
+  const parts=clean.split(/\n\n+|\n(?=[—-]\s*)/).map(x=>x.replace(/^[—-]\s*/, '').trim()).filter(Boolean);
+  return `<ul class="rule-bullets">${parts.map(p=>`<li>${escapeHtml(p)}</li>`).join('')}</ul>`;
+}
+function formatOfficialRuleText(text='', bulletMode=false) {
   const clean=cleanCodexText(text);
   if (!clean) return '';
   const parts=splitStructuredRuleText(clean);
+  if(bulletMode){
+    const values=parts.length ? parts.map(p=>p.value).filter(Boolean) : [clean];
+    return `<div class="official-rule-text army-rule-list"><ul class="rule-bullets">${values.map(v=>`<li>${escapeHtml(v)}</li>`).join('')}</ul></div>`;
+  }
   if(parts.length && parts.some(p=>['WHEN','TARGET','EFFECT','RESTRICTION','DURATION'].includes(p.label))){
     return `<div class="official-rule-text">${parts.map(p=>`<div class="official-rule-row"><strong>${escapeHtml(p.label)}</strong><p>${escapeHtml(p.value)}</p></div>`).join('')}</div>`;
   }
-  return `<div class="official-rule-text"><p>${escapeHtml(clean)}</p></div>`;
+  return `<div class="official-rule-text">${bulletParagraphs(clean)}</div>`;
 }
 function ruleCard(rule, extraClass='') {
   const isDetachment=String(extraClass||'').includes('detachment-rule') || rule?.kind==='detachment';
-  return `<article class="rule-box official-rule ${extraClass}"><h3>${escapeHtml(cleanCodexText(rule.name))}</h3>${isDetachment?formatDetachmentRuleText(rule):formatOfficialRuleText(rule.text)}</article>`;
+  const isArmy=String(extraClass||'').includes('army-rule');
+  return `<article class="rule-box official-rule ${extraClass}"><h3>${escapeHtml(cleanCodexText(rule.name))}</h3>${isDetachment?formatDetachmentRuleText(rule):formatOfficialRuleText(rule.text,isArmy)}</article>`;
 }
 function stratagemPhaseClass(phase='') {
   const value=String(phase).toLowerCase().replace(/[’]/g,"'");
@@ -1483,14 +1513,13 @@ function stratagemCard(s) {
   const cp = Number.isFinite(rule.cp) ? rule.cp : 1;
   const phaseClass=stratagemPhaseClass(rule.phase || 'Detachment');
   const fields=stratagemFields(rule);
-  const rows=[
-    ['WHEN',fields.when],
-    ['TARGET',fields.target],
-    ['EFFECT',fields.effect],
-    fields.restriction ? ['RESTRICTION',fields.restriction] : null
-  ].filter(Boolean);
-  const body=`<div class="official-rule-text stratagem-fields">${rows.map(([label,value])=>`<div class="official-rule-row"><strong>${label}</strong><p>${escapeHtml(value)}</p></div>`).join('')}</div>`;
-  return `<article class="stratagem official-stratagem compact-stratagem-card ${phaseClass}"><header><div class="stratagem-heading"><h3>${escapeHtml(cleanCodexText(rule.name))}</h3><span class="badge phase-badge ${phaseClass}">${escapeHtml(cleanCodexText(rule.phase || 'Detachment'))}</span></div><strong class="cp-badge"><span>${cp}</span><small>CP</small></strong></header>${body}</article>`;
+  const rows=[['WHEN',fields.when],['TARGET',fields.target],['EFFECT',fields.effect],['RESTRICTION',fields.restriction]].filter(([,value])=>value);
+  const turnLabel=/opponent|enemy/i.test(rule.phase||fields.when||'')?'THEIR TURN':/fight|charge|shoot|move|command/i.test(rule.phase||fields.when||'')?'YOUR TURN':'ANY TURN';
+  return `<article class="stratagem official-stratagem warhammer-stratagem ${phaseClass}">
+    <div class="stratagem-spine"><span class="phase-mark">${chapterEmblemMarkup(state.chapterPreset||'generic-astartes','Chapter emblem')}</span><span class="cp-diamond">${cp}<small>CP</small></span><span class="turn-tag">${turnLabel}</span></div>
+    <div class="stratagem-content"><header><div class="stratagem-heading"><h3>${escapeHtml(cleanCodexText(rule.name))}</h3><span class="stratagem-type">${escapeHtml(cleanCodexText(rule.phase || 'Detachment Stratagem'))}</span></div></header>
+    <div class="stratagem-fields">${rows.map(([label,value])=>`<div class="stratagem-field field-${label.toLowerCase()}"><strong>${label}:</strong><p>${escapeHtml(value)}</p></div>`).join('')}</div></div>
+  </article>`;
 }
 
 function ruleMatchesSearch(rule, search='') {
@@ -1582,6 +1611,10 @@ function syncThemeControls() {
   $('#themePaper').value = style.paper;
   $('#themeInk').value = style.ink;
   $('#patternStyle').value = style.pattern;
+  if($('#themeDecorations')) $('#themeDecorations').checked=style.decorations!==false;
+  if($('#themeEmblem')) $('#themeEmblem').checked=style.emblem!==false;
+  if($('#themeWeathering')) $('#themeWeathering').checked=style.weathering!==false;
+  if($('#themeBannerDepth')) $('#themeBannerDepth').checked=style.bannerDepth!==false;
   $('#chapterPreset').value = state.chapterPreset || 'custom';
   $('#resetUnitTheme').disabled = !entry;
   $('#resetTheme').disabled = !!entry;
@@ -1599,9 +1632,12 @@ function applyChapterPreset() {
   applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview();
 }
 function updateTheme() {
-  const next={primary:$('#themePrimary').value,accent:$('#themeAccent').value,paper:$('#themePaper').value,ink:$('#themeInk').value,pattern:$('#patternStyle').value,chapter:state.chapterPreset||'custom'};
-  const entry=themeTargetEntry(); if(entry) entry.cardStyle=next; else {state.theme=next; applyTheme();}
-  state.chapterPreset='custom'; $('#chapterPreset').value='custom'; saveState(); renderCards(); renderThemePreview(); syncThemeControls();
+  const entry=themeTargetEntry();
+  const current=entry ? cardStyleFor(entry) : state.theme;
+  const next={primary:$('#themePrimary').value,accent:$('#themeAccent').value,paper:$('#themePaper').value,ink:$('#themeInk').value,pattern:$('#patternStyle').value,chapter:current.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes'),decorations:$('#themeDecorations')?.checked!==false,emblem:$('#themeEmblem')?.checked!==false,weathering:$('#themeWeathering')?.checked!==false,bannerDepth:$('#themeBannerDepth')?.checked!==false};
+  if(entry) entry.cardStyle=next; else {state.theme=next; applyTheme();}
+  // Visual edits never change Chapter identity. This prevents emblem fallback to Generic/Custom.
+  saveState(); renderCards(); renderThemePreview(); syncThemeControls();
 }
 function applyTheme() {
   const computed=applyThemeVariables(document.documentElement.style,state.theme);
