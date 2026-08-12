@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.9.3 — Illustrated Datasheet Framework
+- Added chapter-agnostic Decoration Pack resolver.
+- Added local illustrated asset slots: header, corner, footer, watermark and accent.
+- Space Wolves upgraded to full Fenris benchmark treatment with original ice, pelt, bone, talisman and rune-manuscript assets.
+- All supported Chapters now resolve to distinct visual packs instead of inheriting Space Wolves ornamentation.
+- Added separate toggles for illustrated edge pieces and background watermark.
+- Card material/palette changes no longer affect decoration-pack identity.
+- Import, provenance, rules and verification engines unchanged.
+
+# Changelog
+
 ## v2.8.2 — Provenance-Aware Source Integrity
 - Fixed false `source ownership changed` failures for legitimate identical weapon-profile merges.
 - Integrity validation now treats the lossless Source Graph as ownership authority.
