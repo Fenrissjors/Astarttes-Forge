@@ -1,7 +1,8 @@
-const APP_VERSION = '2.9.2-illustrated-chapter-identity-rules-layout';
+const APP_VERSION = '2.9.3-illustrated-datasheet-framework';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
+const DECORATION_PACK_LIBRARY = window.ASTARTES_DECORATION_PACK_LIBRARY || null;
 const VERIFICATION_GROUPS = CHAPTER_LIBRARY?.verificationGroups || {
   'Generic Adeptus Astartes': ['Gladius Task Force','Anvil Siege Force','Firestorm Assault Force','Ironstorm Spearhead','Stormlance Task Force','Vanguard Spearhead','First Company Task Force','Librarius Conclave','Fulguris Task Force','Subversion Assets','Armoured Speartip','Bastion Task Force','Ceramite Sentinels','Headhunter Task Force','Orbital Assault Force'],
   'Space Wolves': ['Champions of Fenris','Legends of Saga and Song','Veterans of the Fang','Saga of the Beastslayer','Saga of the Bold','Saga of the Great Wolf','Saga of the Hunter'],
@@ -46,20 +47,20 @@ const coreStratagems = [
 ];
 
 const chapterThemes = {
-  'space-wolves': {primary:'#354a5f', accent:'#b31f2b', paper:'#efe4ca', ink:'#211d16', pattern:'chapter', chapter:'space-wolves', decorations:true, decorationIntensity:72, emblem:true, weathering:true, bannerDepth:true},
-  'ultramarines': {primary:'#164b9b', accent:'#d4af37', paper:'#f0e4c8', ink:'#211d16', pattern:'chapter', chapter:'ultramarines', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
-  'blood-angels': {primary:'#9f171c', accent:'#f0c245', paper:'#f1e3c7', ink:'#241813', pattern:'chapter', chapter:'blood-angels', decorations:true, decorationIntensity:58, emblem:true, weathering:true, bannerDepth:true},
-  'dark-angels': {primary:'#173b2b', accent:'#d8c9a7', paper:'#eee2c8', ink:'#171c16', pattern:'chapter', chapter:'dark-angels', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true},
-  'black-templars': {primary:'#17191d', accent:'#d8cbb0', paper:'#eee1c7', ink:'#171513', pattern:'chapter', chapter:'black-templars', decorations:true, decorationIntensity:62, emblem:true, weathering:true, bannerDepth:true},
-  'imperial-fists': {primary:'#c99f00', accent:'#a72820', paper:'#f1e4c4', ink:'#211b10', pattern:'chapter', chapter:'imperial-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
-  'salamanders': {primary:'#176f45', accent:'#151515', paper:'#ead9bd', ink:'#191812', pattern:'chapter', chapter:'salamanders', decorations:true, decorationIntensity:70, emblem:true, weathering:true, bannerDepth:true},
-  'white-scars': {primary:'#e4e0d6', accent:'#b51f2e', paper:'#f0e4ca', ink:'#171717', pattern:'chapter', chapter:'white-scars', decorations:true, decorationIntensity:46, emblem:true, weathering:true, bannerDepth:true},
-  'raven-guard': {primary:'#1c2028', accent:'#aeb7c2', paper:'#ebe0c8', ink:'#171717', pattern:'chapter', chapter:'raven-guard', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true},
-  'iron-hands': {primary:'#17191d', accent:'#9ba5af', paper:'#e9dfca', ink:'#171717', pattern:'chapter', chapter:'iron-hands', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true},
-  'deathwatch': {primary:'#111318', accent:'#aeb6bf', paper:'#ebe0c9', ink:'#171717', pattern:'chapter', chapter:'deathwatch', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true},
-  'crimson-fists': {primary:'#183d79', accent:'#b21f2d', paper:'#eee2c9', ink:'#171717', pattern:'chapter', chapter:'crimson-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true},
-  'flesh-tearers': {primary:'#68151b', accent:'#17191d', paper:'#ecddc5', ink:'#1a1112', pattern:'chapter', chapter:'flesh-tearers', decorations:true, decorationIntensity:60, emblem:true, weathering:true, bannerDepth:true},
-  'generic-astartes': {primary:'#334155', accent:'#b8963e', paper:'#eee2c8', ink:'#171717', pattern:'chapter', chapter:'generic-astartes', decorations:true, decorationIntensity:38, emblem:true, weathering:true, bannerDepth:true}
+  'space-wolves': {primary:'#354a5f', accent:'#b31f2b', paper:'#efe4ca', ink:'#211d16', pattern:'chapter', chapter:'space-wolves', decorations:true, decorationIntensity:72, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'ultramarines': {primary:'#164b9b', accent:'#d4af37', paper:'#f0e4c8', ink:'#211d16', pattern:'chapter', chapter:'ultramarines', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'blood-angels': {primary:'#9f171c', accent:'#f0c245', paper:'#f1e3c7', ink:'#241813', pattern:'chapter', chapter:'blood-angels', decorations:true, decorationIntensity:58, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'dark-angels': {primary:'#173b2b', accent:'#d8c9a7', paper:'#eee2c8', ink:'#171c16', pattern:'chapter', chapter:'dark-angels', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'black-templars': {primary:'#17191d', accent:'#d8cbb0', paper:'#eee1c7', ink:'#171513', pattern:'chapter', chapter:'black-templars', decorations:true, decorationIntensity:62, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'imperial-fists': {primary:'#c99f00', accent:'#a72820', paper:'#f1e4c4', ink:'#211b10', pattern:'chapter', chapter:'imperial-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'salamanders': {primary:'#176f45', accent:'#151515', paper:'#ead9bd', ink:'#191812', pattern:'chapter', chapter:'salamanders', decorations:true, decorationIntensity:70, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'white-scars': {primary:'#e4e0d6', accent:'#b51f2e', paper:'#f0e4ca', ink:'#171717', pattern:'chapter', chapter:'white-scars', decorations:true, decorationIntensity:46, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'raven-guard': {primary:'#1c2028', accent:'#aeb7c2', paper:'#ebe0c8', ink:'#171717', pattern:'chapter', chapter:'raven-guard', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'iron-hands': {primary:'#17191d', accent:'#9ba5af', paper:'#e9dfca', ink:'#171717', pattern:'chapter', chapter:'iron-hands', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'deathwatch': {primary:'#111318', accent:'#aeb6bf', paper:'#ebe0c9', ink:'#171717', pattern:'chapter', chapter:'deathwatch', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'crimson-fists': {primary:'#183d79', accent:'#b21f2d', paper:'#eee2c9', ink:'#171717', pattern:'chapter', chapter:'crimson-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'flesh-tearers': {primary:'#68151b', accent:'#17191d', paper:'#ecddc5', ink:'#1a1112', pattern:'chapter', chapter:'flesh-tearers', decorations:true, decorationIntensity:60, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
+  'generic-astartes': {primary:'#334155', accent:'#b8963e', paper:'#eee2c8', ink:'#171717', pattern:'chapter', chapter:'generic-astartes', decorations:true, decorationIntensity:38, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true}
 }
 const defaultTheme = {...chapterThemes['space-wolves']};
 
@@ -289,7 +290,7 @@ function bindEvents() {
   $('#themeTarget').addEventListener('change', e => { state.themeTarget = e.target.value; syncThemeControls(); renderThemePreview(); });
   ['themePrimary','themeAccent','themePaper','themeInk'].forEach(id => $('#' + id).addEventListener('input', updateTheme));
   $('#patternStyle').addEventListener('change', updateTheme);
-  ['themeDecorations','themeEmblem','themeWeathering','themeBannerDepth'].forEach(id=>$('#'+id)?.addEventListener('change',updateTheme));
+  ['themeDecorations','themeEmblem','themeWeathering','themeBannerDepth','themeIllustrations','themeWatermark'].forEach(id=>$('#'+id)?.addEventListener('change',updateTheme));
   $('#resetTheme').addEventListener('click', () => { state.chapterPreset = 'space-wolves'; state.theme = {...chapterThemes['space-wolves']}; applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
   $('#resetUnitTheme').addEventListener('click', () => { const entry = state.roster.find(x => x.id === state.themeTarget); if (!entry) return; entry.cardStyle = {}; saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
 }
@@ -1124,6 +1125,21 @@ function chapterDecorationLabel(chapter='generic-astartes') {
   return labels[chapter] || 'CHAPTER ORNAMENTS';
 }
 
+function decorationPackFor(chapter='generic-astartes') {
+  return DECORATION_PACK_LIBRARY?.resolve?.(chapter) || {id:'generic-astartes',label:'Astartes gothic',slots:[]};
+}
+function applyDecorationPack(card, chapter='generic-astartes') {
+  const pack=decorationPackFor(chapter);
+  card.dataset.decorationFramework='illustrated';
+  card.dataset.decorationPack=pack.id;
+  const bySlot=Object.fromEntries((pack.slots||[]).map(x=>[x.slot,x.src]));
+  ['header','corner','footer','watermark','accent'].forEach(slot=>{
+    const src=bySlot[slot]||'';
+    card.style.setProperty(`--ornament-${slot}`,src?`url("${src}")`:'none');
+  });
+  return pack;
+}
+
 function abilityTextWeight(unit){
   const abilities=[...(unit?.abilities||[]),...(unit?.modelAbilities||[]).flatMap(group=>group?.abilities||[])];
   return abilities.reduce((sum,a)=>sum+String(typeof a==='string'?a:(a?.text||a?.description||a?.name||'')).length,0);
@@ -1219,6 +1235,10 @@ function createCard(entry, unit, isPreview=false) {
   card.classList.toggle('decorations-off', style.decorations===false);
   card.classList.toggle('weathering-off', style.weathering===false);
   card.classList.toggle('banner-depth-off', style.bannerDepth===false);
+  card.classList.toggle('illustrations-off', style.illustrations===false);
+  card.classList.toggle('watermark-off', style.watermark===false);
+  const decorationPack=applyDecorationPack(card,chapterKey);
+  card.setAttribute('aria-description',`${decorationPack.label} decoration pack`);
   card.style.setProperty('--card-primary', style.primary);
   card.style.setProperty('--card-accent', style.accent);
   card.style.setProperty('--card-paper', style.paper);
@@ -1615,6 +1635,8 @@ function syncThemeControls() {
   if($('#themeEmblem')) $('#themeEmblem').checked=style.emblem!==false;
   if($('#themeWeathering')) $('#themeWeathering').checked=style.weathering!==false;
   if($('#themeBannerDepth')) $('#themeBannerDepth').checked=style.bannerDepth!==false;
+  if($('#themeIllustrations')) $('#themeIllustrations').checked=style.illustrations!==false;
+  if($('#themeWatermark')) $('#themeWatermark').checked=style.watermark!==false;
   $('#chapterPreset').value = state.chapterPreset || 'custom';
   $('#resetUnitTheme').disabled = !entry;
   $('#resetTheme').disabled = !!entry;
@@ -1634,7 +1656,7 @@ function applyChapterPreset() {
 function updateTheme() {
   const entry=themeTargetEntry();
   const current=entry ? cardStyleFor(entry) : state.theme;
-  const next={primary:$('#themePrimary').value,accent:$('#themeAccent').value,paper:$('#themePaper').value,ink:$('#themeInk').value,pattern:$('#patternStyle').value,chapter:current.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes'),decorations:$('#themeDecorations')?.checked!==false,emblem:$('#themeEmblem')?.checked!==false,weathering:$('#themeWeathering')?.checked!==false,bannerDepth:$('#themeBannerDepth')?.checked!==false};
+  const next={primary:$('#themePrimary').value,accent:$('#themeAccent').value,paper:$('#themePaper').value,ink:$('#themeInk').value,pattern:$('#patternStyle').value,chapter:current.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes'),decorations:$('#themeDecorations')?.checked!==false,emblem:$('#themeEmblem')?.checked!==false,weathering:$('#themeWeathering')?.checked!==false,bannerDepth:$('#themeBannerDepth')?.checked!==false,illustrations:$('#themeIllustrations')?.checked!==false,watermark:$('#themeWatermark')?.checked!==false};
   if(entry) entry.cardStyle=next; else {state.theme=next; applyTheme();}
   // Visual edits never change Chapter identity. This prevents emblem fallback to Generic/Custom.
   saveState(); renderCards(); renderThemePreview(); syncThemeControls();

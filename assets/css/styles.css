@@ -1303,3 +1303,100 @@ body.print-pack .warhammer-stratagem{
  .chapter-space-wolves:not(.decorations-off) .card-header::after{filter:none!important}
  .data-card.pattern-aged,.data-card.pattern-weathered,.data-card.pattern-ice,.data-card.pattern-clean,.data-card.pattern-chapter{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+
+/* v2.9.3 — Illustrated Datasheet Framework
+   One shared layout engine, one resolver, distinct chapter packs. Decorative
+   assets are local, print-safe and never change roster data or chapter identity. */
+.data-card[data-decoration-framework="illustrated"]{isolation:isolate;overflow:hidden}
+.data-card[data-decoration-framework="illustrated"]::before,
+.data-card[data-decoration-framework="illustrated"]::after{display:none!important}
+.data-card[data-decoration-framework="illustrated"] .card-header,
+.data-card[data-decoration-framework="illustrated"] .card-body{position:relative;z-index:2}
+.data-card[data-decoration-framework="illustrated"] .card-header{overflow:visible}
+.data-card[data-decoration-framework="illustrated"] .card-header::before,
+.data-card[data-decoration-framework="illustrated"] .card-header::after,
+.data-card[data-decoration-framework="illustrated"] .card-body::before,
+.data-card[data-decoration-framework="illustrated"] .card-body::after{pointer-events:none}
+
+/* Generic slots. Packs only populate the slots they actually own. */
+.data-card[data-decoration-framework="illustrated"] .card-header::after{
+  content:""!important;display:block!important;position:absolute!important;left:0!important;right:0!important;bottom:-28px!important;height:72px!important;
+  background-image:var(--ornament-header)!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% 100%!important;
+  opacity:.96!important;z-index:4!important;filter:drop-shadow(0 5px 4px rgba(0,0,0,.28));clip-path:none!important
+}
+.data-card[data-decoration-framework="illustrated"] .card-body{
+  background-image:var(--ornament-watermark)!important;background-repeat:no-repeat!important;background-position:center 48%!important;background-size:92% auto!important
+}
+.data-card[data-decoration-framework="illustrated"] .card-body::before{
+  content:""!important;display:block!important;position:absolute!important;right:-20px!important;top:18%!important;width:31%!important;height:44%!important;
+  background-image:var(--ornament-corner)!important;background-repeat:no-repeat!important;background-position:right center!important;background-size:contain!important;
+  opacity:.55!important;z-index:-1!important;clip-path:none!important;filter:drop-shadow(4px 5px 5px rgba(0,0,0,.25))
+}
+.data-card[data-decoration-framework="illustrated"] .card-body::after{
+  content:""!important;display:block!important;position:absolute!important;left:5%!important;right:5%!important;bottom:2px!important;height:86px!important;
+  background-image:var(--ornament-footer)!important;background-repeat:no-repeat!important;background-position:center bottom!important;background-size:contain!important;
+  opacity:.82!important;z-index:-1!important;clip-path:none!important;filter:drop-shadow(0 4px 4px rgba(0,0,0,.22))
+}
+.data-card[data-decoration-framework="illustrated"] .card-note::after{
+  content:"";position:absolute;right:4px;bottom:2px;width:105px;height:150px;background:var(--ornament-accent) center bottom/contain no-repeat;opacity:.72;pointer-events:none;z-index:-1
+}
+.data-card[data-decoration-framework="illustrated"] .card-note{position:relative;z-index:2}
+.data-card[data-decoration-framework="illustrated"].watermark-off .card-body{background-image:none!important}
+.data-card[data-decoration-framework="illustrated"].illustrations-off .card-header::after,
+.data-card[data-decoration-framework="illustrated"].illustrations-off .card-body::before,
+.data-card[data-decoration-framework="illustrated"].illustrations-off .card-body::after,
+.data-card[data-decoration-framework="illustrated"].illustrations-off .card-note::after{display:none!important}
+.data-card[data-decoration-framework="illustrated"].decorations-off .card-header::after,
+.data-card[data-decoration-framework="illustrated"].decorations-off .card-body::before,
+.data-card[data-decoration-framework="illustrated"].decorations-off .card-body::after,
+.data-card[data-decoration-framework="illustrated"].decorations-off .card-note::after{display:none!important}
+.data-card[data-decoration-framework="illustrated"].decorations-off .card-body{background-image:none!important}
+
+/* Fenris benchmark: intentionally asymmetric and page-scale. */
+.data-card[data-decoration-pack="space-wolves"] .card-header{border-bottom-width:7px;box-shadow:inset 0 -10px 18px rgba(4,18,28,.28)}
+.data-card[data-decoration-pack="space-wolves"] .card-header::after{bottom:-48px!important;height:86px!important;background-size:112% 100%!important}
+.data-card[data-decoration-pack="space-wolves"] .card-body{background-position:76% 43%!important;background-size:84% auto!important}
+.data-card[data-decoration-pack="space-wolves"] .card-body::before{left:-46px!important;right:auto!important;top:24%!important;width:34%!important;height:48%!important;opacity:.48!important;background-position:left center!important}
+.data-card[data-decoration-pack="space-wolves"] .card-body::after{left:10%!important;right:8%!important;height:94px!important;opacity:.90!important}
+.data-card[data-decoration-pack="space-wolves"] .card-note::after{width:116px;height:190px;right:-18px;bottom:-30px;opacity:.62}
+.data-card[data-decoration-pack="space-wolves"] .card-section h4{box-shadow:inset 0 -1px rgba(255,255,255,.24),0 2px 4px rgba(37,42,44,.10)}
+
+/* Distinct pack placement — no chapter inherits the Fenris treatment. */
+.data-card[data-decoration-pack="ultramarines"] .card-body::before{right:-6px;top:14%;width:30%;height:54%;opacity:.34}
+.data-card[data-decoration-pack="ultramarines"] .card-body{background-size:82% auto!important;opacity:1}
+.data-card[data-decoration-pack="blood-angels"] .card-body::before{right:-18px;top:11%;width:37%;height:43%;opacity:.34}
+.data-card[data-decoration-pack="blood-angels"] .card-body{background-size:74% auto!important}
+.data-card[data-decoration-pack="dark-angels"] .card-body::before{right:-24px;top:13%;width:31%;height:50%;opacity:.34}
+.data-card[data-decoration-pack="dark-angels"] .card-body::after{height:76px;opacity:.66}
+.data-card[data-decoration-pack="black-templars"] .card-body::before{right:-28px;top:19%;width:27%;height:46%;opacity:.38}
+.data-card[data-decoration-pack="black-templars"] .card-body::after{height:88px;opacity:.78}
+.data-card[data-decoration-pack="imperial-fists"] .card-header::after{bottom:-20px!important;height:58px!important;opacity:.80!important}
+.data-card[data-decoration-pack="imperial-fists"] .card-body::before{right:-26px;top:12%;width:23%;height:64%;opacity:.28}
+.data-card[data-decoration-pack="salamanders"] .card-body::before{right:-34px;top:16%;width:39%;height:49%;opacity:.42}
+.data-card[data-decoration-pack="salamanders"] .card-body::after{left:0!important;right:0!important;bottom:-2px!important;height:72px!important;background-size:100% 100%!important;opacity:.72!important}
+.data-card[data-decoration-pack="salamanders"] .card-body{background-size:80% auto!important}
+.data-card[data-decoration-pack="white-scars"] .card-header::after{bottom:-16px!important;height:52px!important;opacity:.82!important}
+.data-card[data-decoration-pack="white-scars"] .card-body::before{right:-14px;top:20%;width:22%;height:52%;opacity:.36}
+.data-card[data-decoration-pack="raven-guard"] .card-body::before{right:-24px;top:12%;width:34%;height:56%;opacity:.28}
+.data-card[data-decoration-pack="raven-guard"] .card-body{background-size:80% auto!important}
+.data-card[data-decoration-pack="iron-hands"] .card-body::before{right:-36px;top:13%;width:34%;height:53%;opacity:.30}
+.data-card[data-decoration-pack="iron-hands"] .card-body::after{height:72px;opacity:.54}
+.data-card[data-decoration-pack="deathwatch"] .card-body::before{right:-18px;top:15%;width:29%;height:54%;opacity:.32}
+.data-card[data-decoration-pack="deathwatch"] .card-body::after{height:76px;opacity:.63}
+.data-card[data-decoration-pack="generic-astartes"] .card-body::before{right:-20px;top:18%;width:27%;height:50%;opacity:.22}
+.data-card[data-decoration-pack="generic-astartes"] .card-body{background-size:76% auto!important}
+
+/* Material + decoration remain independent. Material never swaps chapter pack. */
+.data-card[data-decoration-framework="illustrated"].pattern-clean{--material-grain-opacity:.03}
+.data-card[data-decoration-framework="illustrated"].pattern-aged{--material-grain-opacity:.10}
+.data-card[data-decoration-framework="illustrated"].pattern-weathered{--material-grain-opacity:.16}
+.data-card[data-decoration-framework="illustrated"].pattern-ice{--material-grain-opacity:.08}
+.data-card[data-decoration-framework="illustrated"].weathering-off{box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.data-card[data-decoration-framework="illustrated"].banner-depth-off .card-header{box-shadow:none!important;background:var(--card-primary)!important}
+
+@media print{
+  .data-card[data-decoration-framework="illustrated"] .card-header::after,
+  .data-card[data-decoration-framework="illustrated"] .card-body::before,
+  .data-card[data-decoration-framework="illustrated"] .card-body::after,
+  .data-card[data-decoration-framework="illustrated"] .card-note::after{filter:none!important}
+}
