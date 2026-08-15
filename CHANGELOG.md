@@ -1,5 +1,12 @@
 # Changelog
 
+## v3.0.54 — Black Templars Golden Frame
+
+- Added the new Black Templars A4 artwork frame with a completely clear live-title plaque and no baked-in Chapter name.
+- Added a Black Templars-native transparent opening and `artwork-geometry-px-v1` title geometry.
+- Promoted Black Templars to the shared adaptive A4 datasheet renderer only after Golden Frame validation passed.
+- Existing Space Wolves, Ultramarines, Blood Angels, and Dark Angels frame assets remain unchanged.
+
 ## v3.0.53 — Artwork Geometry Contract
 
 - Every validated A4 artwork frame now carries an exact native-pixel `titleBoxPx` in its frame manifest.

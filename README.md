@@ -1,4 +1,4 @@
-# Astartes Forge v3.0.53 — Artwork Geometry Contract
+# Astartes Forge v3.0.54 — Black Templars Golden Frame
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 

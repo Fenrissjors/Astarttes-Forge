@@ -4,7 +4,7 @@
   const A4 = Object.freeze({ widthMm:210, heightMm:297 });
 
   const frameSchema = Object.freeze({
-    version:'3.0.53',
+    version:'3.0.54',
     page:A4,
     safeArea:{
       topMm:18,

@@ -1,0 +1,14 @@
+{
+  "version": "3.0.54",
+  "chapter": "black-templars",
+  "status": "PASS",
+  "standard": "a4-chapter-frame-gold-v1",
+  "asset": "assets/art/black-templars/frames/black-templars-a4-portrait.png",
+  "sourceSha256": "74d39a335ebc29c04282204301c29c66c72113e73680e6b393dc64844d40b153",
+  "frameSha256": "ec4887cb43ecab5c33f2a32b9e777372c195dfda508c87e7dc773acb4b4a2e77",
+  "notes": [
+    "Title plaque intentionally contains no baked chapter name.",
+    "Title live-text field is clear of central emblems.",
+    "Opening contour is Black Templars-native and not copied from another Chapter."
+  ]
+}

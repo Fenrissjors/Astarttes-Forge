@@ -17,7 +17,7 @@ function assert(condition,message){
 load('src/libraries/chapters/chapter-visual-registry.js');
 const r=window.ASTARTES_CHAPTER_VISUAL_REGISTRY;
 assert(!!r,'visual registry loads');
-assert(r.version==='3.0.53-artwork-geometry-contract','registry version is 3.0.53-artwork-geometry-contract');
+assert(r.version==='3.0.54-black-templars-golden-frame','registry version is 3.0.53-artwork-geometry-contract');
 assert(r.a4GeometryMaster==='a4-chapter-frame-gold-v1','neutral A4 Golden Standard is the shared frame contract');
 assert(r.a4FrameStandard==='a4-chapter-frame-gold-v1','registry exposes the A4 Golden Standard id');
 
@@ -65,7 +65,7 @@ for(const [values,name,key] of detectionCases){
 }
 
 
-for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels']){
+for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels','black-templars']){
   const surface=r.resolve(id).artwork?.titleSurface;
   assert(/^#[0-9a-f]{6}$/i.test(surface||''),`${id} artwork exposes a title-surface contrast swatch`);
 }
@@ -92,18 +92,23 @@ assert(fs.existsSync(path.join(root,darkFrame)),'Dark Angels validated A4 frame 
 assert(r.resolve('dark-angels').artwork.frameReady===true,'Dark Angels is promoted after Golden validation passes');
 assert(r.resolve('dark-angels').artwork.candidateFrame===false,'Dark Angels is no longer marked as a candidate frame');
 assert(r.resolve('dark-angels').artwork.validationStatus==='PASS','Dark Angels validation status is PASS');
+const btFrame=r.frameAsset('black-templars','a4Portrait');
+assert(btFrame==='assets/art/black-templars/frames/black-templars-a4-portrait.png','Black Templars A4 frame routes through registry');
+assert(fs.existsSync(path.join(root,btFrame)),'Black Templars A4 frame asset exists');
+assert(r.resolve('black-templars').artwork.frameReady===true,'Black Templars is promoted after Golden validation passes');
+assert(r.resolve('black-templars').artwork.validationStatus==='PASS','Black Templars validation status is PASS');
 for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels']){ assert(r.resolve(id).artwork.renderer==='adaptive-datasheet',`${id} uses the approved adaptive datasheet renderer`); }
-for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels']){
+for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels','black-templars']){
   assert(r.resolve(id).artwork.geometryContract==='artwork-geometry-px-v1',`${id} declares the artwork geometry contract`);
   assert(!!r.resolve(id).artwork.frameManifest,`${id} publishes its frame manifest path`);
 }
-for(const id of Object.keys(expected).filter(x=>!['space-wolves','ultramarines','blood-angels','dark-angels'].includes(x))){
+for(const id of Object.keys(expected).filter(x=>!['space-wolves','ultramarines','blood-angels','dark-angels','black-templars'].includes(x))){
   assert(r.frameAsset(id,'a4Portrait')==='',`${id} has an empty A4 frame slot ready for future artwork`);
 }
 
 load('src/libraries/chapters/decoration-pack-library.js');
 const d=window.ASTARTES_DECORATION_PACK_LIBRARY;
-assert(d.version==='3.0.53','decoration library consumes v3.0.53 registry');
+assert(d.version==='3.0.54','decoration library consumes v3.0.54 registry');
 assert(d.resolve('Space Wolves').frameAssets.a4Portrait===swFrame,'decoration pack gets Space Wolves frame from registry');
 assert(d.resolve('Ultramarines').frameAssets.a4Portrait===ultraFrame,'decoration pack gets Ultramarines frame from registry');
 assert(d.resolve('Ultramarines').label==='Macragge laurels','decoration pack label comes from registry profile');
@@ -113,6 +118,7 @@ assert(d.resolve('Blood Angels').frameAssets.a4Portrait===bloodFrame,'decoration
 assert(d.resolve('Blood Angels').label==='Sanguinary baroque','Blood Angels decoration pack label comes from registry profile');
 assert(d.resolve('Blood Angels').frameGeometryMaster==='a4-chapter-frame-gold-v1','Blood Angels pack exposes master frame geometry');
 assert(d.resolve('Dark Angels').frameAssets.a4Portrait===darkFrame,'decoration pack exposes validated Dark Angels frame');
+assert(d.resolve('Black Templars').frameAssets.a4Portrait===btFrame,'decoration pack exposes validated Black Templars frame');
 
 for(const p of r.list().filter(x=>x.artwork?.frameReady)){
   assert(p.artwork.frameStandard==='a4-chapter-frame-gold-v1',`${p.id} cannot be frameReady outside the Golden Frame Standard`);
