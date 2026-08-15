@@ -1,5 +1,5 @@
 {
-  "version": "3.0.50",
+  "version": "3.0.52",
   "status": "PASS",
   "candidate": false,
   "validator": "tests/scripts/validate-frames.py",

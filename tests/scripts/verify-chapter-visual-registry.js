@@ -17,7 +17,7 @@ function assert(condition,message){
 load('src/libraries/chapters/chapter-visual-registry.js');
 const r=window.ASTARTES_CHAPTER_VISUAL_REGISTRY;
 assert(!!r,'visual registry loads');
-assert(r.version==='3.0.50-explicit-pixel-typography','registry version is 3.0.50-explicit-pixel-typography');
+assert(r.version==='3.0.52-unified-adaptive-artwork','registry version is 3.0.52-unified-adaptive-artwork');
 assert(r.a4GeometryMaster==='a4-chapter-frame-gold-v1','neutral A4 Golden Standard is the shared frame contract');
 assert(r.a4FrameStandard==='a4-chapter-frame-gold-v1','registry exposes the A4 Golden Standard id');
 
@@ -92,14 +92,14 @@ assert(fs.existsSync(path.join(root,darkFrame)),'Dark Angels validated A4 frame 
 assert(r.resolve('dark-angels').artwork.frameReady===true,'Dark Angels is promoted after Golden validation passes');
 assert(r.resolve('dark-angels').artwork.candidateFrame===false,'Dark Angels is no longer marked as a candidate frame');
 assert(r.resolve('dark-angels').artwork.validationStatus==='PASS','Dark Angels validation status is PASS');
-assert(r.resolve('dark-angels').artwork.renderer==='adaptive-datasheet','Dark Angels keeps the approved adaptive datasheet renderer');
+for(const id of ['space-wolves','ultramarines','blood-angels','dark-angels']){ assert(r.resolve(id).artwork.renderer==='adaptive-datasheet',`${id} uses the approved adaptive datasheet renderer`); }
 for(const id of Object.keys(expected).filter(x=>!['space-wolves','ultramarines','blood-angels','dark-angels'].includes(x))){
   assert(r.frameAsset(id,'a4Portrait')==='',`${id} has an empty A4 frame slot ready for future artwork`);
 }
 
 load('src/libraries/chapters/decoration-pack-library.js');
 const d=window.ASTARTES_DECORATION_PACK_LIBRARY;
-assert(d.version==='3.0.50','decoration library consumes v3.0.50 registry');
+assert(d.version==='3.0.52','decoration library consumes v3.0.52 registry');
 assert(d.resolve('Space Wolves').frameAssets.a4Portrait===swFrame,'decoration pack gets Space Wolves frame from registry');
 assert(d.resolve('Ultramarines').frameAssets.a4Portrait===ultraFrame,'decoration pack gets Ultramarines frame from registry');
 assert(d.resolve('Ultramarines').label==='Macragge laurels','decoration pack label comes from registry profile');

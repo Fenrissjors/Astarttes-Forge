@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.0.52 — Unified Adaptive Artwork
+
+- Space Wolves, Ultramarines, Blood Angels, and Dark Angels now share the user-approved adaptive A4 datasheet renderer.
+- The validated Golden frame PNGs are unchanged; only renderer routing/layout behaviour changes.
+- v3.0.51 measurable-print fitting is preserved. A5 and A4-without-artwork remain unchanged.
+
+## v3.0.51 — Measurable Print Fit
+
+- Exposes the hidden physical print DOM off-screen before adaptive fitting so the fitter measures real 210 mm geometry.
+- Runs the A4/A5 fit twice with a synchronous layout pass before printing.
+
 ## v3.0.50 — Explicit Pixel Typography Fit
 
 - Fixed the A4 fitter resetting to full size because structural `scrollHeight` did not track the actual rendered panel bottoms.

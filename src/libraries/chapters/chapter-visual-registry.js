@@ -38,21 +38,21 @@
       theme:baseTheme('space-wolves',{primary:'#354a5f',accent:'#b31f2b',paper:'#efe4ca',ink:'#211d16',decorationIntensity:72}),
       printSurface:'#e4edf1',
       emblem:{remoteFile:'Spacewolvesymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Fenris illustrated',decorationLabel:'RUNES · ICE · PELTS',titleSurface:'#bfc8d4',a4Frame:'assets/art/space-wolves/frames/space-wolves-a4-portrait.png',frameReady:true}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Fenris illustrated',decorationLabel:'RUNES · ICE · PELTS',titleSurface:'#bfc8d4',a4Frame:'assets/art/space-wolves/frames/space-wolves-a4-portrait.png',renderer:'adaptive-datasheet',frameReady:true}
     },
     'ultramarines': {
       id:'ultramarines', name:'Ultramarines', aliases:['Ultramarines'],
       theme:baseTheme('ultramarines',{primary:'#164b9b',accent:'#d4af37',paper:'#f0e4c8',ink:'#211d16',decorationIntensity:48}),
       printSurface:'#e7edf8',
       emblem:{remoteFile:'Ultramarinessymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Macragge laurels',decorationLabel:'LAURELS · ROMAN ORNAMENT',titleSurface:'#d7d1c9',a4Frame:'assets/art/ultramarines/frames/ultramarines-a4-portrait.png',frameReady:true}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Macragge laurels',decorationLabel:'LAURELS · ROMAN ORNAMENT',titleSurface:'#d7d1c9',a4Frame:'assets/art/ultramarines/frames/ultramarines-a4-portrait.png',renderer:'adaptive-datasheet',frameReady:true}
     },
     'blood-angels': {
       id:'blood-angels', name:'Blood Angels', aliases:['Blood Angels'],
       theme:baseTheme('blood-angels',{primary:'#9f171c',accent:'#f0c245',paper:'#f1e3c7',ink:'#241813',decorationIntensity:58}),
       printSurface:'#f7e8e6',
       emblem:{remoteFile:'Bloodangelsymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Sanguinary baroque',decorationLabel:'WINGS · DROPS · SEALS',titleSurface:'#dacdbd',a4Frame:'assets/art/blood-angels/frames/blood-angels-a4-portrait.png',frameReady:true}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,goldenReference:true,label:'Sanguinary baroque',decorationLabel:'WINGS · DROPS · SEALS',titleSurface:'#dacdbd',a4Frame:'assets/art/blood-angels/frames/blood-angels-a4-portrait.png',renderer:'adaptive-datasheet',frameReady:true}
     },
     'dark-angels': {
       id:'dark-angels', name:'Dark Angels', aliases:['Dark Angels'],
@@ -187,7 +187,7 @@
   }));}
 
   const api={
-    version:'3.0.50-explicit-pixel-typography',
+    version:'3.0.52-unified-adaptive-artwork',
     genericKey:GENERIC,
     a4GeometryMaster:A4_GEOMETRY_MASTER,a4FrameStandard:A4_FRAME_STANDARD,
     profiles,

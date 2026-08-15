@@ -81,7 +81,7 @@
   }
 
   window.ASTARTES_DECORATION_PACK_LIBRARY={
-    version:'3.0.50',packs,
+    version:'3.0.52',packs,
     resolve(chapter='generic-astartes'){
       const key=REGISTRY?.resolveKey?.(chapter) || chapter;
       return packs[key]||packs['generic-astartes'];

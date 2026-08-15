@@ -1,4 +1,4 @@
-const APP_VERSION = '3.0.50-explicit-pixel-typography';
+const APP_VERSION = '3.0.52-unified-adaptive-artwork';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
@@ -403,16 +403,9 @@ function bindEvents() {
   $('#phaseFilter')?.addEventListener('change', renderReference);
   $('#usableOnly')?.addEventListener('change', renderReference);
   window.addEventListener('beforeprint', () => {
-    // Re-fit against the actual print-media cascade. A5 cards can gain a few
-    // pixels when the browser switches from screen preview to print layout.
-    const printRoot=$('#armyPackPrint') || document;
-    fitAllAdaptiveA5Cards(printRoot);
-    fitAllAdaptiveArtworkPages(printRoot);
-    // Force one synchronous layout pass, then verify the mounted print geometry
-    // again before the browser snapshots the page.
-    void document.body.offsetHeight;
-    fitAllAdaptiveA5Cards(printRoot);
-    fitAllAdaptiveArtworkPages(printRoot);
+    // Chromium can fire beforeprint while #armyPackPrint is still display:none.
+    const printRoot=$('#armyPackPrint');
+    fitMountedPrintRoot(printRoot);
   });
   window.addEventListener('afterprint', () => { document.body.classList.remove('print-rules','print-pack','print-datasheets-only'); });
   $('#resetTheme')?.addEventListener('click', () => { state.chapterPreset = 'space-wolves'; state.theme = {...chapterThemes['space-wolves']}; applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
@@ -2248,17 +2241,15 @@ function canUseArtworkPrintPage(entry,unit){
   return Boolean(profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
 }
 
-/* v3.0.50 — Dark Angels unified datasheet prototype.
-   This deliberately reuses the normal print datasheet DOM/components instead
-   of rebuilding them inside .artwork-print-page. Only the artwork shell/title
-   placement is specialized so we can compare both renderer architectures. */
-function canUseDarkAngelsDatasheetPrototype(entry,unit){
+/* v3.0.52 — Unified adaptive datasheet artwork renderer.
+   Validated Chapter frames can opt into the user-approved Dark Angels renderer
+   through artwork.renderer === 'adaptive-datasheet'. */
+function canUseAdaptiveDatasheetArtwork(entry,unit){
   const settings=cleanPrintSettings();
   if(settings.layout==='a4-two-a5' || settings.frame===false) return false;
   const chapterKey=artworkChapterKeyForEntry(entry,unit);
-  if(chapterKey!=='dark-angels') return false;
   const profile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
-  return Boolean(profile?.artwork?.renderer==='adaptive-datasheet' && profile?.artwork?.a4Frame);
+  return Boolean(profile?.artwork?.renderer==='adaptive-datasheet' && profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
 }
 
 const ADAPTIVE_ARTWORK_BASE={top:'50.6mm',width:'160.5mm',gapMm:2.15,radiusMm:2.0};
@@ -2374,7 +2365,7 @@ function adaptiveVisiblePanels(root){
 }
 
 function measureA4PanelPixels(card){
-  if(!card?.classList?.contains('adaptive-datasheet-artwork-prototype')) return null;
+  if(!card?.classList?.contains('adaptive-datasheet-artwork')) return null;
   const {body,main,side,note,mode}=adaptiveArtworkColumns(card);
   if(!body) return null;
   const cardRect=card.getBoundingClientRect();
@@ -2502,7 +2493,7 @@ function applyAdaptiveArtworkPrototype(card){
 }
 
 function fitAdaptiveArtworkToPage(card){
-  if(!card?.classList?.contains('adaptive-datasheet-artwork-prototype')) return;
+  if(!card?.classList?.contains('adaptive-datasheet-artwork')) return;
   const {body,main,side,note,mode}=adaptiveArtworkColumns(card);
   if(!body) return;
   resetAdaptiveArtworkGeometry(card);
@@ -2569,15 +2560,20 @@ function fitAdaptiveArtworkToPage(card){
 }
 
 function fitAllAdaptiveArtworkPages(root=document){
-  root?.querySelectorAll?.('.adaptive-datasheet-artwork-prototype').forEach(fitAdaptiveArtworkToPage);
+  root?.querySelectorAll?.('.adaptive-datasheet-artwork').forEach(fitAdaptiveArtworkToPage);
 }
 
-function buildDarkAngelsDatasheetPrototype(entry,unit){
+function buildAdaptiveDatasheetArtwork(entry,unit){
+  const chapterKey=artworkChapterKeyForEntry(entry,unit);
+  const profile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
+  if(profile?.artwork?.renderer!=='adaptive-datasheet' || !profile?.artwork?.frameReady || !profile?.artwork?.a4Frame) return null;
   const card=fragmentCardElement(createCard(entry,unit,'print'));
   if(!card) return null;
-  card.classList.add('dark-angels-datasheet-prototype','adaptive-datasheet-artwork-prototype');
+  card.classList.add('adaptive-datasheet-artwork','adaptive-datasheet-artwork-prototype');
+  card.dataset.artworkRenderer='adaptive-datasheet';
+  card.dataset.artworkChapter=chapterKey;
   card.dataset.prototypeRenderer='adaptive-datasheet-artwork';
-  card.dataset.prototypeChapter='dark-angels';
+  card.dataset.prototypeChapter=chapterKey;
   applyAdaptiveArtworkPrototype(card);
   return card;
 }
@@ -2648,7 +2644,7 @@ function buildArtworkPrintPage(entry,unit){
 function printCardElement(entry){
   const unit=unitById(entry.unitId);
   if(!unit)return null;
-  if(canUseDarkAngelsDatasheetPrototype(entry,unit)) return buildDarkAngelsDatasheetPrototype(entry,unit);
+  if(canUseAdaptiveDatasheetArtwork(entry,unit)) return buildAdaptiveDatasheetArtwork(entry,unit);
   if(canUseArtworkPrintPage(entry,unit)) return buildArtworkPrintPage(entry,unit);
   return fragmentCardElement(createCard(entry,unit,'print'));
 }
@@ -3851,14 +3847,26 @@ function datasheetPrintPagesMarkup(){
   }
   return cards.map(c=>`<div class="print-sheet print-sheet-a4">${c.outerHTML}</div>`).join('');
 }
+function fitMountedPrintRoot(root){
+  if(!root) return;
+  const body=document.body;
+  const alreadyMeasuring=body.classList.contains('print-measure-layout');
+  if(!alreadyMeasuring) body.classList.add('print-measure-layout');
+  try{
+    void root.offsetHeight;
+    fitAllAdaptiveArtworkPages(root); fitAllAdaptiveA5Cards(root);
+    void root.offsetHeight;
+    fitAllAdaptiveArtworkPages(root); fitAllAdaptiveA5Cards(root);
+    root.dataset.lastMeasuredAt=String(Date.now());
+  }finally{ if(!alreadyMeasuring) body.classList.remove('print-measure-layout'); }
+}
 function printDatasheetsOnly(){
   if(!state.roster.length){switchView('builder');return;}
   const output=$('#armyPackPrint');
   output.innerHTML=`<section class="clean-datasheets-print">${datasheetPrintPagesMarkup()}</section>`;
   document.body.classList.remove('print-rules');
   document.body.classList.add('print-pack','print-datasheets-only');
-  fitAllAdaptiveArtworkPages(output);
-  fitAllAdaptiveA5Cards(output);
+  fitMountedPrintRoot(output);
   requestAnimationFrame(()=>window.print());
 }
 
@@ -3901,8 +3909,7 @@ function generateArmyPack() {
   output.querySelectorAll('[data-pack-output]').forEach(section=>section.classList.toggle('pack-hidden',!selected.has(section.dataset.packOutput)));
   document.body.classList.remove('print-rules');
   document.body.classList.add('print-pack');
-  fitAllAdaptiveArtworkPages(output);
-  fitAllAdaptiveA5Cards(output);
+  fitMountedPrintRoot(output);
   // Keep the browser print dialog inside the original user click. Some browsers
   // can ignore window.print() when it is deferred to requestAnimationFrame.
   window.print();

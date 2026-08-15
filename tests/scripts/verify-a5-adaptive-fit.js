@@ -15,8 +15,8 @@ ok(app.includes('scales.weapon=Math.max(.88,scales.weapon-.005)'),'continuous fi
 ok(app.includes("card.dataset.a5AdaptiveFit='continuous'"),'A5 continuous-fit state is recorded');
 ok(app.includes("card.dataset.a5AdaptiveFits=fit.overflow<=0.25?'true':'false'"),'A5 fitter records final physical fit result');
 ok(app.includes("window.addEventListener('beforeprint'"),'A5 fitting is repeated under the actual print-media cascade');
-ok(app.includes('void document.body.offsetHeight'),'beforeprint fitter forces a print-layout reflow before its second pass');
-ok(app.includes('fitAllAdaptiveA5Cards(output);'),'A5 fitter runs for print output');
+ok(app.includes('function fitMountedPrintRoot(root)') && app.includes('void root.offsetHeight'),'measurable print fitter forces physical-layout reflow before its second pass');
+ok(app.includes('fitMountedPrintRoot(output);') && app.includes('fitAllAdaptiveA5Cards(root);'),'A5 fitter runs through measurable print output');
 ok(app.includes('fitAdaptiveA5Card(card);'),'A5 fitter runs in preview fitting');
 ok(css.includes('--a5-profile-scale:1;'),'A5 default profile scale exists');
 ok(css.includes('var(--a5-profile-scale,1)'),'A5 stat profile header responds to profile scale');

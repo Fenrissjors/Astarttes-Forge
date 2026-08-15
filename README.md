@@ -1,4 +1,4 @@
-# Astartes Forge v3.0.50 — Explicit Pixel Typography Fit
+# Astartes Forge v3.0.52 — Unified Adaptive Artwork
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 

@@ -581,6 +581,15 @@ input, select { width: 100%; padding: 10px 11px; border-radius: 9px; border: 1px
 .pack-overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5mm}.pack-overview-group{break-inside:avoid;border:1px solid #888;padding:4mm}.pack-overview-group h3{margin:0 0 3mm;border-bottom:1px solid #aaa;padding-bottom:2mm}.pack-overview-unit{display:flex;justify-content:space-between;gap:5mm;padding:1.5mm 0;border-bottom:1px dotted #bbb;font-size:10pt}.pack-overview-unit:last-child{border-bottom:0}
 .pack-enhancement-card{border:1px solid #888;border-left:3mm solid var(--accent);padding:4mm;margin-bottom:4mm;break-inside:avoid}.pack-enhancement-card h3{margin:0 0 2mm}
 @media(max-width:900px){.print-center-grid{grid-template-columns:1fr}.pack-preview{grid-template-columns:1fr}.print-center-toolbar{align-items:stretch;flex-direction:column}}
+
+/* V3.0.51 — MEASURABLE PRINT DOM */
+body.print-pack.print-measure-layout #print-center{display:block!important;position:fixed!important;left:-12000px!important;top:0!important;width:210mm!important;margin:0!important;padding:0!important;opacity:0!important;pointer-events:none!important;z-index:-9999!important}
+body.print-pack.print-measure-layout #print-center > :not(#armyPackPrint){display:none!important}
+body.print-pack.print-measure-layout #armyPackPrint{display:block!important;position:relative!important;width:210mm!important;margin:0!important;padding:0!important}
+body.print-pack.print-measure-layout #armyPackPrint .print-sheet,body.print-pack.print-measure-layout #armyPackPrint .data-card{display:block!important;transform:none!important}
+body.print-pack.print-measure-layout #armyPackPrint .data-card[data-render-mode="print"]{font-size:calc(9.4pt * var(--print-scale,1))!important}
+body.print-pack.print-measure-layout #armyPackPrint .data-card[data-render-mode="print"] .card-body{line-height:calc(1.28 - (1 - var(--print-scale,1)) * .28)!important}
+
 @media print{
  body.print-pack{background:white!important}
  body.print-pack>.topbar,body.print-pack>.tabs,body.print-pack>main>.view:not(#print-center),body.print-pack #print-center>.print-center-toolbar,body.print-pack #print-center>.print-center-grid{display:none!important}
@@ -3480,7 +3489,7 @@ body[data-card-background="white"] .data-card{background:#fff!important}body[dat
    the artwork opening: start higher, sit closer to the inner frame edge, and
    compact only when content pressure requires it.
    ============================================================ */
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"]{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"]{
   border:0!important;
   border-radius:0!important;
   box-shadow:none!important;
@@ -3489,8 +3498,8 @@ body[data-card-background="white"] .data-card{background:#fff!important}body[dat
   overflow:hidden!important;
   background:var(--print-surface,#efe4c7)!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .codex-seamless-frame,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .print-page-surface{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .codex-seamless-frame,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .print-page-surface{
   position:absolute!important;
   left:0!important;
   top:0!important;
@@ -3503,7 +3512,7 @@ body[data-card-background="white"] .data-card{background:#fff!important}body[dat
   padding:0!important;
   transform:none!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header{
   position:absolute!important;
   left:26.2mm!important;
   top:24.2mm!important;
@@ -3521,27 +3530,27 @@ body[data-card-background="white"] .data-card{background:#fff!important}body[dat
   background-image:none!important;
   border:0!important;
   box-shadow:none!important;
-  color:var(--art-title-text,#173b2b)!important;
+  color:var(--art-title-text,#111318)!important;
   text-shadow:none!important;
   overflow:hidden!important;
   z-index:30!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-title,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
-  color:var(--art-title-text,#173b2b)!important;
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-title,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
+  color:var(--art-title-text,#111318)!important;
   text-shadow:none!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker{
   opacity:.72!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
   opacity:.88!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .chapter-emblem{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .chapter-emblem{
   display:none!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body{
   position:absolute!important;
   left:50%!important;
   top:var(--adaptive-body-top,50.6mm)!important;
@@ -3554,55 +3563,55 @@ body[data-card-background="white"] .data-card{background:#fff!important}body[dat
   overflow:visible!important;
   z-index:30!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body > .codex-panel-layout{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body > .codex-panel-layout{
   gap:var(--adaptive-panel-gap,2.15mm)!important;
   align-items:start!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-column{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-column{
   gap:var(--adaptive-panel-gap,2.15mm)!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-main{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-main{
   flex:1.12 1 0!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-side{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-side{
   flex:.88 1 0!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-block,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-abilities,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-rules,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .panel-note{
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-block,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-abilities,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-rules,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .panel-note{
   margin:0!important;
   border-radius:var(--adaptive-panel-radius,2.0mm)!important;
   box-sizing:border-box!important;
 }
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stats{margin:0!important;gap:var(--a4-ability-gap,2px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat{padding:var(--a4-stat-pad-y,4px) var(--a4-stat-pad-x,3px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat b{font-size:var(--a4-stat-value-font,8.2pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat span{font-size:var(--a4-stat-label-font,5.2pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .save-stat{padding-top:calc(var(--a4-stat-pad-y,4px) * 3.5)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .inv-save-badge{top:1px!important;min-width:20px!important;height:19px!important;font-size:var(--a4-inv-save-font,5.1pt)!important;padding:0 3.5px!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-label{font-size:var(--a4-profile-label-font,7.5pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section{padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-section-header-font,13.2pt)!important;letter-spacing:.05em!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table){padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table) h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-weapon-header-font,10.6pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table{font-size:var(--a4-weapon-font,9.4pt)!important;line-height:1.04!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table th,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table td{padding:var(--a4-weapon-pad-y,1.7px) var(--a4-weapon-pad-x,2.2px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords{gap:1.4px!important;margin-top:1.3px!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords span{padding:0 2.4px!important;font-size:var(--a4-weapon-keyword-font,7.6pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-groups{gap:var(--a4-ability-gap,2px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group{padding:var(--a4-ability-pad-y,2.6px) var(--a4-ability-pad-x,4.2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group p{margin-top:var(--a4-list-margin,2px)!important;margin-bottom:0!important;font-size:var(--a4-desc-font,12pt)!important;line-height:1.14!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-list{line-height:1.14!important;padding-left:var(--a4-list-indent,12px)!important;margin-block:var(--a4-list-margin,2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .unit-divider{margin:4px 0 3px!important;font-size:var(--a4-unit-divider-font,10pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-line,
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-note{font-size:var(--a4-keyword-font,10.2pt)!important;line-height:1.12!important;gap:var(--a4-ability-gap,2px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-groups{gap:var(--a4-rule-gap,1.5px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group{padding:var(--a4-rule-pad-y,2.6px) var(--a4-rule-pad-x,3.6px)!important;font-size:var(--a4-rule-font,9.2pt)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group>strong{margin-bottom:1.7px!important;font-size:var(--a4-rule-model-font,8pt)!important;letter-spacing:.08em!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list{gap:var(--a4-rule-gap,1.5px)!important;}
-.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list span{padding:0 3.2px!important;font-size:var(--a4-rule-pill-font,8.6pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .stats{margin:0!important;gap:var(--a4-ability-gap,2px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .stat{padding:var(--a4-stat-pad-y,4px) var(--a4-stat-pad-x,3px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .stat b{font-size:var(--a4-stat-value-font,8.2pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .stat span{font-size:var(--a4-stat-label-font,5.2pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .save-stat{padding-top:calc(var(--a4-stat-pad-y,4px) * 3.5)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .inv-save-badge{top:1px!important;min-width:20px!important;height:19px!important;font-size:var(--a4-inv-save-font,5.1pt)!important;padding:0 3.5px!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-label{font-size:var(--a4-profile-label-font,7.5pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section{padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-section-header-font,13.2pt)!important;letter-spacing:.05em!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table){padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table) h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-weapon-header-font,10.6pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table{font-size:var(--a4-weapon-font,9.4pt)!important;line-height:1.04!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table th,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table td{padding:var(--a4-weapon-pad-y,1.7px) var(--a4-weapon-pad-x,2.2px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords{gap:1.4px!important;margin-top:1.3px!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords span{padding:0 2.4px!important;font-size:var(--a4-weapon-keyword-font,7.6pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-groups{gap:var(--a4-ability-gap,2px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group{padding:var(--a4-ability-pad-y,2.6px) var(--a4-ability-pad-x,4.2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group p{margin-top:var(--a4-list-margin,2px)!important;margin-bottom:0!important;font-size:var(--a4-desc-font,12pt)!important;line-height:1.14!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-list{line-height:1.14!important;padding-left:var(--a4-list-indent,12px)!important;margin-block:var(--a4-list-margin,2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .unit-divider{margin:4px 0 3px!important;font-size:var(--a4-unit-divider-font,10pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-line,
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .card-note{font-size:var(--a4-keyword-font,10.2pt)!important;line-height:1.12!important;gap:var(--a4-ability-gap,2px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-groups{gap:var(--a4-rule-gap,1.5px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group{padding:var(--a4-rule-pad-y,2.6px) var(--a4-rule-pad-x,3.6px)!important;font-size:var(--a4-rule-font,9.2pt)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group>strong{margin-bottom:1.7px!important;font-size:var(--a4-rule-model-font,8pt)!important;letter-spacing:.08em!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list{gap:var(--a4-rule-gap,1.5px)!important;}
+.data-card.adaptive-datasheet-artwork[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list span{padding:0 3.2px!important;font-size:var(--a4-rule-pill-font,8.6pt)!important;}
