@@ -1,5 +1,5 @@
 {
-  "version": "3.0.33",
+  "version": "3.0.53",
   "chapter": "blood-angels",
   "frameStandard": "a4-chapter-frame-gold-v1",
   "goldenReference": true,
@@ -40,5 +40,37 @@
     "midSideInnerRightXAtY1500": 1964
   },
   "nativeOpening": true,
-  "outerEdgePolicy": "straight-full-bleed-a4"
+  "outerEdgePolicy": "straight-full-bleed-a4",
+  "geometryContract": "artwork-geometry-px-v1",
+  "artworkGeometry": {
+    "titleBoxPx": {
+      "x": 380,
+      "y": 259,
+      "width": 1714,
+      "height": 180
+    },
+    "canvasPx": {
+      "width": 2480,
+      "height": 3508
+    },
+    "titlePaddingPx": {
+      "top": 21,
+      "right": 76,
+      "bottom": 21,
+      "left": 76
+    },
+    "titleTypography": {
+      "maxTitlePt": 15.0,
+      "minTitlePt": 8.5,
+      "kickerPt": 6.5,
+      "pointsPt": 9.0,
+      "singleLine": true
+    },
+    "panelBoxPx": {
+      "x": 292,
+      "y": 598,
+      "width": 1896,
+      "bottom": 3490
+    }
+  }
 }

@@ -1,4 +1,4 @@
-# Astartes Forge v3.0.52 — Unified Adaptive Artwork
+# Astartes Forge v3.0.53 — Artwork Geometry Contract
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 

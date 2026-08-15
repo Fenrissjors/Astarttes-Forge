@@ -1,4 +1,4 @@
-const APP_VERSION = '3.0.52-unified-adaptive-artwork';
+const APP_VERSION = '3.0.53-artwork-geometry-contract';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
@@ -2252,6 +2252,74 @@ function canUseAdaptiveDatasheetArtwork(entry,unit){
   return Boolean(profile?.artwork?.renderer==='adaptive-datasheet' && profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
 }
 
+
+const ARTWORK_GEOMETRY_CONTRACT='artwork-geometry-px-v1';
+function artworkGeometryForChapter(chapterKey=''){
+  return window.ASTARTES_FRAME_GEOMETRY_LIBRARY?.resolve?.(chapterKey)||null;
+}
+function pxBoxToCssMm(box,canvas={width:2480,height:3508}){
+  if(!box) return null;
+  return {x:Number(box.x||0)/Number(canvas.width||2480)*210,y:Number(box.y||0)/Number(canvas.height||3508)*297,width:Number(box.width||0)/Number(canvas.width||2480)*210,height:Number(box.height||0)/Number(canvas.height||3508)*297};
+}
+function applyArtworkGeometryContract(card,chapterKey=''){
+  if(!card) return null;
+  const geometry=artworkGeometryForChapter(chapterKey);
+  if(!geometry) return null;
+  const canvas=geometry.canvasPx||{width:2480,height:3508};
+  const title=pxBoxToCssMm(geometry.titleBoxPx,canvas);
+  const panel=geometry.panelBoxPx||null;
+  const pad=geometry.titlePaddingPx||{};
+  if(title){
+    card.style.setProperty('--art-title-left',`${title.x.toFixed(4)}mm`);
+    card.style.setProperty('--art-title-top',`${title.y.toFixed(4)}mm`);
+    card.style.setProperty('--art-title-width',`${title.width.toFixed(4)}mm`);
+    card.style.setProperty('--art-title-height',`${title.height.toFixed(4)}mm`);
+  }
+  const pxX=px=>Number(px||0)/Number(canvas.width||2480)*210;
+  const pxY=px=>Number(px||0)/Number(canvas.height||3508)*297;
+  card.style.setProperty('--art-title-pad-top',`${pxY(pad.top).toFixed(4)}mm`);
+  card.style.setProperty('--art-title-pad-right',`${pxX(pad.right).toFixed(4)}mm`);
+  card.style.setProperty('--art-title-pad-bottom',`${pxY(pad.bottom).toFixed(4)}mm`);
+  card.style.setProperty('--art-title-pad-left',`${pxX(pad.left).toFixed(4)}mm`);
+  const typography=geometry.titleTypography||{};
+  card.style.setProperty('--art-title-font-max',`${Number(typography.maxTitlePt||15)}pt`);
+  card.style.setProperty('--art-title-font-min',`${Number(typography.minTitlePt||8.5)}pt`);
+  card.style.setProperty('--art-kicker-font',`${Number(typography.kickerPt||6.5)}pt`);
+  card.style.setProperty('--art-points-font',`${Number(typography.pointsPt||9)}pt`);
+  card.style.setProperty('--art-title-font',`${Number(typography.maxTitlePt||15)}pt`);
+  if(panel){
+    card.style.setProperty('--adaptive-body-top',`${pxY(panel.y).toFixed(4)}mm`);
+    card.style.setProperty('--adaptive-body-width',`${pxX(panel.width).toFixed(4)}mm`);
+  }
+  card.dataset.frameGeometryContract=ARTWORK_GEOMETRY_CONTRACT;
+  card.dataset.frameGeometryManifest=window.ASTARTES_FRAME_GEOMETRY_LIBRARY?.manifestPath?.(chapterKey)||'';
+  card.dataset.frameTitleBoxPx=geometry.titleBoxPx?[geometry.titleBoxPx.x,geometry.titleBoxPx.y,geometry.titleBoxPx.width,geometry.titleBoxPx.height].join(','):'';
+  return geometry;
+}
+function fitArtworkTitleToBox(card){
+  if(!card?.classList?.contains('adaptive-datasheet-artwork')) return;
+  const header=card.querySelector(':scope > .card-header');
+  const title=header?.querySelector?.('.card-title');
+  const textWrap=header?.querySelector?.(':scope > div:first-child');
+  if(!header||!title||!textWrap) return;
+  const chapterKey=card.dataset.artworkChapter||card.dataset.artPack||'';
+  const geometry=artworkGeometryForChapter(chapterKey);
+  const typo=geometry?.titleTypography||{};
+  const max=Number(typo.maxTitlePt||15),min=Number(typo.minTitlePt||8.5);
+  const fits=pt=>{
+    card.style.setProperty('--art-title-font',`${pt.toFixed(3)}pt`);
+    void header.offsetWidth;
+    return title.scrollWidth<=textWrap.clientWidth+0.5 && title.scrollHeight<=textWrap.clientHeight+0.5 && header.scrollHeight<=header.clientHeight+0.5;
+  };
+  if(fits(max)){ card.dataset.artworkTitleFitPt=max.toFixed(2); card.dataset.artworkTitleOverflow='false'; return; }
+  if(!fits(min)){ card.dataset.artworkTitleFitPt=min.toFixed(2); card.dataset.artworkTitleOverflow='true'; return; }
+  let lo=min,hi=max;
+  for(let i=0;i<12;i++){ const mid=(lo+hi)/2; if(fits(mid)) lo=mid; else hi=mid; }
+  fits(lo);
+  card.dataset.artworkTitleFitPt=lo.toFixed(2);
+  card.dataset.artworkTitleOverflow='false';
+}
+
 const ADAPTIVE_ARTWORK_BASE={top:'50.6mm',width:'160.5mm',gapMm:2.15,radiusMm:2.0};
 const ADAPTIVE_ARTWORK_LIMITS={columnMin:.56,bottomSafetyMm:1.5,tolerancePx:.35};
 const A4_TYPE_BASE={
@@ -2494,6 +2562,7 @@ function applyAdaptiveArtworkPrototype(card){
 
 function fitAdaptiveArtworkToPage(card){
   if(!card?.classList?.contains('adaptive-datasheet-artwork')) return;
+  fitArtworkTitleToBox(card);
   const {body,main,side,note,mode}=adaptiveArtworkColumns(card);
   if(!body) return;
   resetAdaptiveArtworkGeometry(card);
@@ -2574,6 +2643,7 @@ function buildAdaptiveDatasheetArtwork(entry,unit){
   card.dataset.artworkChapter=chapterKey;
   card.dataset.prototypeRenderer='adaptive-datasheet-artwork';
   card.dataset.prototypeChapter=chapterKey;
+  applyArtworkGeometryContract(card,chapterKey);
   applyAdaptiveArtworkPrototype(card);
   return card;
 }
