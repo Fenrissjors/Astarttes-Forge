@@ -1105,6 +1105,7 @@ input, select { width: 100%; padding: 10px 11px; border-radius: 9px; border: 1px
   .data-card .inv-save-badge{top:1px;min-width:calc(23px * var(--print-scale));height:calc(21px * var(--print-scale));font-size:calc(5.7pt * var(--print-scale));padding:0 calc(4px * var(--print-scale))}
   .data-card .rule-title-groups{gap:calc(3px * var(--print-scale))}
   .data-card .rule-title-group{padding:calc(3px * var(--print-scale)) calc(5px * var(--print-scale));font-size:calc(6.5pt * var(--print-scale))}
+  .data-card .rule-title-group>strong{margin-bottom:calc(2px * var(--print-scale));font-size:calc(5.15pt * var(--print-scale));letter-spacing:.08em}
   .data-card .rule-title-list{gap:calc(2px * var(--print-scale))}
   .data-card .rule-title-list span{padding:0 calc(4px * var(--print-scale));font-size:calc(5.8pt * var(--print-scale))}
 }
@@ -1307,50 +1308,50 @@ body.print-pack .warhammer-stratagem{
 /* v2.9.3 — Illustrated Datasheet Framework
    One shared layout engine, one resolver, distinct chapter packs. Decorative
    assets are local, print-safe and never change roster data or chapter identity. */
-.data-card[data-decoration-framework="illustrated"]{isolation:isolate;overflow:hidden}
-.data-card[data-decoration-framework="illustrated"]::before,
-.data-card[data-decoration-framework="illustrated"]::after{display:none!important}
-.data-card[data-decoration-framework="illustrated"] .card-header,
-.data-card[data-decoration-framework="illustrated"] .card-body{position:relative;z-index:2}
-.data-card[data-decoration-framework="illustrated"] .card-header{overflow:visible}
-.data-card[data-decoration-framework="illustrated"] .card-header::before,
-.data-card[data-decoration-framework="illustrated"] .card-header::after,
-.data-card[data-decoration-framework="illustrated"] .card-body::before,
-.data-card[data-decoration-framework="illustrated"] .card-body::after{pointer-events:none}
+.data-card[data-decoration-framework="illustrated-codex"]{isolation:isolate;overflow:hidden}
+.data-card[data-decoration-framework="illustrated-codex"]::before,
+.data-card[data-decoration-framework="illustrated-codex"]::after{display:none!important}
+.data-card[data-decoration-framework="illustrated-codex"] .card-header,
+.data-card[data-decoration-framework="illustrated-codex"] .card-body{position:relative;z-index:2}
+.data-card[data-decoration-framework="illustrated-codex"] .card-header{overflow:visible}
+.data-card[data-decoration-framework="illustrated-codex"] .card-header::before,
+.data-card[data-decoration-framework="illustrated-codex"] .card-header::after,
+.data-card[data-decoration-framework="illustrated-codex"] .card-body::before,
+.data-card[data-decoration-framework="illustrated-codex"] .card-body::after{pointer-events:none}
 
 /* Generic slots. Packs only populate the slots they actually own. */
-.data-card[data-decoration-framework="illustrated"] .card-header::after{
+.data-card[data-decoration-framework="illustrated-codex"] .card-header::after{
   content:""!important;display:block!important;position:absolute!important;left:0!important;right:0!important;bottom:-28px!important;height:72px!important;
   background-image:var(--ornament-header)!important;background-repeat:no-repeat!important;background-position:center top!important;background-size:100% 100%!important;
   opacity:.96!important;z-index:4!important;filter:drop-shadow(0 5px 4px rgba(0,0,0,.28));clip-path:none!important
 }
-.data-card[data-decoration-framework="illustrated"] .card-body{
+.data-card[data-decoration-framework="illustrated-codex"] .card-body{
   background-image:var(--ornament-watermark)!important;background-repeat:no-repeat!important;background-position:center 48%!important;background-size:92% auto!important
 }
-.data-card[data-decoration-framework="illustrated"] .card-body::before{
+.data-card[data-decoration-framework="illustrated-codex"] .card-body::before{
   content:""!important;display:block!important;position:absolute!important;right:-20px!important;top:18%!important;width:31%!important;height:44%!important;
   background-image:var(--ornament-corner)!important;background-repeat:no-repeat!important;background-position:right center!important;background-size:contain!important;
   opacity:.55!important;z-index:-1!important;clip-path:none!important;filter:drop-shadow(4px 5px 5px rgba(0,0,0,.25))
 }
-.data-card[data-decoration-framework="illustrated"] .card-body::after{
+.data-card[data-decoration-framework="illustrated-codex"] .card-body::after{
   content:""!important;display:block!important;position:absolute!important;left:5%!important;right:5%!important;bottom:2px!important;height:86px!important;
   background-image:var(--ornament-footer)!important;background-repeat:no-repeat!important;background-position:center bottom!important;background-size:contain!important;
   opacity:.82!important;z-index:-1!important;clip-path:none!important;filter:drop-shadow(0 4px 4px rgba(0,0,0,.22))
 }
-.data-card[data-decoration-framework="illustrated"] .card-note::after{
+.data-card[data-decoration-framework="illustrated-codex"] .card-note::after{
   content:"";position:absolute;right:4px;bottom:2px;width:105px;height:150px;background:var(--ornament-accent) center bottom/contain no-repeat;opacity:.72;pointer-events:none;z-index:-1
 }
-.data-card[data-decoration-framework="illustrated"] .card-note{position:relative;z-index:2}
-.data-card[data-decoration-framework="illustrated"].watermark-off .card-body{background-image:none!important}
-.data-card[data-decoration-framework="illustrated"].illustrations-off .card-header::after,
-.data-card[data-decoration-framework="illustrated"].illustrations-off .card-body::before,
-.data-card[data-decoration-framework="illustrated"].illustrations-off .card-body::after,
-.data-card[data-decoration-framework="illustrated"].illustrations-off .card-note::after{display:none!important}
-.data-card[data-decoration-framework="illustrated"].decorations-off .card-header::after,
-.data-card[data-decoration-framework="illustrated"].decorations-off .card-body::before,
-.data-card[data-decoration-framework="illustrated"].decorations-off .card-body::after,
-.data-card[data-decoration-framework="illustrated"].decorations-off .card-note::after{display:none!important}
-.data-card[data-decoration-framework="illustrated"].decorations-off .card-body{background-image:none!important}
+.data-card[data-decoration-framework="illustrated-codex"] .card-note{position:relative;z-index:2}
+.data-card[data-decoration-framework="illustrated-codex"].watermark-off .card-body{background-image:none!important}
+.data-card[data-decoration-framework="illustrated-codex"].illustrations-off .card-header::after,
+.data-card[data-decoration-framework="illustrated-codex"].illustrations-off .card-body::before,
+.data-card[data-decoration-framework="illustrated-codex"].illustrations-off .card-body::after,
+.data-card[data-decoration-framework="illustrated-codex"].illustrations-off .card-note::after{display:none!important}
+.data-card[data-decoration-framework="illustrated-codex"].decorations-off .card-header::after,
+.data-card[data-decoration-framework="illustrated-codex"].decorations-off .card-body::before,
+.data-card[data-decoration-framework="illustrated-codex"].decorations-off .card-body::after,
+.data-card[data-decoration-framework="illustrated-codex"].decorations-off .card-note::after{display:none!important}
+.data-card[data-decoration-framework="illustrated-codex"].decorations-off .card-body{background-image:none!important}
 
 /* Fenris benchmark: intentionally asymmetric and page-scale. */
 .data-card[data-decoration-pack="space-wolves"] .card-header{border-bottom-width:7px;box-shadow:inset 0 -10px 18px rgba(4,18,28,.28)}
@@ -1387,16 +1388,2221 @@ body.print-pack .warhammer-stratagem{
 .data-card[data-decoration-pack="generic-astartes"] .card-body{background-size:76% auto!important}
 
 /* Material + decoration remain independent. Material never swaps chapter pack. */
-.data-card[data-decoration-framework="illustrated"].pattern-clean{--material-grain-opacity:.03}
-.data-card[data-decoration-framework="illustrated"].pattern-aged{--material-grain-opacity:.10}
-.data-card[data-decoration-framework="illustrated"].pattern-weathered{--material-grain-opacity:.16}
-.data-card[data-decoration-framework="illustrated"].pattern-ice{--material-grain-opacity:.08}
-.data-card[data-decoration-framework="illustrated"].weathering-off{box-shadow:0 8px 20px rgba(0,0,0,.16)}
-.data-card[data-decoration-framework="illustrated"].banner-depth-off .card-header{box-shadow:none!important;background:var(--card-primary)!important}
+.data-card[data-decoration-framework="illustrated-codex"].pattern-clean{--material-grain-opacity:.03}
+.data-card[data-decoration-framework="illustrated-codex"].pattern-aged{--material-grain-opacity:.10}
+.data-card[data-decoration-framework="illustrated-codex"].pattern-weathered{--material-grain-opacity:.16}
+.data-card[data-decoration-framework="illustrated-codex"].pattern-ice{--material-grain-opacity:.08}
+.data-card[data-decoration-framework="illustrated-codex"].weathering-off{box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.data-card[data-decoration-framework="illustrated-codex"].banner-depth-off .card-header{box-shadow:none!important;background:var(--card-primary)!important}
 
 @media print{
-  .data-card[data-decoration-framework="illustrated"] .card-header::after,
-  .data-card[data-decoration-framework="illustrated"] .card-body::before,
-  .data-card[data-decoration-framework="illustrated"] .card-body::after,
-  .data-card[data-decoration-framework="illustrated"] .card-note::after{filter:none!important}
+  .data-card[data-decoration-framework="illustrated-codex"] .card-header::after,
+  .data-card[data-decoration-framework="illustrated-codex"] .card-body::before,
+  .data-card[data-decoration-framework="illustrated-codex"] .card-body::after,
+  .data-card[data-decoration-framework="illustrated-codex"] .card-note::after{filter:none!important}
 }
+
+/* V3.0 Illustrated Codex Engine */
+.data-card[data-decoration-framework="illustrated-codex"]{position:relative;isolation:isolate;overflow:hidden;border:10px solid color-mix(in srgb,var(--card-primary) 70%,#151515);border-radius:4px;box-shadow:0 16px 34px rgba(0,0,0,.34),inset 0 0 0 2px rgba(226,191,111,.55),inset 0 0 24px rgba(52,34,16,.28);background:radial-gradient(ellipse at 48% 35%,rgba(255,255,255,.20),transparent 44%),linear-gradient(94deg,rgba(87,54,22,.12),transparent 12%,transparent 87%,rgba(73,43,17,.14)),var(--card-parchment)}
+.data-card[data-decoration-framework="illustrated-codex"]::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.34;background-image:repeating-linear-gradient(7deg,rgba(86,55,25,.06) 0 1px,transparent 1px 7px),radial-gradient(circle at 20% 14%,rgba(91,54,20,.12),transparent 24%),radial-gradient(circle at 80% 76%,rgba(91,54,20,.10),transparent 26%);mix-blend-mode:multiply}
+.data-card[data-decoration-framework="illustrated-codex"] .card-header{min-height:88px;position:relative;z-index:5;padding:18px 118px 17px 22px;border-bottom:5px solid var(--card-accent);background:linear-gradient(180deg,color-mix(in srgb,var(--card-primary) 80%,#fff) 0%,var(--card-primary) 48%,color-mix(in srgb,var(--card-primary) 68%,#000) 100%)!important;box-shadow:inset 0 2px rgba(255,255,255,.28),inset 0 -10px 20px rgba(0,0,0,.22),0 7px 12px rgba(0,0,0,.22)}
+.data-card[data-decoration-framework="illustrated-codex"] .card-title{font-family:Georgia,'Times New Roman',serif;letter-spacing:.025em;text-shadow:0 2px 2px rgba(0,0,0,.34)}
+.data-card[data-decoration-framework="illustrated-codex"] .card-kicker{letter-spacing:.16em;font-weight:800}
+.data-card[data-decoration-framework="illustrated-codex"] .chapter-emblem{width:78px;height:78px;right:20px;top:7px;padding:9px;border-radius:50%;background:radial-gradient(circle,#e9e0c7 0 43%,#7d6b4c 45% 48%,#252b30 50% 62%,#b3904c 64% 67%,#20252a 69%);box-shadow:0 5px 12px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.4)}
+.data-card[data-decoration-framework="illustrated-codex"] .card-section h4,.data-card[data-decoration-framework="illustrated-codex"] .unit-divider{font-family:Georgia,'Times New Roman',serif;letter-spacing:.075em;border-left:5px solid var(--card-accent);background:linear-gradient(90deg,color-mix(in srgb,var(--card-primary) 14%,transparent),rgba(70,53,31,.08) 58%,transparent)}
+.data-card[data-decoration-framework="illustrated-codex"][data-codex-composition="hero"] .card-body{padding-right:27%;min-height:760px}
+.data-card[data-decoration-framework="illustrated-codex"][data-codex-composition="hero"] .card-body::before{width:31%!important;height:64%!important;right:-3%!important;left:auto!important;top:6%!important;opacity:.58!important;filter:drop-shadow(-7px 9px 9px rgba(0,0,0,.18))}
+.data-card[data-decoration-framework="illustrated-codex"][data-codex-composition="dense"] .card-body::before{opacity:.18!important;max-width:22%!important}
+.data-card[data-decoration-pack="space-wolves"]{border-color:#263744;box-shadow:0 16px 36px rgba(0,0,0,.38),inset 0 0 0 2px #9c7d46,inset 0 0 28px rgba(33,52,61,.26)}
+.data-card[data-decoration-pack="space-wolves"] .card-header::after{filter:drop-shadow(0 8px 5px rgba(8,23,32,.42));opacity:1!important}
+.data-card[data-decoration-pack="space-wolves"] .card-body{background-color:color-mix(in srgb,var(--card-parchment) 94%,#c7d8da)!important}
+.data-card[data-decoration-pack="space-wolves"] .card-body::before{opacity:.72!important;filter:drop-shadow(6px 8px 7px rgba(32,24,18,.30))}
+.data-card[data-decoration-pack="space-wolves"] .card-body::after{filter:drop-shadow(0 -5px 6px rgba(41,27,16,.25));opacity:1!important}
+@media print{.data-card[data-decoration-framework="illustrated-codex"]{-webkit-print-color-adjust:exact;print-color-adjust:exact}.data-card[data-decoration-framework="illustrated-codex"][data-codex-composition="dense"] .card-body::before{opacity:.10!important}}
+
+
+/* ============================================================
+   V3.0.1 — A4 ILLUSTRATED FRAME ENGINE
+   Artwork is segmented into fixed A4 zones. Live content stays
+   inside the safe canvas and always renders above illustration.
+   ============================================================ */
+
+.data-card[data-a4-frame="true"]{
+  width:210mm;
+  min-height:297mm;
+  max-width:210mm;
+  box-sizing:border-box;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  padding:0!important;
+}
+
+.data-card[data-a4-frame="true"] .codex-art-root{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.data-card[data-a4-frame="true"] .codex-art-layer{
+  position:absolute;
+  object-fit:contain;
+  object-position:center;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  transform:translateZ(0);
+}
+
+.data-card[data-a4-frame="true"] > .card-header,
+.data-card[data-a4-frame="true"] > .card-body,
+.data-card[data-a4-frame="true"] > .card-note{
+  position:relative;
+  z-index:40;
+}
+
+.data-card[data-a4-frame="true"] .card-header{
+  margin:var(--safe-top) var(--safe-right) 0 var(--safe-left);
+}
+
+.data-card[data-a4-frame="true"] .card-body{
+  margin:0 var(--safe-right) var(--safe-bottom) var(--safe-left);
+  box-sizing:border-box;
+}
+
+/* Art slots can overlap the safe canvas slightly, but text always wins. */
+.data-card[data-a4-frame="true"] .codex-art-background{
+  object-fit:cover;
+  opacity:.16;
+  mix-blend-mode:multiply;
+}
+.data-card[data-a4-frame="true"] .codex-art-topFrame{object-fit:fill}
+.data-card[data-a4-frame="true"] .codex-art-topLeft{object-position:left top}
+.data-card[data-a4-frame="true"] .codex-art-topRight{object-position:right top}
+.data-card[data-a4-frame="true"] .codex-art-leftRail{object-fit:fill;object-position:left center}
+.data-card[data-a4-frame="true"] .codex-art-rightRail{object-fit:fill;object-position:right center}
+.data-card[data-a4-frame="true"] .codex-art-bottomFrame{object-fit:fill;object-position:center bottom}
+.data-card[data-a4-frame="true"] .codex-art-lowerLeft{object-position:left bottom}
+.data-card[data-a4-frame="true"] .codex-art-heroArtwork,
+.data-card[data-a4-frame="true"] .codex-art-standardAccent{
+  object-fit:cover;
+  object-position:center;
+  mask-image:linear-gradient(to left,rgba(0,0,0,.98) 68%,rgba(0,0,0,.72) 82%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to left,rgba(0,0,0,.98) 68%,rgba(0,0,0,.72) 82%,transparent 100%);
+}
+
+/* The inner content canvas is intentionally calm compared with the frame. */
+.data-card[data-a4-frame="true"] .card-body{
+  background:linear-gradient(rgba(248,238,208,.94),rgba(242,228,192,.93));
+  box-shadow:0 0 0 1px rgba(90,60,25,.24), 0 4px 12px rgba(30,20,10,.12);
+}
+
+/* Dense cards keep the same A4 frame; nonessential art simply recedes. */
+.data-card[data-a4-frame="true"][data-codex-composition="dense"] .codex-art-heroArtwork,
+.data-card[data-a4-frame="true"][data-codex-composition="dense"] .codex-art-standardAccent{
+  display:none;
+}
+.data-card[data-a4-frame="true"][data-codex-composition="dense"] .codex-art-background{
+  opacity:.08;
+}
+
+/* Space Wolves benchmark treatment. */
+.data-card[data-art-pack="space-wolves"] .codex-art-topFrame,
+.data-card[data-art-pack="space-wolves"] .codex-art-topLeft,
+.data-card[data-art-pack="space-wolves"] .codex-art-leftRail,
+.data-card[data-art-pack="space-wolves"] .codex-art-rightRail,
+.data-card[data-art-pack="space-wolves"] .codex-art-bottomFrame,
+.data-card[data-art-pack="space-wolves"] .codex-art-lowerLeft{
+  filter:drop-shadow(0 4px 4px rgba(14,20,25,.38));
+}
+
+@media print{
+  .data-card[data-a4-frame="true"]{
+    width:210mm!important;
+    height:297mm!important;
+    min-height:297mm!important;
+    max-height:297mm!important;
+    page-break-after:always;
+    break-after:page;
+    box-shadow:none!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .data-card[data-a4-frame="true"] .codex-art-layer{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+}
+
+
+/* ============================================================
+   V3.0.2 — MODULAR CODEX PANELS + RESPONSIVE WEB A4 PREVIEW
+   ============================================================ */
+
+/* The web view shows a scaled preview of the same A4 card instead of trying
+   to make 210mm cards participate directly in a responsive grid. */
+@media screen {
+  #cardsContainer{
+    display:grid!important;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))!important;
+    align-items:start!important;
+    gap:28px!important;
+  }
+  .datasheet-card-wrapper{
+    min-width:0!important;
+    width:100%!important;
+    overflow:visible!important;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .a4-preview-shell{
+    position:relative;
+    overflow:visible;
+    flex:none;
+    max-width:100%;
+  }
+  .a4-preview-shell > .data-card[data-a4-frame="true"]{
+    position:absolute!important;
+    left:0; top:0;
+    width:210mm!important;
+    height:297mm!important;
+    min-height:297mm!important;
+    max-height:297mm!important;
+    margin:0!important;
+    transform-origin:top left;
+  }
+}
+
+/* The live information is made from stable, movable Codex text boxes. */
+.data-card[data-a4-frame="true"] .codex-panel-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.38fr) minmax(0,.92fr);
+  gap:4mm;
+  align-items:start;
+}
+.data-card[data-a4-frame="true"] .codex-panel-column{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:2.4mm;
+}
+.data-card[data-a4-frame="true"] .codex-text-panel{
+  margin:0!important;
+  border:1px solid rgba(77,55,31,.28);
+  border-radius:1.2mm;
+  background:linear-gradient(180deg,rgba(251,244,221,.96),rgba(238,224,188,.94));
+  box-shadow:0 1.2mm 2.4mm rgba(44,29,14,.10), inset 0 0 0 .25mm rgba(255,255,255,.42);
+  overflow:hidden;
+}
+.data-card[data-a4-frame="true"] .codex-text-panel > h4{
+  margin:0!important;
+  padding:1.8mm 2.3mm!important;
+  border-left:0!important;
+  border-bottom:.6mm solid var(--card-accent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card-primary) 20%,#f3ead1),rgba(221,208,174,.82))!important;
+}
+.data-card[data-a4-frame="true"] .codex-text-panel > :not(h4){
+  margin-left:2.2mm;
+  margin-right:2.2mm;
+}
+.data-card[data-a4-frame="true"] .panel-stats{
+  padding:1.6mm;
+}
+.data-card[data-a4-frame="true"] .panel-stats .stats{
+  margin:0!important;
+}
+.data-card[data-a4-frame="true"] .panel-rules,
+.data-card[data-a4-frame="true"] .panel-keywords,
+.data-card[data-a4-frame="true"] .panel-faction-keywords{
+  font-size:.95em;
+}
+.data-card[data-a4-frame="true"] .panel-note{
+  position:relative;
+  z-index:45;
+  margin:2.2mm 0 0!important;
+  opacity:.74;
+}
+
+/* The interior itself no longer becomes a giant blank white rectangle.
+   It is an open parchment canvas with movable text boxes and illustrated frame. */
+.data-card[data-a4-frame="true"] .card-body{
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:4mm!important;
+}
+.data-card[data-a4-frame="true"][data-codex-composition="standard"] .card-body,
+.data-card[data-a4-frame="true"][data-codex-composition="hero"] .card-body{
+  padding-right:4mm!important;
+}
+
+/* Strong raster artwork pieces sit outside and partially over the parchment.
+   They remain below the live panels. */
+.data-card[data-art-pack="space-wolves"] .codex-art-topFrame{
+  height:31mm!important;
+  width:210mm!important;
+  opacity:1!important;
+  object-fit:fill!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-topLeft{
+  width:49mm!important;
+  height:73mm!important;
+  opacity:1!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-leftRail{
+  width:24mm!important;
+  height:252mm!important;
+  opacity:.98!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-rightRail{
+  left:auto!important;
+  right:0!important;
+  width:23mm!important;
+  height:252mm!important;
+  opacity:.98!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-bottomFrame{
+  left:0!important;
+  width:210mm!important;
+  height:29mm!important;
+  opacity:1!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-background{
+  left:22mm!important;
+  top:31mm!important;
+  width:166mm!important;
+  height:236mm!important;
+  opacity:.20!important;
+  object-fit:cover!important;
+}
+
+/* Actual content safe-zone moves inward so the illustrated rails remain visible. */
+.data-card[data-art-pack="space-wolves"]{
+  --safe-left:20mm!important;
+  --safe-right:20mm!important;
+  --safe-top:25mm!important;
+  --safe-bottom:24mm!important;
+}
+.data-card[data-art-pack="space-wolves"] .card-header{
+  border:2px solid rgba(185,150,79,.55)!important;
+  box-shadow:0 3mm 5mm rgba(9,17,24,.30),inset 0 0 0 .4mm rgba(221,195,136,.28)!important;
+}
+
+/* Dense combined sheets use the same text boxes but fall back to one flow column. */
+.data-card[data-codex-composition="dense"] .codex-panel-layout{
+  grid-template-columns:1fr;
+}
+
+@media print{
+  .a4-preview-shell{
+    display:contents!important;
+    width:auto!important;height:auto!important;
+  }
+  .a4-preview-shell > .data-card[data-a4-frame="true"]{
+    position:relative!important;
+    transform:none!important;
+  }
+}
+
+
+/* V3.0.3 — ART PACK BINDING HOTFIX */
+.data-card[data-a4-frame="true"] .codex-art-root{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:10!important;
+  pointer-events:none!important;
+}
+.data-card[data-a4-frame="true"] .codex-art-layer{
+  display:block!important;
+  visibility:visible!important;
+  max-width:none!important;
+}
+.data-card[data-a4-frame="true"] > .card-header,
+.data-card[data-a4-frame="true"] > .card-body,
+.data-card[data-a4-frame="true"] > .card-note{
+  z-index:40!important;
+}
+.data-card[data-art-pack="space-wolves"] .codex-art-topFrame,
+.data-card[data-art-pack="space-wolves"] .codex-art-topLeft,
+.data-card[data-art-pack="space-wolves"] .codex-art-leftRail,
+.data-card[data-art-pack="space-wolves"] .codex-art-rightRail,
+.data-card[data-art-pack="space-wolves"] .codex-art-bottomFrame{
+  opacity:1!important;
+  mix-blend-mode:normal!important;
+}
+
+
+/* V3.0.4 — RENDER PIPELINE SAFETY */
+@media screen {
+  .a4-preview-shell{
+    min-height:320px;
+  }
+  .a4-preview-shell:has(> .data-card){
+    background:transparent;
+  }
+  .datasheet-card-wrapper > .data-card[data-a4-frame="true"]{
+    /* Safe fallback if preview-shell JS ever fails: show a usable card instead of overlap/blank. */
+    max-width:100%;
+  }
+}
+.data-card[data-art-frame-error]{
+  outline:2px dashed rgba(180,80,40,.45);
+}
+
+/* V3.0.5 Unified Fenris Page Engine */
+.data-card>.codex-seamless-frame{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important;z-index:30!important;pointer-events:none!important}
+.data-card>.card-header,.data-card>.card-body,.data-card>.card-note{position:relative;z-index:40!important}
+.data-card[data-physical-format="a4Portrait"]{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important}
+.data-card[data-physical-format="a5Landscape"]{width:210mm!important;height:148.5mm!important;min-height:148.5mm!important;max-height:148.5mm!important}
+.data-card[data-art-pack="space-wolves"]>.card-header,.data-card[data-art-pack="space-wolves"]>.card-body,.data-card[data-art-pack="space-wolves"]>.card-note{margin-left:14mm!important;margin-right:14mm!important}
+.data-card[data-art-pack="space-wolves"]>.card-header{margin-top:15mm!important}
+.data-card[data-unified-layout="true"] .codex-panel-layout{display:grid!important;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr)!important;gap:3.5mm!important}
+body[data-card-background="white"] .data-card{background:#fff!important}body[data-card-background="parchment"] .data-card{background:#efe4c7!important}
+@media screen{#cardsContainer{display:flex!important;flex-direction:column;align-items:center;gap:28px!important}.a4-preview-shell{flex:none!important;overflow:visible!important}}
+@media print{@page{size:A4 portrait;margin:0}.data-card[data-physical-format="a4Portrait"]{break-after:page}.data-card[data-physical-format="a5Landscape"]{width:210mm!important;height:148.5mm!important;break-inside:avoid}}
+
+
+/* ============================================================
+   V3.0.6 — CLEAN PRINT RENDERER REBUILD
+   ============================================================ */
+
+/* NORMAL DATASHEETS TAB: responsive functional cards, no artwork, no A4. */
+#cardsContainer{
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,560px),1fr))!important;
+  gap:22px!important;
+  align-items:start!important;
+}
+#cardsContainer .functional-datasheet-wrapper{
+  width:100%!important;
+  min-width:0!important;
+}
+#cardsContainer .data-card[data-render-mode="datasheet"]{
+  width:100%!important;
+  max-width:none!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  transform:none!important;
+  overflow:visible!important;
+  border-width:3px!important;
+  background:var(--card-paper)!important;
+}
+#cardsContainer .data-card[data-render-mode="datasheet"]::before,
+#cardsContainer .data-card[data-render-mode="datasheet"]::after,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-header::before,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-header::after,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-body::before,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-body::after,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-note::before,
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-note::after,
+#cardsContainer .data-card[data-render-mode="datasheet"] .codex-seamless-frame,
+#cardsContainer .data-card[data-render-mode="datasheet"] .codex-art-root,
+#cardsContainer .data-card[data-render-mode="datasheet"] .codex-art-layer{
+  display:none!important;
+  content:none!important;
+  background-image:none!important;
+}
+#cardsContainer .data-card[data-render-mode="datasheet"] .card-body{
+  margin:0!important;
+  padding:16px!important;
+  background:var(--card-paper)!important;
+  box-shadow:none!important;
+}
+
+/* All cards use the same section grammar. */
+.data-card[data-unified-layout="true"] .codex-panel-layout{
+  display:block!important;
+}
+.data-card[data-unified-layout="true"] .codex-panel-column{
+  display:contents!important;
+}
+.data-card[data-unified-layout="true"] .card-section,
+.data-card[data-unified-layout="true"] .profile-block,
+.data-card[data-unified-layout="true"] .combined-abilities,
+.data-card[data-unified-layout="true"] .combined-rules{
+  margin-bottom:10px!important;
+}
+
+/* THEME PREVIEW: exact scaled PRINT CARD. */
+.clean-theme-grid{
+  grid-template-columns:minmax(250px,320px) minmax(0,1fr)!important;
+}
+.clean-theme-controls{
+  align-self:start;
+}
+.clean-theme-controls > label{
+  display:block;
+  margin:14px 0;
+}
+.clean-print-preview{
+  display:flex;
+  justify-content:center;
+  overflow:auto;
+  padding:18px;
+  background:#121923;
+  border-radius:12px;
+}
+.true-print-preview-shell{
+  position:relative;
+  width:100%;
+  max-width:760px;
+}
+.true-print-preview-shell > .data-card{
+  position:absolute;
+  left:0;top:0;
+  transform-origin:top left;
+}
+
+/* PRINT CARD physical master. */
+.data-card[data-render-mode="print"]{
+  box-sizing:border-box!important;
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"]{
+  width:210mm!important;
+  height:297mm!important;
+  min-height:297mm!important;
+  max-height:297mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]{
+  --a5-panel-scale:1;
+  --a5-profile-scale:1;
+  --a5-weapon-scale:1;
+  --a5-stat-scale:1;
+  --a5-gap-scale:1;
+  width:210mm!important;
+  height:148.5mm!important;
+  min-height:148.5mm!important;
+  max-height:148.5mm!important;
+}
+.data-card[data-render-mode="print"][data-print-background="white"]{
+  background:#fff!important;
+  --card-paper:#fff!important;
+  --card-parchment:#fff!important;
+}
+.data-card[data-render-mode="print"][data-print-background="parchment"]{
+  background:#efe4c7!important;
+  --card-paper:#efe4c7!important;
+  --card-parchment:#efe4c7!important;
+}
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:fill!important;
+  z-index:20!important;
+  pointer-events:none!important;
+}
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body{
+  position:relative!important;
+  z-index:30!important;
+  margin-left:13mm!important;
+  margin-right:13mm!important;
+}
+.data-card[data-render-mode="print"] > .card-header{
+  margin-top:14mm!important;
+}
+.data-card[data-render-mode="print"] > .card-body{
+  margin-bottom:13mm!important;
+  padding:3mm!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]{
+  font-size:8pt!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-header{
+  margin-top:9mm!important;
+  margin-left:11mm!important;
+  margin-right:11mm!important;
+  min-height:17mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-body{
+  margin-left:11mm!important;
+  margin-right:11mm!important;
+  margin-bottom:9mm!important;
+  padding:2mm!important;
+}
+
+/* Forge Army Pack datasheet physical pages. */
+.print-sheet{
+  width:210mm!important;
+  height:297mm!important;
+  overflow:hidden!important;
+  break-after:page!important;
+  page-break-after:always!important;
+}
+.print-sheet-a4 > .data-card{
+  width:210mm!important;
+  height:297mm!important;
+}
+.print-sheet-two-a5{
+  display:grid!important;
+  grid-template-rows:148.5mm 148.5mm!important;
+}
+.print-sheet-two-a5 > .data-card{
+  width:210mm!important;
+  height:148.5mm!important;
+}
+
+/* Hide legacy theme UI even if stale browser markup is cached. */
+#chapterPreset,#themeTarget,#themeTargetStatus,#themePrimary,#themeAccent,#themePaper,#themeInk,
+#patternStyle,.decoration-controls,#resetTheme,#resetUnitTheme,#v305ThemeControls{
+  display:none!important;
+}
+
+@media print{
+  @page{size:A4 portrait;margin:0}
+  body.print-pack #app,
+  body.print-pack > header,
+  body.print-pack > nav{
+    display:none!important;
+  }
+  body.print-pack #armyPackPrint{
+    display:block!important;
+  }
+  .true-print-preview-shell{display:none!important}
+  .data-card[data-render-mode="print"]{
+    transform:none!important;
+    box-shadow:none!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+}
+
+
+/* ============================================================
+   V3.0.7 — THEME CONTROLS + TRUE PHOTO-FRAME OVERLAY
+   ============================================================ */
+
+/* Only one artwork element is ever allowed on a print card. */
+.data-card[data-render-mode="print"] > .codex-art-root,
+.data-card[data-render-mode="print"] > .codex-art-layer{
+  display:none!important;
+}
+
+/* The frame is literally one full-page image laid over the card like a photo frame. */
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  position:absolute!important;
+  inset:0!important;
+  left:0!important;
+  top:0!important;
+  right:auto!important;
+  bottom:auto!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+  mask:none!important;
+  -webkit-mask:none!important;
+  opacity:1!important;
+  z-index:50!important;
+  pointer-events:none!important;
+}
+
+/* Live content stays in the transparent opening and above the parchment,
+   but below the illustrated physical rim itself. */
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body,
+.data-card[data-render-mode="print"] > .card-note{
+  z-index:40!important;
+}
+
+/* Header/body are inset enough that the visible frame may overlap their BOXES,
+   but never the live text. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body{
+  margin-left:28mm!important;
+  margin-right:28mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header{
+  margin-top:31mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body{
+  margin-bottom:29mm!important;
+}
+
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-body{
+  margin-left:24mm!important;
+  margin-right:24mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-header{
+  margin-top:21mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-body{
+  margin-bottom:19mm!important;
+}
+
+/* Frame disabled = no hidden residual ornamentation. */
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame))::before,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame))::after,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame)) .card-header::before,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame)) .card-header::after,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame)) .card-body::before,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame)) .card-body::after{
+  background-image:none!important;
+}
+
+/* Theme controls get explicit interaction visibility. */
+.clean-theme-controls input,
+.clean-theme-controls select{
+  pointer-events:auto!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+
+/* Preview shows one exact page master, centered. */
+.clean-print-preview{
+  min-height:520px;
+}
+.true-print-preview-shell{
+  margin:0 auto;
+  overflow:visible!important;
+}
+.true-print-preview-shell > .data-card{
+  box-shadow:0 12px 36px rgba(0,0,0,.42)!important;
+}
+
+
+/* ==========================================================
+   V3.0.9 — VALIDATED SAFE FRAME RENDERER
+   ========================================================== */
+.data-card[data-render-mode="print"]{
+  --safe-left:calc(var(--frame-safe-x, .21) * 100%);
+  --safe-top:calc(var(--frame-safe-y, .15) * 100%);
+  --safe-width:calc(var(--frame-safe-w, .58) * 100%);
+  --safe-height:calc(var(--frame-safe-h, .70) * 100%);
+}
+
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  z-index:50!important;
+  pointer-events:none!important;
+  transform:none!important;
+  opacity:1!important;
+}
+
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body,
+.data-card[data-render-mode="print"] > .card-note{
+  position:relative!important;
+  z-index:40!important;
+  margin-left:var(--safe-left)!important;
+  width:var(--safe-width)!important;
+  margin-right:0!important;
+  box-sizing:border-box!important;
+}
+
+.data-card[data-render-mode="print"] > .card-header{
+  margin-top:var(--safe-top)!important;
+}
+
+.data-card[data-render-mode="print"] > .card-body{
+  margin-top:0!important;
+  padding:2.2mm!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* Keep information panels legible whenever the frame approaches them. */
+.data-card[data-render-mode="print"] .codex-text-panel,
+.data-card[data-render-mode="print"] .profile-block,
+.data-card[data-render-mode="print"] .card-section{
+  background:rgba(244,233,203,.96)!important;
+}
+
+/* Trim visual bulk slightly at the sides while still filling the page. */
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  transform:scaleX(.965)!important;
+  transform-origin:center center!important;
+}
+
+/* Slightly denser type for text-heavy print cards. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"]{
+  font-size:8.8pt!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]{
+  font-size:7.2pt!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .profile-block{
+  margin-bottom:1.1mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-body{
+  padding:1.3mm!important;
+}
+
+/* No legacy pseudo ornamentation. */
+.data-card[data-render-mode="print"]::before,
+.data-card[data-render-mode="print"]::after,
+.data-card[data-render-mode="print"] .card-header::before,
+.data-card[data-render-mode="print"] .card-header::after,
+.data-card[data-render-mode="print"] .card-body::before,
+.data-card[data-render-mode="print"] .card-body::after{
+  content:none!important;
+  background-image:none!important;
+}
+
+
+/* ==========================================================
+   V3.0.10 — FULL BLEED FRAME + CENTERED CONTENT + WORKING THEME
+   ========================================================== */
+
+/* The physical page clips the artwork; the frame itself deliberately bleeds
+   past the page edge so the printed result looks cut off at the paper edge. */
+.data-card[data-render-mode="print"]{
+  overflow:hidden!important;
+}
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  position:absolute!important;
+  left:-4mm!important;
+  top:-4mm!important;
+  width:calc(100% + 8mm)!important;
+  height:calc(100% + 8mm)!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  transform:none!important;
+  transform-origin:center center!important;
+  clip-path:none!important;
+  z-index:50!important;
+  pointer-events:none!important;
+}
+
+/* Live content is centred inside the validated opening. */
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body,
+.data-card[data-render-mode="print"] > .card-note{
+  position:relative!important;
+  z-index:40!important;
+  width:var(--safe-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  left:auto!important;
+  right:auto!important;
+  transform:none!important;
+}
+.data-card[data-render-mode="print"] > .card-header{
+  margin-top:var(--safe-top)!important;
+}
+.data-card[data-render-mode="print"] > .card-body{
+  margin-top:0!important;
+}
+
+/* Prevent earlier layout rules from forcing the content off-centre. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-body{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Theme controls must always be interactive and visible. */
+#theme .clean-theme-controls{
+  position:relative;
+  z-index:5;
+}
+#theme .clean-theme-controls input,
+#theme .clean-theme-controls select,
+#theme .clean-theme-controls label{
+  pointer-events:auto!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+
+/* Frame toggle genuinely removes every frame visual. */
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame))::before,
+.data-card[data-render-mode="print"]:not(:has(> .codex-seamless-frame))::after{
+  content:none!important;
+  background:none!important;
+}
+
+
+/* V3.0.11 — single physical renderer */
+.data-card[data-render-mode="print"]{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+}
+.data-card[data-render-mode="print"] > .codex-seamless-frame{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:100%!important;
+  min-height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:fill!important;
+  object-position:center!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  z-index:10!important;
+  pointer-events:none!important;
+  opacity:1!important;
+  mask:none!important;
+  -webkit-mask:none!important;
+}
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body,
+.data-card[data-render-mode="print"] > .card-note{
+  position:relative!important;
+  z-index:30!important;
+}
+.data-card[data-render-mode="print"] > .card-header,
+.data-card[data-render-mode="print"] > .card-body{
+  width:var(--safe-width)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  left:auto!important;
+  right:auto!important;
+  transform:none!important;
+}
+.data-card[data-render-mode="print"] > .card-header{margin-top:var(--safe-top)!important}
+.data-card[data-render-mode="print"][data-print-background="parchment"]{
+  background:#efe4c7!important;
+  --card-paper:#efe4c7!important;
+  --card-parchment:#efe4c7!important;
+}
+.data-card[data-render-mode="print"][data-print-background="white"]{
+  background:#fff!important;
+  --card-paper:#fff!important;
+  --card-parchment:#fff!important;
+}
+.true-print-preview-shell{
+  position:relative!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+}
+.true-print-preview-shell > .data-card[data-render-mode="print"]{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  transform-origin:top left!important;
+}
+.data-card[data-render-mode="print"] .codex-art-root,
+.data-card[data-render-mode="print"] .codex-art-layer{display:none!important}
+.data-card[data-render-mode="print"]::before,
+.data-card[data-render-mode="print"]::after,
+.data-card[data-render-mode="print"] .card-header::before,
+.data-card[data-render-mode="print"] .card-header::after,
+.data-card[data-render-mode="print"] .card-body::before,
+.data-card[data-render-mode="print"] .card-body::after{
+  content:none!important;
+  background-image:none!important;
+}
+#theme #printCards{display:none!important}
+
+/* ============================================================
+   V3.0.14 — A4 FULL-BLEED / CROPPED ARTWORK FRAME
+   A4 is the focus format for this release. The physical card is
+   exactly 210 × 297 mm and clips an intentionally oversized frame.
+   This makes the artwork run through the paper edge instead of
+   ending inside it. A5 remains unchanged for now.
+   ============================================================ */
+
+/* Physical A4 master: absolutely no internal page margin or padding. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"]{
+  position:relative!important;
+  width:210mm!important;
+  height:297mm!important;
+  min-width:210mm!important;
+  min-height:297mm!important;
+  max-width:210mm!important;
+  max-height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+/* Overscan the A4 frame beyond every physical paper edge.
+   The page/card clips it, so the sides and top/bottom are genuinely cut off. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"] > .codex-seamless-frame{
+  position:absolute!important;
+  left:-8mm!important;
+  top:-10mm!important;
+  width:226mm!important;
+  height:317mm!important;
+  min-width:226mm!important;
+  min-height:317mm!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+  object-fit:fill!important;
+  object-position:center center!important;
+  transform:none!important;
+  transform-origin:center center!important;
+  z-index:10!important;
+  pointer-events:none!important;
+}
+
+/* A4 print sheets themselves also form an exact edge-to-edge clipping box. */
+.print-sheet.print-sheet-a4,
+.print-sheet-a4 > .data-card[data-render-mode="print"][data-physical-format="a4Portrait"]{
+  width:210mm!important;
+  height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+@media print{
+  @page{size:A4 portrait;margin:0!important}
+  html,
+  body,
+  body.print-pack,
+  body.print-pack #armyPackPrint,
+  body.print-pack .army-pack-print{
+    margin:0!important;
+    padding:0!important;
+  }
+  body.print-pack .print-sheet.print-sheet-a4{
+    margin:0!important;
+    padding:0!important;
+    width:210mm!important;
+    height:297mm!important;
+    overflow:hidden!important;
+  }
+}
+
+/* ============================================================
+   V3.0.15 — SPACE WOLVES A4 FRAME ARTWORK INTEGRATION
+   Uses the approved Fenris frame as the active A4 border while
+   preserving v3.0.14's full-bleed / cropped physical renderer.
+   ============================================================ */
+
+/* The new A4 art contains its own single uninterrupted title plaque.
+   Remove the old synthetic header box so the live name/title sits inside it. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-header{
+  width:154mm!important;
+  min-height:18mm!important;
+  margin:15mm auto 0!important;
+  padding:2.2mm 6mm 1.8mm!important;
+  box-sizing:border-box!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#172734!important;
+  align-items:center!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-header .card-title{
+  color:#172734!important;
+  text-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-header .card-kicker,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-header .card-points{
+  color:#243847!important;
+  text-shadow:none!important;
+}
+/* The wolf identity is already built into the physical artwork. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-header .chapter-emblem{
+  display:none!important;
+}
+
+/* Allow information boxes to use more of the page width. This intentionally
+   lets them overlap the inward-facing wolf/rune ornaments when content is dense. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="space-wolves"] > .card-body{
+  width:156mm!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  margin-top:7mm!important;
+}
+
+/* ============================================================
+   V3.0.16 — PRINT SURFACES + CLEAN A4 + A5 DATASHEET REBUILD
+   ============================================================ */
+
+/* One source of truth for every light print surface. White means white
+   everywhere that used to be parchment; Parchment and Chapter light do the
+   same for their own colour. Coloured title/section bars remain Chapter UI. */
+.data-card[data-render-mode="print"]{
+  background:var(--print-surface,#efe4c7)!important;
+  --card-paper:var(--print-surface,#efe4c7)!important;
+  --card-parchment:var(--print-surface,#efe4c7)!important;
+  color:var(--card-ink,#111318)!important;
+}
+.data-card[data-render-mode="print"] > .card-body,
+.data-card[data-render-mode="print"] .codex-text-panel,
+.data-card[data-render-mode="print"] .profile-block,
+.data-card[data-render-mode="print"] .card-section,
+.data-card[data-render-mode="print"] .ability-group,
+.data-card[data-render-mode="print"] .rule-title-group,
+.data-card[data-render-mode="print"] .rule-title-list span,
+.data-card[data-render-mode="print"] .stats,
+.data-card[data-render-mode="print"] .stat,
+.data-card[data-render-mode="print"] .weapon-table tbody,
+.data-card[data-render-mode="print"] .weapon-table td,
+.data-card[data-render-mode="print"] .keyword-footer{
+  background:var(--print-panel-bg,var(--print-surface,#efe4c7))!important;
+  color:var(--card-ink,#111318)!important;
+}
+.data-card[data-render-mode="print"] .ability-group,
+.data-card[data-render-mode="print"] .rule-title-group,
+.data-card[data-render-mode="print"] .rule-title-list span{
+  box-shadow:none!important;
+}
+
+/* A4 WITHOUT ARTWORK — use the whole physical sheet instead of retaining the
+   old frame safe-zone. The paper itself remains exactly 210 × 297 mm. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"]{
+  border:0!important;
+  border-radius:0!important;
+  width:210mm!important;
+  height:297mm!important;
+  padding:0!important;
+  background:var(--print-surface)!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] > .card-header{
+  width:200mm!important;
+  min-height:22mm!important;
+  margin:5mm auto 0!important;
+  padding:4mm 5mm!important;
+  box-sizing:border-box!important;
+  background:var(--card-primary)!important;
+  color:var(--card-primary-text,#fff)!important;
+  border:0!important;
+  border-bottom:1.4mm solid var(--card-accent)!important;
+  border-radius:1.5mm 1.5mm 0 0!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] > .card-header .card-title,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] > .card-header .card-kicker,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] > .card-header .card-points{
+  color:var(--card-primary-text,#fff)!important;
+  text-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] > .card-body{
+  width:200mm!important;
+  height:auto!important;
+  margin:2.5mm auto 4mm!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  background:transparent!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] .codex-panel-layout{
+  display:block!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] .codex-panel-column{
+  display:contents!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="false"] .profile-block{
+  border:0.35mm solid color-mix(in srgb,var(--card-primary) 48%,transparent)!important;
+  border-radius:1mm!important;
+  overflow:hidden!important;
+}
+
+/* A5 IS NOW A CLEAN DATASHEET FORMAT. It never contains physical artwork. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]{
+  --a5-panel-scale:1;
+  --a5-profile-scale:1;
+  --a5-weapon-scale:1;
+  --a5-stat-scale:1;
+  --a5-gap-scale:1;
+  width:210mm!important;
+  height:148.5mm!important;
+  min-width:210mm!important;
+  min-height:148.5mm!important;
+  max-width:210mm!important;
+  max-height:148.5mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:1.1mm solid var(--card-primary)!important;
+  border-radius:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+  background:var(--print-surface)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:6.15pt!important;
+  line-height:1.16!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .codex-seamless-frame,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .codex-art-root,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .codex-art-layer{
+  display:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]::before,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]::after,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-header::before,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-header::after,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-body::before,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-body::after,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-note::before,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-note::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+
+/* Strong horizontal title band, compact points block and optional Chapter mark. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-header{
+  width:100%!important;
+  min-height:18mm!important;
+  height:18mm!important;
+  margin:0!important;
+  padding:2.7mm 5mm 2.3mm!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:3mm!important;
+  background:var(--card-primary)!important;
+  color:var(--card-primary-text,#fff)!important;
+  border:0!important;
+  border-bottom:1.3mm solid var(--card-accent)!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-header > div:first-child{
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-title{
+  margin:0!important;
+  color:var(--card-primary-text,#fff)!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:11.5pt!important;
+  line-height:1.02!important;
+  font-weight:950!important;
+  letter-spacing:.035em!important;
+  text-shadow:none!important;
+  white-space:normal!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-kicker{
+  margin:0 0 calc(.8mm * var(--a5-panel-scale))!important;
+  color:var(--card-primary-text,#fff)!important;
+  font-size:5.4pt!important;
+  line-height:1!important;
+  font-weight:850!important;
+  letter-spacing:.15em!important;
+  opacity:.78!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-points{
+  flex:0 0 auto!important;
+  padding:2mm 2.6mm!important;
+  border:.35mm solid color-mix(in srgb,var(--card-accent) 74%,#111)!important;
+  background:var(--card-accent)!important;
+  color:var(--card-accent-text,#111)!important;
+  font-size:8pt!important;
+  line-height:1!important;
+  font-weight:950!important;
+  border-radius:.9mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .chapter-emblem{
+  position:static!important;
+  transform:none!important;
+  align-self:center!important;
+  display:grid!important;
+  place-items:center!important;
+  flex:0 0 13mm!important;
+  width:13mm!important;
+  height:13mm!important;
+  min-width:13mm!important;
+  padding:1.2mm!important;
+  border-radius:50%!important;
+  box-sizing:border-box!important;
+  background:color-mix(in srgb,var(--print-surface) 92%,#fff)!important;
+  border:.45mm solid var(--card-accent)!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .chapter-emblem-image{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+}
+
+/* A5 body: stats + weapons on the left, abilities/rules on the right, keywords
+   across the bottom. This is much closer to the information hierarchy of a
+   tabletop datasheet than the old scaled-down A4 stack. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] > .card-body{
+  width:auto!important;
+  height:126.1mm!important;
+  margin:0!important;
+  padding:calc(2.4mm * var(--a5-gap-scale)) calc(3mm * var(--a5-gap-scale)) calc(1.8mm * var(--a5-gap-scale))!important;
+  box-sizing:border-box!important;
+  background:var(--print-surface)!important;
+  overflow:hidden!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .a5-datasheet-grid{
+  height:118.5mm!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.22fr) minmax(0,.88fr)!important;
+  grid-template-rows:minmax(0,1fr) auto!important;
+  gap:calc(1.8mm * var(--a5-gap-scale)) calc(2.2mm * var(--a5-gap-scale))!important;
+  align-items:start!important;
+  overflow:hidden!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .a5-datasheet-column{
+  min-width:0!important;
+  min-height:0!important;
+  align-self:start!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .a5-datasheet-footer{
+  grid-column:1 / -1!important;
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:calc(1.3mm * var(--a5-gap-scale))!important;
+  align-self:end!important;
+}
+
+/* Official-datasheet inspired panel grammar: square, high-contrast bars and
+   dense tables, while the chosen print surface remains visible in every box. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-section{
+  margin:0 0 calc(1.25mm * var(--a5-gap-scale))!important;
+  border:.28mm solid color-mix(in srgb,var(--card-primary) 58%,transparent)!important;
+  border-radius:.65mm!important;
+  overflow:hidden!important;
+  background:var(--print-panel-bg)!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .profile-label,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-section > h4{
+  margin:0!important;
+  padding:calc(.9mm * var(--a5-panel-scale)) calc(1.35mm * var(--a5-panel-scale))!important;
+  background:var(--card-primary)!important;
+  color:var(--card-primary-text,#fff)!important;
+  border:0!important;
+  box-shadow:none!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:calc(5.45pt * var(--a5-panel-scale))!important;
+  line-height:1!important;
+  font-weight:950!important;
+  letter-spacing:.075em!important;
+  text-transform:uppercase!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .leader-profile,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .support-profile{
+  border-color:var(--card-accent)!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .profile-block .profile-label{
+  padding:calc(.9mm * var(--a5-profile-scale,1)) calc(1.35mm * var(--a5-profile-scale,1))!important;
+  font-size:calc(5.45pt * var(--a5-profile-scale,1))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .stats{
+  margin:0!important;
+  border:0!important;
+  display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .stat{
+  min-width:0!important;
+  padding:calc(.85mm * var(--a5-stat-scale)) calc(.45mm * var(--a5-stat-scale))!important;
+  border-right:.2mm solid color-mix(in srgb,var(--card-primary) 28%,transparent)!important;
+  text-align:center!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .stat:last-child{border-right:0!important}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .stat b{
+  font-size:calc(8.2pt * var(--a5-stat-scale))!important;
+  line-height:1!important;
+  font-weight:950!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .stat span{
+  margin-top:calc(.45mm * var(--a5-stat-scale))!important;
+  font-size:calc(4.65pt * var(--a5-stat-scale))!important;
+  line-height:1!important;
+  font-weight:900!important;
+  letter-spacing:.04em!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .save-stat{
+  padding-top:calc(4.2mm * var(--a5-stat-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .inv-save-badge{
+  top:calc(.3mm * var(--a5-stat-scale))!important;
+  min-width:calc(5.4mm * var(--a5-stat-scale))!important;
+  height:calc(4.6mm * var(--a5-stat-scale))!important;
+  font-size:calc(4.6pt * var(--a5-stat-scale))!important;
+}
+
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-table{
+  width:100%!important;
+  table-layout:fixed!important;
+  border-collapse:collapse!important;
+  font-size:calc(5.25pt * var(--a5-weapon-scale))!important;
+  line-height:1.06!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-table thead th{
+  padding:calc(.7mm * var(--a5-weapon-scale)) calc(.55mm * var(--a5-weapon-scale))!important;
+  background:color-mix(in srgb,var(--card-primary) 88%,#111)!important;
+  color:var(--card-primary-text,#fff)!important;
+  border:0!important;
+  border-right:.15mm solid rgba(255,255,255,.20)!important;
+  font-size:calc(4.7pt * var(--a5-weapon-scale))!important;
+  line-height:1!important;
+  font-weight:950!important;
+  text-transform:uppercase!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-table td{
+  padding:calc(.68mm * var(--a5-weapon-scale)) calc(.55mm * var(--a5-weapon-scale))!important;
+  border-bottom:.18mm solid color-mix(in srgb,var(--card-primary) 22%,transparent)!important;
+  font-size:calc(5.15pt * var(--a5-weapon-scale))!important;
+  line-height:1.08!important;
+  vertical-align:top!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-table .weapon-name-col{width:43%!important}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-keywords{
+  gap:calc(.5mm * var(--a5-weapon-scale))!important;
+  margin-top:calc(.35mm * var(--a5-weapon-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-keywords span,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .weapon-count{
+  font-size:calc(4.25pt * var(--a5-weapon-scale))!important;
+  line-height:1.15!important;
+  padding:0 calc(.55mm * var(--a5-weapon-scale))!important;
+}
+
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .ability-groups,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .rule-title-groups{
+  display:grid!important;
+  gap:calc(.75mm * var(--a5-panel-scale))!important;
+  padding:calc(.85mm * var(--a5-panel-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .ability-group,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .rule-title-group{
+  margin:0!important;
+  padding:calc(.75mm * var(--a5-panel-scale)) calc(.95mm * var(--a5-panel-scale))!important;
+  border:.18mm solid color-mix(in srgb,var(--card-primary) 25%,transparent)!important;
+  border-radius:.45mm!important;
+  font-size:calc(5.55pt * var(--a5-panel-scale))!important;
+  line-height:1.14!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .ability-group strong,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .rule-title-group > strong{
+  margin:0 0 calc(.35mm * var(--a5-panel-scale))!important;
+  font-size:calc(5.35pt * var(--a5-panel-scale))!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .ability-list{
+  margin:calc(.35mm * var(--a5-panel-scale)) 0 0!important;
+  padding-left:calc(3mm * var(--a5-panel-scale))!important;
+  font-size:calc(5.45pt * var(--a5-panel-scale))!important;
+  line-height:1.13!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .ability-list li{margin:0 0 calc(.45mm * var(--a5-panel-scale))!important}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .combined-abilities{
+  margin:0 0 calc(1.25mm * var(--a5-gap-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .combined-abilities > .unit-divider{
+  margin:0!important;
+  padding:calc(.9mm * var(--a5-panel-scale)) calc(1.35mm * var(--a5-panel-scale))!important;
+  background:var(--card-primary)!important;
+  color:var(--card-primary-text,#fff)!important;
+  font-size:calc(5.45pt * var(--a5-panel-scale))!important;
+  line-height:1!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .combined-abilities > .unit-divider::before,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .combined-abilities > .unit-divider::after{display:none!important}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .combined-ability-source{margin:0!important;border-radius:0!important}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .rule-title-list{
+  gap:calc(.5mm * var(--a5-weapon-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .rule-title-list span{
+  padding:calc(.28mm * var(--a5-panel-scale)) calc(.7mm * var(--a5-panel-scale))!important;
+  border-radius:999px!important;
+  font-size:calc(4.65pt * var(--a5-panel-scale))!important;
+  line-height:1.08!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .keyword-footer{
+  margin:0!important;
+  min-height:0!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .keyword-footer p{
+  margin:0!important;
+  padding:calc(.75mm * var(--a5-panel-scale)) calc(1mm * var(--a5-panel-scale))!important;
+  font-size:calc(4.75pt * var(--a5-panel-scale))!important;
+  line-height:1.08!important;
+  font-weight:750!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .card-note{
+  margin:calc(.65mm * var(--a5-panel-scale)) 0 0!important;
+  font-size:calc(4.25pt * var(--a5-panel-scale))!important;
+  line-height:1!important;
+  opacity:.62!important;
+  text-align:right!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .attached-banner{
+  margin:0 0 calc(.8mm * var(--a5-panel-scale))!important;
+  padding:calc(.65mm * var(--a5-panel-scale)) calc(1mm * var(--a5-panel-scale))!important;
+  font-size:calc(4.8pt * var(--a5-panel-scale))!important;
+  line-height:1!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"] .unit-divider:not(.combined-abilities > .unit-divider){
+  margin:calc(.9mm * var(--a5-panel-scale)) 0 calc(.65mm * var(--a5-panel-scale))!important;
+  font-size:calc(4.8pt * var(--a5-panel-scale))!important;
+}
+
+/* Dense A5 cards save space in gaps before sacrificing readability. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-codex-composition="dense"] > .card-body{
+  padding-top:calc(1.8mm * var(--a5-gap-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-codex-composition="dense"] .a5-datasheet-grid{
+  gap:calc(1.25mm * var(--a5-gap-scale)) calc(1.7mm * var(--a5-gap-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-codex-composition="dense"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-codex-composition="dense"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-codex-composition="dense"] .combined-abilities{
+  margin-bottom:calc(.85mm * var(--a5-gap-scale))!important;
+}
+
+/* The A5 frame control is removed from the interaction model. A4 keeps it. */
+#printThemeFrameRow[hidden]{display:none!important}
+
+@media print{
+  .print-sheet-two-a5 > .data-card[data-render-mode="print"][data-physical-format="a5Landscape"]{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+}
+
+/* A5 density guardrails. Imported rules are never removed; exceptionally dense
+   cards reduce whitespace first and type only slightly as a last resort. */
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="compact"] .ability-group,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="compact"] .ability-list,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="compact"] .rule-title-group{
+  font-size:calc(5.3pt * var(--a5-panel-scale))!important;
+  line-height:1.10!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="dense"] .ability-group,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="dense"] .ability-list,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="dense"] .rule-title-group{
+  padding:calc(.55mm * var(--a5-panel-scale)) calc(.75mm * var(--a5-panel-scale))!important;
+  font-size:calc(5.05pt * var(--a5-panel-scale))!important;
+  line-height:1.08!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="dense"] .weapon-table td{
+  padding:calc(.52mm * var(--a5-weapon-scale)) calc(.45mm * var(--a5-weapon-scale))!important;
+  font-size:calc(4.95pt * var(--a5-weapon-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .a5-datasheet-grid{
+  gap:calc(.9mm * var(--a5-gap-scale)) calc(1.35mm * var(--a5-gap-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .combined-abilities{
+  margin-bottom:calc(.55mm * var(--a5-gap-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .ability-groups,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .rule-title-groups{
+  gap:calc(.45mm * var(--a5-panel-scale))!important;
+  padding:calc(.55mm * var(--a5-panel-scale))!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .ability-group,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .ability-list,
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .rule-title-group{
+  padding:calc(.45mm * var(--a5-panel-scale)) calc(.65mm * var(--a5-panel-scale))!important;
+  font-size:calc(4.85pt * var(--a5-panel-scale))!important;
+  line-height:1.06!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .weapon-table td{
+  padding:calc(.42mm * var(--a5-weapon-scale)) calc(.38mm * var(--a5-weapon-scale))!important;
+  font-size:calc(4.75pt * var(--a5-weapon-scale))!important;
+  line-height:1.03!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a5Landscape"][data-a5-density="extreme"] .keyword-footer p{
+  padding:calc(.45mm * var(--a5-panel-scale)) calc(.7mm * var(--a5-panel-scale))!important;
+  font-size:calc(4.5pt * var(--a5-panel-scale))!important;
+}
+
+
+/* ============================================================
+   V3.0.17 — PRINT CONSISTENCY MICRO-FIXES
+   - A5 Chapter emblem is truly centred inside the title band.
+   - Clean A4 uses the same single vertical information flow for
+     standalone and attached/composite datasheets.
+   ============================================================ */
+
+/* ============================================================
+   V3.0.18 — ULTRAMARINES A4 FRAME ARTWORK INTEGRATION
+   The Macragge frame uses the same physical A4/full-bleed renderer
+   as the Space Wolves golden reference, with its own title plaque.
+   ============================================================ */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-header{
+  width:154mm!important;
+  min-height:18mm!important;
+  margin:15mm auto 0!important;
+  padding:2.2mm 6mm 1.8mm!important;
+  box-sizing:border-box!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#172d54!important;
+  align-items:center!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-header .card-title{
+  color:#172d54!important;
+  text-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-header .card-kicker,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-header .card-points{
+  color:#334970!important;
+  text-shadow:none!important;
+}
+/* The Chapter symbol and laurels are already part of the physical artwork. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-header .chapter-emblem{
+  display:none!important;
+}
+/* Let the live information panels approach the inward-facing medallions.
+   They remain above the artwork and may cover ornamentation when necessary. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-art-pack="ultramarines"] > .card-body{
+  width:156mm!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  margin-top:7mm!important;
+}
+
+/* ============================================================
+   V3.0.18 — A4 MASTER FRAME GEOMETRY
+   Space Wolves is the pixel master for every Chapter A4 artwork.
+   Chapter art may change style, but these live-content dimensions may not.
+   ============================================================ */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header{
+  width:154mm!important;
+  min-height:18mm!important;
+  margin:15mm auto 0!important;
+  padding:2.2mm 6mm 1.8mm!important;
+  box-sizing:border-box!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  align-items:center!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .chapter-emblem{
+  display:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-body{
+  width:156mm!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  margin-top:7mm!important;
+}
+
+
+/* ============================================================
+   V3.0.20 — ARTWORK CONTENT REFINEMENT
+   Shared by every A4 frame using the Space Wolves pixel master.
+   - Only real panels receive a light surface; the body canvas is transparent.
+   - Panels sit further inside the artwork without changing type or content.
+   - Vertical chrome/gaps are reduced slightly to protect the bottom artwork.
+   - Header text uses contrast-aware --art-title-text from the registry/app.
+   ============================================================ */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-body{
+  width:150mm!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  margin-top:7mm!important;
+  padding:1mm!important;
+  box-sizing:border-box!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .codex-panel-column{
+  gap:1.4mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .combined-abilities,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .combined-rules{
+  margin-bottom:1.4mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .codex-text-panel > h4{
+  padding:1.25mm 2mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .codex-text-panel > :not(h4){
+  margin-left:1.6mm!important;
+  margin-right:1.6mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] .panel-stats{
+  padding:1.1mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .card-title,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .card-kicker,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .card-points{
+  color:var(--art-title-text,var(--card-primary-text,#111318))!important;
+  text-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .card-kicker,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header .card-points{
+  opacity:.82!important;
+}
+
+/* ============================================================
+   V3.0.21 — ARTWORK FRAME FIT + LAYERING
+   The chapter artwork is the physical A4 page frame. Do not overscan it.
+   The selected print surface lives behind the transparent frame opening;
+   structural content wrappers stay transparent and only the actual data
+   panels sit above the illustration.
+   ============================================================ */
+
+/* Keep the entire approved 2480×3508 frame visible on the 210×297 mm page.
+   Full bleed now comes from the asset touching the page edge, not from zooming
+   and cropping 8–10 mm off every side. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .codex-seamless-frame{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  right:auto!important;
+  bottom:auto!important;
+  inset:auto!important;
+  width:210mm!important;
+  height:297mm!important;
+  min-width:210mm!important;
+  min-height:297mm!important;
+  max-width:210mm!important;
+  max-height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  object-fit:fill!important;
+  object-position:center center!important;
+  transform:none!important;
+  transform-origin:center center!important;
+  clip-path:none!important;
+  opacity:1!important;
+  z-index:20!important;
+  pointer-events:none!important;
+}
+
+/* The card surface is the single background fill for every transparent pixel
+   in the artwork. No second rectangular parchment/body canvas is allowed. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"]{
+  background:var(--print-surface,#efe4c7)!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body > .codex-panel-layout,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .codex-panel-column,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .a5-datasheet-grid,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .a5-datasheet-column,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .a5-datasheet-footer{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body{
+  position:relative!important;
+  z-index:30!important;
+  margin-bottom:0!important;
+}
+
+/* Artwork already contains all chapter ornamentation. Legacy pseudo artwork
+   on card/header/body must never create another opaque or decorative layer. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"]::before,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"]::after,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header::before,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header::after,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body::before,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body::after,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-note::before,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-note::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+}
+
+/* Only real information panels may cover inward-facing ornamentation. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header{
+  position:relative!important;
+  z-index:40!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .codex-text-panel,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .combined-abilities,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .combined-rules,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .keyword-footer,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .panel-note{
+  position:relative!important;
+  z-index:40!important;
+}
+
+/* With the artwork no longer overscanned, live content must follow the master
+   pixel landmarks in physical A4 coordinates as well. The title plaque inner
+   top is ~21 mm and the main body opening begins at ~52.4 mm. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-header{
+  margin-top:21mm!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"][data-frame-geometry="space-wolves-a4-master-v1"] > .card-body{
+  margin-top:14mm!important;
+}
+
+
+/* ============================================================
+   V3.0.22 — EXPLICIT ARTWORK LAYER STACK
+   Physical order is deliberately simple and chapter-independent:
+     0  A4 print surface colour
+     10 seamless artwork frame
+     20 transparent live-content structure
+     30 individual information panels / title text
+   No card-body or layout wrapper is allowed to paint a background.
+   ============================================================ */
+
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"]{
+  background:transparent!important;
+  background-image:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .print-page-surface{
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  width:210mm!important;
+  height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  background:var(--print-surface,#efe4c7)!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .codex-seamless-frame{
+  z-index:10!important;
+}
+
+/* Structural layers position content only. They never paint. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-note{
+  position:relative!important;
+  z-index:20!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body > *,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .codex-panel-layout,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .codex-panel-column,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .unified-section,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .unified-stats,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .combined-abilities,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body .combined-rules{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border-color:transparent!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-body{
+  min-height:0!important;
+  height:auto!important;
+}
+
+/* Re-apply a surface ONLY to real information boxes. These are the only
+   elements allowed to cover inward-facing artwork ornaments. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .profile-block,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .card-section,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .codex-text-panel,
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .keyword-footer{
+  position:relative!important;
+  z-index:30!important;
+  background:var(--print-panel-bg,var(--print-surface,#efe4c7))!important;
+  color:var(--card-ink,#111318)!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] .card-note{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+/* Title plaque itself belongs to the artwork. Only the live title text floats
+   above it; the header container remains optically empty. */
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+.data-card[data-render-mode="print"][data-physical-format="a4Portrait"][data-frame-enabled="true"] > .card-header > *{
+  position:relative!important;
+  z-index:30!important;
+}
+
+/* ============================================================
+   V3.0.23 — CLEAN A4 ARTWORK PRINT PAGE
+   A4 + artwork no longer renders as .data-card at all.
+   The only physical layers are:
+     0 page colour -> 10 artwork PNG -> 20 title -> 20 loose panels.
+   Historical .data-card frame/body rules cannot match this DOM.
+   ============================================================ */
+.artwork-print-page{
+  --print-scale:1;
+  box-sizing:border-box!important;
+  position:relative!important;
+  width:210mm!important;
+  height:297mm!important;
+  min-width:210mm!important;
+  max-width:210mm!important;
+  min-height:297mm!important;
+  max-height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  color:var(--card-ink,#111318)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font-size:calc(9.4pt * var(--print-scale));
+  line-height:calc(1.28 - (1 - var(--print-scale)) * .28);
+  -webkit-print-color-adjust:exact!important;
+  print-color-adjust:exact!important;
+}
+.artwork-print-background{
+  position:absolute!important;
+  inset:0!important;
+  width:210mm!important;
+  height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:var(--print-surface,#efe4c7)!important;
+  z-index:0!important;
+  pointer-events:none!important;
+}
+.artwork-print-frame{
+  position:absolute!important;
+  inset:0!important;
+  width:210mm!important;
+  height:297mm!important;
+  min-width:210mm!important;
+  min-height:297mm!important;
+  max-width:210mm!important;
+  max-height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  object-fit:fill!important;
+  object-position:center center!important;
+  transform:none!important;
+  z-index:10!important;
+  pointer-events:none!important;
+}
+/* Space Wolves master: title inner field starts around 21 mm. */
+.artwork-print-title{
+  position:absolute!important;
+  left:28mm!important;
+  right:28mm!important;
+  top:21mm!important;
+  height:20.5mm!important;
+  z-index:20!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:5mm!important;
+  padding:1mm 5mm!important;
+  margin:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:var(--art-title-text,#111318)!important;
+  overflow:hidden!important;
+}
+.artwork-print-title .artwork-title-copy{min-width:0;flex:1 1 auto;}
+.artwork-print-title .card-kicker{
+  margin:0 0 calc(3px * var(--print-scale))!important;
+  color:inherit!important;
+  font-size:calc(6.5pt * var(--print-scale))!important;
+  line-height:1!important;
+  letter-spacing:.14em!important;
+  opacity:.72!important;
+}
+.artwork-print-title .card-title{
+  margin:0!important;
+  color:inherit!important;
+  font-size:calc(15pt * var(--print-scale))!important;
+  line-height:1.04!important;
+  text-transform:uppercase!important;
+  letter-spacing:.04em!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+.artwork-print-title .card-points{
+  flex:0 0 auto!important;
+  color:inherit!important;
+  font-size:calc(9pt * var(--print-scale))!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+/* Transparent positioning flow only. It never paints a background. */
+.artwork-print-panels{
+  position:absolute!important;
+  left:30mm!important;
+  right:30mm!important;
+  top:53mm!important;
+  bottom:19mm!important;
+  z-index:20!important;
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  color:var(--card-ink,#111318)!important;
+}
+.artwork-print-panels::before,
+.artwork-print-panels::after{content:none!important;display:none!important;}
+.artwork-print-panels > *{box-sizing:border-box;}
+.artwork-print-panels .unified-section,
+.artwork-print-panels .unified-stats,
+.artwork-print-panels .combined-abilities,
+.artwork-print-panels .combined-rules{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+/* Only actual information boxes receive the selected paper/chapter-light surface. */
+.artwork-print-panels .profile-block,
+.artwork-print-panels .card-section,
+.artwork-print-panels .keyword-footer{
+  position:relative!important;
+  background:var(--print-panel-bg,var(--print-surface,#efe4c7))!important;
+  color:var(--card-ink,#111318)!important;
+  box-shadow:0 .25mm .7mm rgba(0,0,0,.10)!important;
+}
+.artwork-print-panels .profile-block{
+  margin:0 0 calc(7px * var(--print-scale))!important;
+  border:2px solid color-mix(in srgb,var(--card-primary) 35%,transparent)!important;
+  border-radius:4px!important;
+  overflow:hidden!important;
+}
+.artwork-print-panels .profile-label{
+  padding:calc(4px * var(--print-scale)) calc(7px * var(--print-scale))!important;
+  font-size:calc(7.5pt * var(--print-scale))!important;
+}
+.artwork-print-panels .stats{margin:0!important;}
+.artwork-print-panels .stat{padding:calc(5px * var(--print-scale)) calc(3px * var(--print-scale))!important;}
+.artwork-print-panels .stat b{font-size:calc(9pt * var(--print-scale))!important;}
+.artwork-print-panels .stat span{font-size:calc(5.8pt * var(--print-scale))!important;}
+.artwork-print-panels .card-section{
+  margin:calc(7px * var(--print-scale)) 0 0!important;
+  border-radius:3px!important;
+  overflow:hidden!important;
+}
+.artwork-print-panels .card-section h4{
+  margin:0 0 calc(3px * var(--print-scale))!important;
+  padding:calc(3px * var(--print-scale)) calc(5px * var(--print-scale))!important;
+  background:color-mix(in srgb,var(--card-primary) 12%,var(--print-panel-bg))!important;
+  border-left:4px solid var(--card-accent)!important;
+  font-size:calc(6.8pt * var(--print-scale))!important;
+}
+.artwork-print-panels .weapon-table{font-size:calc(6.8pt * var(--print-scale))!important;line-height:1.08!important;}
+.artwork-print-panels .weapon-table th,
+.artwork-print-panels .weapon-table td{padding:calc(2.5px * var(--print-scale)) calc(3px * var(--print-scale))!important;}
+.artwork-print-panels .weapon-keywords{gap:calc(2px * var(--print-scale))!important;margin-top:calc(2px * var(--print-scale))!important;}
+.artwork-print-panels .weapon-keywords span{padding:0 calc(3px * var(--print-scale))!important;font-size:calc(5.5pt * var(--print-scale))!important;}
+.artwork-print-panels .ability-groups{gap:calc(4px * var(--print-scale))!important;}
+.artwork-print-panels .ability-group{
+  padding:calc(4px * var(--print-scale)) calc(6px * var(--print-scale))!important;
+  font-size:calc(7.2pt * var(--print-scale))!important;
+  line-height:1.15!important;
+  background:color-mix(in srgb,var(--print-panel-bg) 93%,var(--card-primary))!important;
+}
+.artwork-print-panels .ability-group p{margin-top:calc(2px * var(--print-scale))!important;margin-bottom:0!important;}
+.artwork-print-panels .ability-list{line-height:1.12!important;padding-left:calc(14px * var(--print-scale))!important;margin-block:calc(3px * var(--print-scale))!important;}
+.artwork-print-panels .unit-divider{margin:calc(9px * var(--print-scale)) 0 calc(7px * var(--print-scale))!important;font-size:calc(6.5pt * var(--print-scale))!important;}
+.artwork-print-panels .keyword-footer,
+.artwork-print-panels .keyword-line{font-size:calc(6.2pt * var(--print-scale))!important;gap:calc(3px * var(--print-scale))!important;}
+.artwork-print-panels .card-note{
+  margin:calc(5px * var(--print-scale)) 0 0!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  font-size:calc(6pt * var(--print-scale))!important;
+  color:var(--card-ink,#111318)!important;
+  opacity:.68!important;
+}
+.artwork-print-panels .save-stat{padding-top:calc(17px * var(--print-scale))!important;}
+.artwork-print-panels .inv-save-badge{top:1px!important;min-width:calc(23px * var(--print-scale))!important;height:calc(21px * var(--print-scale))!important;font-size:calc(5.7pt * var(--print-scale))!important;padding:0 calc(4px * var(--print-scale))!important;}
+.artwork-print-panels .rule-title-groups{gap:calc(3px * var(--print-scale))!important;}
+.artwork-print-panels .rule-title-group{padding:calc(3px * var(--print-scale)) calc(5px * var(--print-scale))!important;font-size:calc(6.5pt * var(--print-scale))!important;}
+.artwork-print-panels .rule-title-group>strong{margin-bottom:calc(2px * var(--print-scale))!important;font-size:calc(5.15pt * var(--print-scale))!important;letter-spacing:.08em!important;}
+.artwork-print-panels .rule-title-list{gap:calc(2px * var(--print-scale))!important;}
+.artwork-print-panels .rule-title-list span{padding:0 calc(4px * var(--print-scale))!important;font-size:calc(5.8pt * var(--print-scale))!important;}
+
+.true-print-preview-shell > .artwork-print-page{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  transform-origin:top left!important;
+}
+.print-sheet-a4 > .artwork-print-page{
+  width:210mm!important;
+  height:297mm!important;
+}
+@media print{
+  .artwork-print-page{
+    transform:none!important;
+    break-inside:avoid!important;
+    box-shadow:none!important;
+  }
+}
+
+
+/* ============================================================
+   V3.0.38 — DARK ANGELS ABSOLUTE GEOMETRY + MEASURED FIT
+   Keep the real print datasheet components, but let the shell adapt them to
+   the artwork opening: start higher, sit closer to the inner frame edge, and
+   compact only when content pressure requires it.
+   ============================================================ */
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"]{
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  background:var(--print-surface,#efe4c7)!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .codex-seamless-frame,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .print-page-surface{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  right:auto!important;
+  bottom:auto!important;
+  inset:auto!important;
+  width:210mm!important;
+  height:297mm!important;
+  margin:0!important;
+  padding:0!important;
+  transform:none!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header{
+  position:absolute!important;
+  left:26.2mm!important;
+  top:24.2mm!important;
+  width:157.8mm!important;
+  min-height:19mm!important;
+  height:19mm!important;
+  margin:0!important;
+  padding:1.8mm 6.4mm!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:4.5mm!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--art-title-text,#173b2b)!important;
+  text-shadow:none!important;
+  overflow:hidden!important;
+  z-index:30!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-title,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
+  color:var(--art-title-text,#173b2b)!important;
+  text-shadow:none!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker{
+  opacity:.72!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points{
+  opacity:.88!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .chapter-emblem{
+  display:none!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body{
+  position:absolute!important;
+  left:50%!important;
+  top:var(--adaptive-body-top,50.6mm)!important;
+  width:var(--adaptive-body-width,160.5mm)!important;
+  max-width:var(--adaptive-body-width,160.5mm)!important;
+  margin:0!important;
+  padding:0!important;
+  transform:translateX(-50%)!important;
+  background:transparent!important;
+  overflow:visible!important;
+  z-index:30!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body > .codex-panel-layout{
+  gap:var(--adaptive-panel-gap,2.15mm)!important;
+  align-items:start!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-column{
+  gap:var(--adaptive-panel-gap,2.15mm)!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-main{
+  flex:1.12 1 0!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body .codex-panel-side{
+  flex:.88 1 0!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-block,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-abilities,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .combined-rules,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .panel-note{
+  margin:0!important;
+  border-radius:var(--adaptive-panel-radius,2.0mm)!important;
+  box-sizing:border-box!important;
+}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stats{margin:0!important;gap:var(--a4-ability-gap,2px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat{padding:var(--a4-stat-pad-y,4px) var(--a4-stat-pad-x,3px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat b{font-size:var(--a4-stat-value-font,8.2pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .stat span{font-size:var(--a4-stat-label-font,5.2pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .save-stat{padding-top:calc(var(--a4-stat-pad-y,4px) * 3.5)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .inv-save-badge{top:1px!important;min-width:20px!important;height:19px!important;font-size:var(--a4-inv-save-font,5.1pt)!important;padding:0 3.5px!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .profile-label{font-size:var(--a4-profile-label-font,7.5pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section{padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-section-header-font,13.2pt)!important;letter-spacing:.05em!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table){padding:var(--a4-section-pad-y,3.4px) var(--a4-section-pad-x,4.4px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-section:has(.weapon-table) h4{margin-bottom:var(--a4-header-gap,2.4px)!important;font-size:var(--a4-weapon-header-font,10.6pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table{font-size:var(--a4-weapon-font,9.4pt)!important;line-height:1.04!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table th,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-table td{padding:var(--a4-weapon-pad-y,1.7px) var(--a4-weapon-pad-x,2.2px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords{gap:1.4px!important;margin-top:1.3px!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .weapon-keywords span{padding:0 2.4px!important;font-size:var(--a4-weapon-keyword-font,7.6pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-groups{gap:var(--a4-ability-gap,2px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group{padding:var(--a4-ability-pad-y,2.6px) var(--a4-ability-pad-x,4.2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-group p{margin-top:var(--a4-list-margin,2px)!important;margin-bottom:0!important;font-size:var(--a4-desc-font,12pt)!important;line-height:1.14!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .ability-list{line-height:1.14!important;padding-left:var(--a4-list-indent,12px)!important;margin-block:var(--a4-list-margin,2px)!important;font-size:var(--a4-desc-font,12pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .unit-divider{margin:4px 0 3px!important;font-size:var(--a4-unit-divider-font,10pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-footer,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .keyword-line,
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .card-note{font-size:var(--a4-keyword-font,10.2pt)!important;line-height:1.12!important;gap:var(--a4-ability-gap,2px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-groups{gap:var(--a4-rule-gap,1.5px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group{padding:var(--a4-rule-pad-y,2.6px) var(--a4-rule-pad-x,3.6px)!important;font-size:var(--a4-rule-font,9.2pt)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-group>strong{margin-bottom:1.7px!important;font-size:var(--a4-rule-model-font,8pt)!important;letter-spacing:.08em!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list{gap:var(--a4-rule-gap,1.5px)!important;}
+.data-card.dark-angels-datasheet-prototype[data-render-mode="print"][data-physical-format="a4Portrait"] .rule-title-list span{padding:0 3.2px!important;font-size:var(--a4-rule-pill-font,8.6pt)!important;}

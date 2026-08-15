@@ -1,8 +1,9 @@
-const APP_VERSION = '2.9.3-illustrated-datasheet-framework';
+const APP_VERSION = '3.0.50-explicit-pixel-typography';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
 const DECORATION_PACK_LIBRARY = window.ASTARTES_DECORATION_PACK_LIBRARY || null;
+const CHAPTER_VISUAL_REGISTRY = window.ASTARTES_CHAPTER_VISUAL_REGISTRY || null;
 const VERIFICATION_GROUPS = CHAPTER_LIBRARY?.verificationGroups || {
   'Generic Adeptus Astartes': ['Gladius Task Force','Anvil Siege Force','Firestorm Assault Force','Ironstorm Spearhead','Stormlance Task Force','Vanguard Spearhead','First Company Task Force','Librarius Conclave','Fulguris Task Force','Subversion Assets','Armoured Speartip','Bastion Task Force','Ceramite Sentinels','Headhunter Task Force','Orbital Assault Force'],
   'Space Wolves': ['Champions of Fenris','Legends of Saga and Song','Veterans of the Fang','Saga of the Beastslayer','Saga of the Bold','Saga of the Great Wolf','Saga of the Hunter'],
@@ -17,8 +18,66 @@ const VERIFICATION_GROUPS = CHAPTER_LIBRARY?.verificationGroups || {
   'Black Templars': ["Marshal's Household",'The Living Miracle','Wrathful Procession','Companions of Vehemence','Godhammer Assault Force','Vindication Task Force']
 };
 const VERIFICATION_DETACHMENTS = Object.values(VERIFICATION_GROUPS).flat();
-const verificationState = JSON.parse(localStorage.getItem('astartesVerificationV1') || '{}');
-function saveVerificationState(){ localStorage.setItem('astartesVerificationV1', JSON.stringify(verificationState)); }
+
+// v3.0.28 — Standalone runtime hardening ------------------------------------
+// Astartes Forge is commonly opened directly from disk. Some browser APIs that
+// are available on https:// sites (notably crypto.randomUUID) are not guaranteed
+// on every local-file context. Persisted data can also outlive several app
+// versions. Neither condition should be able to stop the entire app at startup.
+const ASTARTES_STORAGE = (() => {
+  try {
+    const storage = window.localStorage;
+    const probe = '__astartes_forge_storage_probe__';
+    storage.setItem(probe, '1');
+    storage.removeItem(probe);
+    return storage;
+  } catch (error) {
+    console.warn('Persistent browser storage is unavailable; running in session-only mode.', error);
+    return null;
+  }
+})();
+function storageGet(key, fallback=null){
+  try {
+    const value=ASTARTES_STORAGE?.getItem(key);
+    return value===null || value===undefined ? fallback : value;
+  } catch(error){ console.warn(`Could not read ${key} from storage.`,error); return fallback; }
+}
+function storageSet(key,value){
+  try { ASTARTES_STORAGE?.setItem(key,String(value)); return true; }
+  catch(error){ console.warn(`Could not persist ${key}.`,error); return false; }
+}
+function storageRemove(key){
+  try { ASTARTES_STORAGE?.removeItem(key); }
+  catch(error){ console.warn(`Could not remove ${key} from storage.`,error); }
+}
+function storageJson(key,fallback){
+  const raw=storageGet(key,null);
+  if(raw===null) return fallback;
+  try { return JSON.parse(raw); }
+  catch(error){
+    console.warn(`Ignoring invalid saved Astartes Forge data for ${key}.`,error);
+    storageRemove(key);
+    return fallback;
+  }
+}
+function makeRuntimeId(prefix='af'){
+  try {
+    if(globalThis.crypto && typeof globalThis.crypto.randomUUID==='function') return globalThis.makeRuntimeId();
+  } catch(error){ /* fall through to compatible generator */ }
+  try {
+    if(globalThis.crypto && typeof globalThis.crypto.getRandomValues==='function'){
+      const bytes=new Uint8Array(16);
+      globalThis.crypto.getRandomValues(bytes);
+      bytes[6]=(bytes[6]&0x0f)|0x40;
+      bytes[8]=(bytes[8]&0x3f)|0x80;
+      const hex=[...bytes].map(x=>x.toString(16).padStart(2,'0')).join('');
+      return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+    }
+  } catch(error){ /* final fallback below */ }
+  return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,12)}-${Math.random().toString(36).slice(2,8)}`;
+}
+const verificationState = storageJson('astartesVerificationV1', {});
+function saveVerificationState(){ storageSet('astartesVerificationV1', JSON.stringify(verificationState)); }
 
 // Test Lab ---------------------------------------------------------------
 // Keeps development diagnostics separate from the normal print-first UI.
@@ -46,23 +105,23 @@ const coreStratagems = [
   { name: 'Counteroffensive', cp: 2, phase: 'Opponent Fight phase', text: 'WHEN: Fight step of your opponent’s Fight phase, just after an enemy unit has resolved its attacks. TARGET: One friendly unit eligible to fight. EFFECT: Until the end of the phase, that unit has Fights First and must be the next unit you select to fight.' }
 ];
 
-const chapterThemes = {
+// v3.0.19 — Chapter presentation still comes from one registry. Blood Angels now joins the shared Space Wolves geometry pipeline, keeping ROSZ
+// detection, colours, light print surfaces, emblems and A4 artwork routing in sync.
+const chapterThemes = CHAPTER_VISUAL_REGISTRY?.themeMap?.() || {
   'space-wolves': {primary:'#354a5f', accent:'#b31f2b', paper:'#efe4ca', ink:'#211d16', pattern:'chapter', chapter:'space-wolves', decorations:true, decorationIntensity:72, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'ultramarines': {primary:'#164b9b', accent:'#d4af37', paper:'#f0e4c8', ink:'#211d16', pattern:'chapter', chapter:'ultramarines', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'blood-angels': {primary:'#9f171c', accent:'#f0c245', paper:'#f1e3c7', ink:'#241813', pattern:'chapter', chapter:'blood-angels', decorations:true, decorationIntensity:58, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'dark-angels': {primary:'#173b2b', accent:'#d8c9a7', paper:'#eee2c8', ink:'#171c16', pattern:'chapter', chapter:'dark-angels', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'black-templars': {primary:'#17191d', accent:'#d8cbb0', paper:'#eee1c7', ink:'#171513', pattern:'chapter', chapter:'black-templars', decorations:true, decorationIntensity:62, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'imperial-fists': {primary:'#c99f00', accent:'#a72820', paper:'#f1e4c4', ink:'#211b10', pattern:'chapter', chapter:'imperial-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'salamanders': {primary:'#176f45', accent:'#151515', paper:'#ead9bd', ink:'#191812', pattern:'chapter', chapter:'salamanders', decorations:true, decorationIntensity:70, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'white-scars': {primary:'#e4e0d6', accent:'#b51f2e', paper:'#f0e4ca', ink:'#171717', pattern:'chapter', chapter:'white-scars', decorations:true, decorationIntensity:46, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'raven-guard': {primary:'#1c2028', accent:'#aeb7c2', paper:'#ebe0c8', ink:'#171717', pattern:'chapter', chapter:'raven-guard', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'iron-hands': {primary:'#17191d', accent:'#9ba5af', paper:'#e9dfca', ink:'#171717', pattern:'chapter', chapter:'iron-hands', decorations:true, decorationIntensity:52, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'deathwatch': {primary:'#111318', accent:'#aeb6bf', paper:'#ebe0c9', ink:'#171717', pattern:'chapter', chapter:'deathwatch', decorations:true, decorationIntensity:54, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'crimson-fists': {primary:'#183d79', accent:'#b21f2d', paper:'#eee2c9', ink:'#171717', pattern:'chapter', chapter:'crimson-fists', decorations:true, decorationIntensity:48, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
-  'flesh-tearers': {primary:'#68151b', accent:'#17191d', paper:'#ecddc5', ink:'#1a1112', pattern:'chapter', chapter:'flesh-tearers', decorations:true, decorationIntensity:60, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true},
   'generic-astartes': {primary:'#334155', accent:'#b8963e', paper:'#eee2c8', ink:'#171717', pattern:'chapter', chapter:'generic-astartes', decorations:true, decorationIntensity:38, emblem:true, weathering:true, bannerDepth:true,illustrations:true,watermark:true}
+};
+const defaultTheme = {...(chapterThemes['space-wolves'] || chapterThemes['generic-astartes'])};
+
+const CHAPTER_PRINT_SURFACES = Object.freeze(CHAPTER_VISUAL_REGISTRY?.surfaceMap?.() || {
+  'space-wolves':'#e4edf1',
+  'generic-astartes':'#e9edf1'
+});
+function printSurfaceFor(mode='parchment',chapter='generic-astartes'){
+  if(mode==='white') return '#ffffff';
+  if(mode==='chapter') return CHAPTER_VISUAL_REGISTRY?.surfaceFor?.(chapter) || CHAPTER_PRINT_SURFACES[chapter] || CHAPTER_PRINT_SURFACES['generic-astartes'];
+  return '#efe4c7';
 }
-const defaultTheme = {...chapterThemes['space-wolves']};
 
 // Sprint 1: Smart Theme Engine ---------------------------------------------
 // Calculate readable foreground colours for every theme surface. This keeps
@@ -90,6 +149,12 @@ function readableText(background, preferred='') {
   const candidates=['#ffffff','#111318'];
   if (preferred && /^#[0-9a-f]{3,6}$/i.test(preferred)) candidates.unshift(normaliseHex(preferred));
   return [...new Set(candidates)].sort((a,b)=>contrastRatio(background,b)-contrastRatio(background,a))[0];
+}
+function contrastAwareText(background, preferred='', minimumRatio=4.5) {
+  const bg=normaliseHex(background||'#ffffff');
+  const preferredHex=(preferred && /^#[0-9a-f]{3,6}$/i.test(preferred)) ? normaliseHex(preferred) : '';
+  if(preferredHex && contrastRatio(bg,preferredHex)>=minimumRatio) return preferredHex;
+  return readableText(bg,preferredHex);
 }
 function smartTheme(style={}) {
   const primary=normaliseHex(style.primary||defaultTheme.primary);
@@ -149,17 +214,17 @@ function mergeDetachmentLibrary(detachmentData={}) {
 }
 
 const state = {
-  roster: JSON.parse(localStorage.getItem('fenrisRoster') || '[]'),
-  detachmentId: localStorage.getItem('fenrisDetachment') || 'champions',
-  theme: JSON.parse(localStorage.getItem('fenrisTheme') || JSON.stringify(defaultTheme)),
-  importedUnits: JSON.parse(localStorage.getItem('fenrisImportedUnits') || '[]'),
-  importedRules: JSON.parse(localStorage.getItem('fenrisImportedRules') || '[]'),
-  importedMeta: JSON.parse(localStorage.getItem('fenrisImportedMeta') || 'null'),
+  roster: storageJson('fenrisRoster', []),
+  detachmentId: storageGet('fenrisDetachment', 'champions'),
+  theme: storageJson('fenrisTheme', {...defaultTheme}),
+  importedUnits: storageJson('fenrisImportedUnits', []),
+  importedRules: storageJson('fenrisImportedRules', []),
+  importedMeta: storageJson('fenrisImportedMeta', null),
   themeTarget: 'global',
-  chapterPreset: localStorage.getItem('fenrisChapterPreset') || 'space-wolves',
-  importGraph: JSON.parse(localStorage.getItem('fenrisImportGraph') || 'null'),
-  datasheetLayout: localStorage.getItem('fenrisDatasheetLayout') || 'model',
-  sourceInspection: JSON.parse(localStorage.getItem('fenrisSourceInspection') || 'null'),
+  chapterPreset: storageGet('fenrisChapterPreset', 'space-wolves'),
+  importGraph: storageJson('fenrisImportGraph', null),
+  datasheetLayout: storageGet('fenrisDatasheetLayout', 'model'),
+  sourceInspection: storageJson('fenrisSourceInspection', null),
   structuredArmyModel: null
 };
 
@@ -217,15 +282,15 @@ const rosterPoints = () => state.roster.reduce((sum, entry) => {
 }, 0);
 
 function saveState() {
-  localStorage.setItem('fenrisRoster', JSON.stringify(state.roster));
-  localStorage.setItem('fenrisDetachment', state.detachmentId);
-  localStorage.setItem('fenrisTheme', JSON.stringify(state.theme));
-  localStorage.setItem('fenrisImportedUnits', JSON.stringify(state.importedUnits));
-  localStorage.setItem('fenrisImportedRules', JSON.stringify(state.importedRules));
-  localStorage.setItem('fenrisImportedMeta', JSON.stringify(state.importedMeta));
-  localStorage.setItem('fenrisChapterPreset', state.chapterPreset);
-  localStorage.setItem('fenrisDatasheetLayout', state.datasheetLayout || 'model');
-  if(state.sourceInspection) localStorage.setItem('fenrisSourceInspection', JSON.stringify(state.sourceInspection)); else localStorage.removeItem('fenrisSourceInspection');
+  storageSet('fenrisRoster', JSON.stringify(state.roster));
+  storageSet('fenrisDetachment', state.detachmentId);
+  storageSet('fenrisTheme', JSON.stringify(state.theme));
+  storageSet('fenrisImportedUnits', JSON.stringify(state.importedUnits));
+  storageSet('fenrisImportedRules', JSON.stringify(state.importedRules));
+  storageSet('fenrisImportedMeta', JSON.stringify(state.importedMeta));
+  storageSet('fenrisChapterPreset', state.chapterPreset);
+  storageSet('fenrisDatasheetLayout', state.datasheetLayout || 'model');
+  if(state.sourceInspection) storageSet('fenrisSourceInspection', JSON.stringify(state.sourceInspection)); else storageRemove('fenrisSourceInspection');
   // The lossless graph can be large. Keep the full graph in memory for diagnostics
   // during the import session, but persist only its compact indexes so browser
   // storage cannot break on large tournament rosters.
@@ -236,8 +301,8 @@ function saveState() {
     sourceGraphSummary:graph.sourceGraph ? {version:graph.sourceGraph.version,selections:graph.sourceGraph.selections.length,profiles:graph.sourceGraph.profiles.length,rules:graph.sourceGraph.rules.length,categories:graph.sourceGraph.categories.length,costs:graph.sourceGraph.costs.length} : graph.sourceGraphSummary||null,
     fullSourceGraphPersisted:false
   } : null;
-  try { localStorage.setItem('fenrisImportGraph', JSON.stringify(persistedGraph)); }
-  catch(error){ console.warn('Import graph was not persisted:',error); localStorage.removeItem('fenrisImportGraph'); }
+  try { storageSet('fenrisImportGraph', JSON.stringify(persistedGraph)); }
+  catch(error){ console.warn('Import graph was not persisted:',error); storageRemove('fenrisImportGraph'); }
 }
 
 function init() {
@@ -250,13 +315,65 @@ function init() {
   renderThemeTargets();
   syncThemeControls();
   bindEvents();
+  bindCleanPrintControls();
   renderAll();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function syncCleanPrintControls(){
+  const t=cleanPrintSettings();
+  const emblem=document.getElementById('printThemeEmblem');
+  const frame=document.getElementById('printThemeFrame');
+  const frameRow=document.getElementById('printThemeFrameRow');
+  const background=document.getElementById('printThemeBackground');
+  const layout=document.getElementById('printThemeLayout');
+  const hint=document.getElementById('printThemeFormatHint');
+  const isA5=t.layout==='a4-two-a5';
+  if(emblem) emblem.checked=t.emblem!==false;
+  if(frame){ frame.checked=t.frame!==false; frame.disabled=isA5; }
+  if(frameRow) frameRow.hidden=isA5;
+  if(background) background.value=['white','chapter'].includes(t.background)?t.background:'parchment';
+  if(layout) layout.value=isA5?'a4-two-a5':'a4-single';
+  if(hint) hint.textContent=isA5
+    ? 'A5 uses the clean Warhammer-style datasheet layout. Artwork borders are disabled for this format.'
+    : 'A4 can use the Chapter artwork border or a full-page clean layout without artwork.';
+}
+function rebuildThemePreview(){
+  saveCleanPrintSettings();
+  syncCleanPrintControls();
+  renderThemePreview();
+}
+function bindCleanPrintControls(){
+  const theme=document.getElementById('theme');
+  if(!theme || theme.dataset.cleanPrintBound==='true') return;
+  theme.dataset.cleanPrintBound='true';
+  theme.addEventListener('change',event=>{
+    const el=event.target;
+    const t=cleanPrintSettings();
+    if(el?.id==='printThemeEmblem') t.emblem=!!el.checked;
+    else if(el?.id==='printThemeFrame') t.frame=!!el.checked;
+    else if(el?.id==='printThemeBackground') t.background=['white','chapter'].includes(el.value)?el.value:'parchment';
+    else if(el?.id==='printThemeLayout') t.layout=el.value==='a4-two-a5'?'a4-two-a5':'a4-single';
+    else return;
+    rebuildThemePreview();
+  });
+  syncCleanPrintControls();
 }
 
 function bindEvents() {
   $$('.tab').forEach(tab => tab.addEventListener('click', () => switchView(tab.dataset.view)));
-  $('#importNewRecruit').addEventListener('click', () => $('#newRecruitFile').click());
-  $('#exportImportDiagnostics').addEventListener('click', exportImportDiagnostics);
+  $('#importNewRecruit')?.addEventListener('click', () => $('#newRecruitFile')?.click());
+  $('#exportImportDiagnostics')?.addEventListener('click', exportImportDiagnostics);
   $('#exportDetachmentDiagnostics')?.addEventListener('click', exportDetachmentDiagnostics);
   $('#exportSourceInspection')?.addEventListener('click', exportSourceInspection);
   $('#runVerification')?.addEventListener('click', runCurrentVerification);
@@ -275,24 +392,31 @@ function bindEvents() {
   ['dragleave','drop'].forEach(type=>batchDrop?.addEventListener(type,e=>{e.preventDefault();batchDrop.classList.remove('dragover');}));
   batchDrop?.addEventListener('drop', e => runBatchRosterTests([...e.dataTransfer.files]));
   $('#batchTestResults')?.addEventListener('click', e => { const button=e.target.closest('[data-load-batch]'); if(button) loadBatchRoster(button.dataset.loadBatch); });
-  $('#newRecruitFile').addEventListener('change', handleNewRecruitImport);
-  $('#clearImportedData').addEventListener('click', clearImportedData);
+  $('#newRecruitFile')?.addEventListener('change', handleNewRecruitImport);
+  $('#clearImportedData')?.addEventListener('click', clearImportedData);
   $('#clearRoster')?.addEventListener('click', () => { state.roster = []; saveState(); renderAll(); });
-  $('#printCards').addEventListener('click', () => { document.body.classList.remove('print-rules'); switchView('cards'); requestAnimationFrame(() => window.print()); });
+  $('#printCards')?.addEventListener('click', printDatasheetsOnly);
   $('#printRules')?.addEventListener('click', () => { document.body.classList.add('print-rules'); switchView('reference'); requestAnimationFrame(() => window.print()); });
   $('#generateArmyPack')?.addEventListener('click', generateArmyPack);
   $$('[data-pack-section]').forEach(input => input.addEventListener('change', renderPrintCenter));
   $('#rulesSearch')?.addEventListener('input', renderReference);
   $('#phaseFilter')?.addEventListener('change', renderReference);
   $('#usableOnly')?.addEventListener('change', renderReference);
-  window.addEventListener('afterprint', () => { document.body.classList.remove('print-rules'); document.body.classList.remove('print-pack'); });
-  $('#chapterPreset').addEventListener('change', applyChapterPreset);
-  $('#themeTarget').addEventListener('change', e => { state.themeTarget = e.target.value; syncThemeControls(); renderThemePreview(); });
-  ['themePrimary','themeAccent','themePaper','themeInk'].forEach(id => $('#' + id).addEventListener('input', updateTheme));
-  $('#patternStyle').addEventListener('change', updateTheme);
-  ['themeDecorations','themeEmblem','themeWeathering','themeBannerDepth','themeIllustrations','themeWatermark'].forEach(id=>$('#'+id)?.addEventListener('change',updateTheme));
-  $('#resetTheme').addEventListener('click', () => { state.chapterPreset = 'space-wolves'; state.theme = {...chapterThemes['space-wolves']}; applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
-  $('#resetUnitTheme').addEventListener('click', () => { const entry = state.roster.find(x => x.id === state.themeTarget); if (!entry) return; entry.cardStyle = {}; saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
+  window.addEventListener('beforeprint', () => {
+    // Re-fit against the actual print-media cascade. A5 cards can gain a few
+    // pixels when the browser switches from screen preview to print layout.
+    const printRoot=$('#armyPackPrint') || document;
+    fitAllAdaptiveA5Cards(printRoot);
+    fitAllAdaptiveArtworkPages(printRoot);
+    // Force one synchronous layout pass, then verify the mounted print geometry
+    // again before the browser snapshots the page.
+    void document.body.offsetHeight;
+    fitAllAdaptiveA5Cards(printRoot);
+    fitAllAdaptiveArtworkPages(printRoot);
+  });
+  window.addEventListener('afterprint', () => { document.body.classList.remove('print-rules','print-pack','print-datasheets-only'); });
+  $('#resetTheme')?.addEventListener('click', () => { state.chapterPreset = 'space-wolves'; state.theme = {...chapterThemes['space-wolves']}; applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
+  $('#resetUnitTheme')?.addEventListener('click', () => { const entry = state.roster.find(x => x.id === state.themeTarget); if (!entry) return; entry.cardStyle = {}; saveState(); syncThemeControls(); renderCards(); renderThemePreview(); });
 }
 
 function switchView(id) {
@@ -302,6 +426,7 @@ function switchView(id) {
   if (id === 'reference') renderReference();
   if (id === 'theme') { renderThemeTargets(); syncThemeControls(); renderThemePreview(); }
   if (id === 'print-center') renderPrintCenter();
+  if(id==='theme'){ bindCleanPrintControls(); syncCleanPrintControls(); renderThemePreview(); }
 }
 
 function renderImportInspector() {
@@ -642,7 +767,7 @@ function analyseImportedRoster(imported,fileName=''){
     batchCheck('enhancements','Enhancements',allEnh,detail('loadedEnh','enhancements')),
     batchCheck('integrity','Source integrity & completeness',integrity.ok,integrity.detail,integrity.status)
   ];
-  return {id:crypto.randomUUID(),fileName,name:imported.name||fileName,detachment:mergedDetachments.map(d=>d.name).join(' + '),points:imported.points||0,units:units.length,passed:checks.filter(c=>c.ok).length,total:checks.length,checks,imported};
+  return {id:makeRuntimeId(),fileName,name:imported.name||fileName,detachment:mergedDetachments.map(d=>d.name).join(' + '),points:imported.points||0,units:units.length,passed:checks.filter(c=>c.ok).length,total:checks.length,checks,imported};
 }
 async function runBatchRosterTests(files=[]){
   const accepted=files.filter(f=>/\.(rosz|ros|xml|json)$/i.test(f.name));
@@ -654,7 +779,7 @@ async function runBatchRosterTests(files=[]){
       const result=analyseImportedRoster(imported,file.name);
       batchTestRuntime.results.push(result); batchTestRuntime.importedById.set(result.id,imported);
     }catch(error){
-      batchTestRuntime.results.push({id:crypto.randomUUID(),fileName:file.name,name:file.name,detachment:'Import failed',points:0,units:0,passed:0,total:1,checks:[batchCheck('parse','ROSZ parsed',false,error?.message||String(error))]});
+      batchTestRuntime.results.push({id:makeRuntimeId(),fileName:file.name,name:file.name,detachment:'Import failed',points:0,units:0,passed:0,total:1,checks:[batchCheck('parse','ROSZ parsed',false,error?.message||String(error))]});
     }
     renderBatchTestResults();
   }
@@ -713,7 +838,7 @@ function renderCatalogue() {
 }
 
 function addUnit(unit) {
-  state.roster.push({ id: crypto.randomUUID(), unitId: unit.id, weaponId: unit.weaponOptions?.[0]?.id || '', enabledWeapons: unit.imported ? (unit.weapons || []).map(w => w.id || w.name) : null, leaderId: '', supportId: '', enhancementId: '', cardStyle: {} });
+  state.roster.push({ id: makeRuntimeId(), unitId: unit.id, weaponId: unit.weaponOptions?.[0]?.id || '', enabledWeapons: unit.imported ? (unit.weapons || []).map(w => w.id || w.name) : null, leaderId: '', supportId: '', enhancementId: '', cardStyle: {} });
   saveState(); renderAll();
 }
 
@@ -826,7 +951,7 @@ function weaponSourceKey(weapon, index=0) {
   // If either identifier is unavailable, keep the row isolated rather than risk
   // merging unrelated legacy data.
   if(selectionId && profileId) return `${selectionId}::${profileId}`;
-  return `unkeyed::${index}::${weapon?.id||crypto.randomUUID()}`;
+  return `unkeyed::${index}::${weapon?.id||makeRuntimeId()}`;
 }
 
 function mergeIdenticalWeaponProfiles(weapons=[]) {
@@ -957,6 +1082,22 @@ function isWeaponKeywordExplanation(name='', text='') {
   return KEYWORD_LIBRARY?.isWeapon?.(nested) || false;
 }
 
+function stripDescriptionLabel(text=''){
+  return String(text||'').replace(/^\s*description\s*:\s*/i,'').replace(/^\s*desc\.?\s*:\s*/i,'').trim();
+}
+
+function headingModelName(heading=''){
+  return normaliseRuleName(String(heading||'').split(/\s+[-—–]\s+/)[0]||'');
+}
+
+function shouldShowGroupedModelLabel({groupModel='',heading='',suppressModelLabels=false,groupCount=1}){
+  if(suppressModelLabels) return false;
+  if(groupCount!==1) return true;
+  const modelKey=normaliseRuleName(groupModel);
+  const headingKey=headingModelName(heading);
+  return !(modelKey && headingKey && modelKey===headingKey);
+}
+
 function abilitiesSection(unit, heading, suppressModelLabels=false) {
   const groups = (unit.modelAbilities?.length ? unit.modelAbilities : [{model:unit.name, abilities:unit.abilities || []}])
     .map(group => ({
@@ -967,16 +1108,21 @@ function abilitiesSection(unit, heading, suppressModelLabels=false) {
           const raw = String(a).trim();
           const parts = raw.split(':');
           let name = parts.shift() || '';
-          let text = parts.join(':').trim();
+          let text = stripDescriptionLabel(parts.join(':').trim());
+          if(/^\s*description\s*$/i.test(name.trim())){
+            name='';
+          }
           // Some New Recruit exports wrap keyword rules as “Abilities: Anti-X: …”.
           // Inspect and discard the nested keyword title rather than rendering it as prose.
           if (/^(?:abilities?|weapon abilities?|wargear abilities?)$/i.test(name.trim()) && /^(?:anti\s*-\s*(?:x|[^:]+)|close[\s-]+quarters|support)(?:\b|:)/i.test(text)) return null;
           if (/^support$/i.test(name.trim()) || /^anti\s*-\s*/i.test(name.trim())) return null;
-          return {name: name.trim(), text: String(text || name.trim()).trim()};
+          const cleanName=name.trim();
+          const cleanText=stripDescriptionLabel(String(text || cleanName).trim());
+          return {name: cleanName, text: cleanText};
         }).filter(a => a && a.text && !/\bclose[\s-]+quarters\b/i.test(`${a.name} ${a.text}`) && !/^support$/i.test(a.name) && !/^anti\s*-\s*/i.test(a.name) && !isGenericAbilityName(a.name) && !isWeaponKeywordExplanation(a.name, a.text))
     })).filter(group => group.abilities.length);
   if (!groups.length) return '';
-  return `<div class="card-section"><h4>${heading}</h4><div class="ability-groups">${groups.map(group => `<div class="ability-group">${suppressModelLabels?'':`<strong>${escapeHtml(group.model)}</strong>`}<ul class="ability-list">${group.abilities.map(a => `<li><b>${escapeHtml(a.name)}</b>${a.text && a.text !== a.name ? ` — ${escapeHtml(a.text)}` : ''}</li>`).join('')}</ul></div>`).join('')}</div></div>`;
+  return `<div class="card-section"><h4>${heading}</h4><div class="ability-groups">${groups.map(group => `<div class="ability-group">${shouldShowGroupedModelLabel({groupModel:group.model,heading,suppressModelLabels,groupCount:groups.length})?`<strong>${escapeHtml(group.model)}</strong>`:''}<ul class="ability-list">${group.abilities.map(a => `<li>${a.name ? `<b>${escapeHtml(a.name)}</b>` : ''}${a.text && a.text !== a.name ? `${a.name ? ` — ` : ''}${escapeHtml(a.text)}` : ''}</li>`).join('')}</ul></div>`).join('')}</div></div>`;
 }
 
 function rulesSection(unit, heading='Rules', suppressModelLabels=false) {
@@ -985,7 +1131,7 @@ function rulesSection(unit, heading='Rules', suppressModelLabels=false) {
     .map(group=>({model:group.model,rules:[...new Set((group.rules||[]).map(x=>normaliseRuleName(typeof x==='string'?x:(x?.name||''))).filter(Boolean))]}))
     .filter(group=>group.rules.length);
   if(!groups.length) return '';
-  return `<div class="card-section rules-title-section"><h4>${escapeHtml(heading)}</h4><div class="rule-title-groups">${groups.map(group=>`<div class="rule-title-group">${suppressModelLabels?'':`<strong>${escapeHtml(group.model)}</strong>`}<div class="rule-title-list">${group.rules.map(name=>`<span>${escapeHtml(name)}</span>`).join('')}</div></div>`).join('')}</div></div>`;
+  return `<div class="card-section rules-title-section"><h4>${escapeHtml(heading)}</h4><div class="rule-title-groups">${groups.map(group=>`<div class="rule-title-group">${shouldShowGroupedModelLabel({groupModel:group.model,heading,suppressModelLabels,groupCount:groups.length})?`<strong>${escapeHtml(group.model)}</strong>`:''}<div class="rule-title-list">${group.rules.map(name=>`<span>${escapeHtml(name)}</span>`).join('')}</div></div>`).join('')}</div></div>`;
 }
 function combinedRulesSection(parts=[]) {
   const groups=[];
@@ -1077,15 +1223,16 @@ function importantKeywords(unit, leader=null) {
 }
 
 function detectChapterName(values=[]) {
+  if(CHAPTER_VISUAL_REGISTRY?.detectName) return CHAPTER_VISUAL_REGISTRY.detectName(values);
   const chapterNames = [
     'Space Wolves','Ultramarines','Blood Angels','Dark Angels','Black Templars','Imperial Fists',
     'Salamanders','White Scars','Raven Guard','Iron Hands','Deathwatch','Crimson Fists','Flesh Tearers',
     'Blood Ravens','Carcharodons','Raptors','Minotaurs','Lamenters','Exorcists','Silver Templars'
   ];
-  const found = chapterNames.find(ch => values.some(v => String(v).toLowerCase().includes(ch.toLowerCase())));
-  return found || '';
+  return chapterNames.find(ch => values.some(v => String(v).toLowerCase().includes(ch.toLowerCase()))) || '';
 }
 function chapterPresetForName(name='') {
+  if(CHAPTER_VISUAL_REGISTRY?.resolveKey) return CHAPTER_VISUAL_REGISTRY.resolveKey(name);
   const key = slug(name);
   return chapterThemes[key] ? key : 'generic-astartes';
 }
@@ -1102,41 +1249,40 @@ function factionNameFor(unit) {
 }
 
 function chapterEmblemFor(chapter='generic-astartes') {
-  // Published Chapter heraldry. Keep emblem identity independent from palette/material edits.
-  const files={
-    'space-wolves':'Spacewolvesymbol.png','ultramarines':'Ultramarinessymbol.png','blood-angels':'Bloodangelsymbol.png',
-    'dark-angels':'Darkangelsymbol.png','black-templars':'BlackTemplarssymbol.png','imperial-fists':'IFsymbol.png',
-    'salamanders':'Salamanderssymbol.png','white-scars':'WhiteScarssymbol.png','raven-guard':'RavenGuardsymbol.png',
-    'iron-hands':'Iron_Hands-logo.png','deathwatch':'Deathwatchsymbol2.png','generic-astartes':'Aquila1transparent.png'
-  };
-  const file=files[chapter]||files['generic-astartes'];
-  return `https://wh40k.lexicanum.com/wiki/Special:Redirect/file/${encodeURIComponent(file)}`;
+  if(CHAPTER_VISUAL_REGISTRY?.emblemUrl) return CHAPTER_VISUAL_REGISTRY.emblemUrl(chapter);
+  return 'https://wh40k.lexicanum.com/wiki/Special:Redirect/file/Aquila1transparent.png';
 }
 function chapterEmblemMarkup(chapter='generic-astartes', alt='Chapter emblem') {
   return `<img class="chapter-emblem-image" src="${chapterEmblemFor(chapter)}" alt="${escapeHtml(alt)}" referrerpolicy="no-referrer" loading="lazy">`;
 }
 function chapterDecorationLabel(chapter='generic-astartes') {
-  const labels={
-    'space-wolves':'RUNES · ICE · PELTS','ultramarines':'LAURELS · ROMAN ORNAMENT','blood-angels':'WINGS · DROPS · SEALS',
-    'dark-angels':'HOODS · WINGS · PARCHMENT','black-templars':'CHAINS · CROSSES · SEALS','imperial-fists':'FORTRESS · INDUSTRIAL',
-    'salamanders':'SCALES · SCORCHED PARCHMENT','white-scars':'LIGHTNING · WIND MARKS','raven-guard':'FEATHERS · SHADOW TEARS',
-    'iron-hands':'MECHANICAL · CABLES','deathwatch':'WATCH HERALDRY · METAL','generic-astartes':'AQUILA · PURITY SEALS'
-  };
-  return labels[chapter] || 'CHAPTER ORNAMENTS';
+  return CHAPTER_VISUAL_REGISTRY?.resolve?.(chapter)?.artwork?.decorationLabel || 'CHAPTER ORNAMENTS';
 }
 
 function decorationPackFor(chapter='generic-astartes') {
   return DECORATION_PACK_LIBRARY?.resolve?.(chapter) || {id:'generic-astartes',label:'Astartes gothic',slots:[]};
 }
+function decorationSlotMap(pack={}) {
+  const raw=pack.slots||{};
+  const map={};
+  if(Array.isArray(raw)){
+    raw.forEach(item=>{
+      if(item && typeof item==='object' && item.slot && item.src) map[item.slot]=item.src;
+    });
+    Object.keys(raw).filter(k=>Number.isNaN(Number(k))).forEach(k=>{
+      if(typeof raw[k]==='string') map[k]=raw[k];
+    });
+  }else{
+    Object.entries(raw).forEach(([key,value])=>{
+      if(typeof value==='string') map[key]=value;
+      else if(value && typeof value==='object' && value.src) map[key]=value.src;
+    });
+  }
+  return map;
+}
 function applyDecorationPack(card, chapter='generic-astartes') {
   const pack=decorationPackFor(chapter);
-  card.dataset.decorationFramework='illustrated';
   card.dataset.decorationPack=pack.id;
-  const bySlot=Object.fromEntries((pack.slots||[]).map(x=>[x.slot,x.src]));
-  ['header','corner','footer','watermark','accent'].forEach(slot=>{
-    const src=bySlot[slot]||'';
-    card.style.setProperty(`--ornament-${slot}`,src?`url("${src}")`:'none');
-  });
   return pack;
 }
 
@@ -1144,7 +1290,7 @@ function abilityTextWeight(unit){
   const abilities=[...(unit?.abilities||[]),...(unit?.modelAbilities||[]).flatMap(group=>group?.abilities||[])];
   return abilities.reduce((sum,a)=>sum+String(typeof a==='string'?a:(a?.text||a?.description||a?.name||'')).length,0);
 }
-function printScaleForCard({unit,leader,support,unitWeapons=[],leaderWeapons=[],supportWeapons=[],enhancement=null}){
+function printScaleForCard({unit,leader,support,unitWeapons=[],leaderWeapons=[],supportWeapons=[],enhancement=null},physicalFormat='a4Portrait'){
   const profiles=(unit?.modelProfiles?.length||1)+(leader?1:0)+(support?1:0);
   const weaponRows=unitWeapons.length+leaderWeapons.length+supportWeapons.length;
   const textWeight=abilityTextWeight(unit)+abilityTextWeight(leader)+abilityTextWeight(support)+(enhancement?String(enhancement.text||'').length:0);
@@ -1152,12 +1298,51 @@ function printScaleForCard({unit,leader,support,unitWeapons=[],leaderWeapons=[],
   if(leader) score+=5;
   if(support) score+=7;
   if(leader&&support) score+=8;
+  if(physicalFormat==='a5Landscape'){
+    // The dedicated A5 two-column layout does most of the fitting work, so type
+    // never collapses to the extremely small values used by the old shrunk-A4 card.
+    if(score>62) return .86;
+    if(score>52) return .89;
+    if(score>43) return .92;
+    if(score>35) return .95;
+    if(score>28) return .98;
+    return 1;
+  }
   if(score>62) return .62;
   if(score>52) return .68;
   if(score>43) return .74;
   if(score>35) return .82;
   if(score>28) return .90;
   return 1;
+}
+
+
+function resolveCodexArtPackFromCard(card, fallbackUnit={}) {
+  const lib=window.ASTARTES_DECORATION_PACK_LIBRARY;
+  if(!lib) return null;
+  // The decoration pack selected by createCard is the single source of truth.
+  const packId=card?.dataset?.decorationPack || card?.dataset?.artPack || '';
+  if(packId && lib.packs?.[packId]) return lib.packs[packId];
+  const classChapter=[...(card?.classList||[])].find(x=>x.startsWith('chapter-'))?.replace(/^chapter-/,'');
+  if(classChapter && lib.packs?.[classChapter]) return lib.packs[classChapter];
+  return lib.resolve?.('generic-astartes') || lib.packs?.['generic-astartes'] || null;
+}
+function applyA4IllustratedFrame(card,unit={}) {
+  const engine=window.ASTARTES_A4_FRAME_ENGINE;
+  const pack=resolveCodexArtPackFromCard(card,unit);
+  if(!engine||!pack||!card) return;
+  card.dataset.physicalFormat=v305PhysicalFormat();
+  engine.mountSeamlessFrame?.(card,pack,{format:card.dataset.physicalFormat,enabled:v305Theme().ornateFrame!==false});
+}
+
+function codexCompositionFor({unit,leader,support,unitWeapons=[],leaderWeapons=[],supportWeapons=[]}) {
+  if (leader || support) return 'dense';
+  const weaponRows=unitWeapons.length+leaderWeapons.length+supportWeapons.length;
+  const text=abilityTextWeight(unit);
+  const tags=(unit?.tags||[]).map(x=>String(x).toLowerCase());
+  const hero=tags.some(x=>x.includes('character')||x.includes('epic hero'));
+  if(hero && weaponRows<=8 && text<1900) return 'hero';
+  return 'standard';
 }
 
 function combinedSheetLayout(entry, leader, support) {
@@ -1176,6 +1361,36 @@ function combinedAbilitiesSection(parts=[]) {
   }).filter(Boolean);
   if(!groups.length) return '';
   return `<div class="combined-abilities"><div class="unit-divider"><span>Abilities</span></div>${groups.join('')}</div>`;
+}
+
+
+function unifiedDatasheetBody({entry,unit,leader,support,leaderWeapons,supportWeapons,unitWeapons,enhancement}) {
+  const attached=Boolean(leader||support);
+  const allWeapons=mergeIdenticalWeaponProfiles([...leaderWeapons,...supportWeapons,...unitWeapons]);
+  const statsHtml = attached
+    ? `${leader ? statsBlock(leader, `${leader.name} — Leader`, 'leader-profile') : ''}
+       ${support ? statsBlock(support, `${support.name} — Support`, 'support-profile') : ''}
+       ${modelStatsBlocks(unit, 'unit-profile')}`
+    : modelStatsBlocks(unit,'unit-profile',true);
+  const abilitiesHtml = attached
+    ? combinedAbilitiesSection([
+        {unit:leader,label:`${leader?.name||''} — Abilities`},
+        {unit:support,label:`${support?.name||''} — Abilities`},
+        {unit,label:`${unit.name} — Abilities`}
+      ])
+    : abilitiesSection(unit,'Abilities',true);
+  const rulesHtml = attached
+    ? combinedRulesSection([{unit:leader,label:leader?.name},{unit:support,label:support?.name},{unit,label:unit.name}])
+    : rulesSection(unit,'Rules',true);
+  return `
+    <div class="unified-section unified-stats">${statsHtml}</div>
+    ${weaponSection('Ranged Weapons',allWeapons.filter(w=>w.type==='Ranged'))}
+    ${weaponSection('Melee Weapons',allWeapons.filter(w=>w.type==='Melee'))}
+    ${abilitiesHtml}
+    ${enhancement?`<div class="card-section"><h4>Enhancement</h4><div class="ability-group"><strong>${enhancement.name}</strong><p>${enhancement.text}</p></div></div>`:''}
+    ${rulesHtml}
+    ${keywordFooter(unit,leader,support)}
+    <p class="card-note">Imported from New Recruit. Verify the roster against the latest official publication.</p>`;
 }
 
 function singleUnitBody({unit,unitWeapons,enhancement}) {
@@ -1225,10 +1440,342 @@ function groupedByModelBody({unit,leader,support,leaderWeapons,supportWeapons,un
     <p class="card-note">Imported from New Recruit. Verify the roster against the latest official publication.</p>`;
 }
 
-function createCard(entry, unit, isPreview=false) {
+
+function classifyCodexPanels(card){
+  if(!card) return;
+  const body=card.querySelector('.card-body');
+  if(!body) return;
+  [...body.children].forEach(node=>{
+    // unifiedDatasheetBody wraps one or more profile blocks in a stable stats
+    // group. Mark the wrapper for ordering without turning it into a second
+    // visual panel around the existing stat blocks.
+    if(node.classList.contains('unified-stats')) { node.classList.add('panel-stats-group'); return; }
+    if(node.classList.contains('profile-block')) { node.classList.add('codex-text-panel','panel-stats'); return; }
+    if(node.classList.contains('card-note')) { node.classList.add('panel-note'); return; }
+    if(!node.classList.contains('card-section')) return;
+    node.classList.add('codex-text-panel');
+    const heading=(node.querySelector('h4')?.textContent||'').toLowerCase();
+    if(heading.includes('ranged weapon')) node.classList.add('panel-ranged');
+    else if(heading.includes('melee weapon')) node.classList.add('panel-melee');
+    else if(heading.includes('abilit')) node.classList.add('panel-abilities');
+    else if(heading.includes('enhancement')) node.classList.add('panel-enhancement');
+    else if(heading.includes('faction keyword')) node.classList.add('panel-faction-keywords');
+    else if(heading.includes('keyword')) node.classList.add('panel-keywords');
+    else if(heading==='rules' || heading.includes('— rules')) node.classList.add('panel-rules');
+    else node.classList.add('panel-other');
+  });
+
+  if(card.dataset.codexComposition==='dense') return;
+
+  // A stable Codex page is built from fixed text-panel types, not absolute text.
+  // Panels may change column, but their internal box geometry remains unchanged.
+  const children=[...body.children];
+  const note=children.find(n=>n.classList.contains('panel-note'));
+  const stats=children.filter(n=>n.classList.contains('panel-stats')||n.classList.contains('panel-stats-group'));
+  const weapons=children.filter(n=>n.classList.contains('panel-ranged')||n.classList.contains('panel-melee'));
+  const side=children.filter(n=>n.classList.contains('panel-abilities')||n.classList.contains('panel-enhancement')||n.classList.contains('panel-rules')||n.classList.contains('panel-keywords')||n.classList.contains('panel-faction-keywords'));
+  const used=new Set([...stats,...weapons,...side,note].filter(Boolean));
+  const other=children.filter(n=>!used.has(n));
+
+  const layout=document.createElement('div');
+  layout.className='codex-panel-layout';
+  const main=document.createElement('div'); main.className='codex-panel-column codex-panel-main';
+  const aside=document.createElement('div'); aside.className='codex-panel-column codex-panel-side';
+  [...stats,...weapons,...other].forEach(n=>main.append(n));
+  side.forEach(n=>aside.append(n));
+  layout.append(main,aside);
+  body.prepend(layout);
+  if(note) body.append(note);
+}
+
+
+function prepareA5PrintLayout(card){
+  if(!card || card.dataset.physicalFormat!=='a5Landscape') return;
+  const body=card.querySelector('.card-body');
+  if(!body || body.querySelector(':scope > .a5-datasheet-grid')) return;
+
+  const note=body.querySelector(':scope > .card-note');
+  const oldLayout=body.querySelector(':scope > .codex-panel-layout');
+  let nodes=[];
+  if(oldLayout){
+    nodes=[...oldLayout.querySelectorAll(':scope > .codex-panel-column > *')];
+  }else{
+    nodes=[...body.children].filter(node=>node!==note);
+  }
+
+  const main=document.createElement('div');
+  main.className='a5-datasheet-column a5-datasheet-main';
+  const side=document.createElement('div');
+  side.className='a5-datasheet-column a5-datasheet-side';
+  const footer=document.createElement('div');
+  footer.className='a5-datasheet-footer';
+
+  nodes.forEach(node=>{
+    const classes=node.classList;
+    if(classes.contains('panel-keywords') || classes.contains('panel-faction-keywords') || classes.contains('keyword-footer')){
+      footer.append(node); return;
+    }
+    if(classes.contains('combined-abilities') || classes.contains('panel-abilities') || classes.contains('panel-enhancement') || classes.contains('panel-rules') || classes.contains('rules-title-section')){
+      side.append(node); return;
+    }
+    main.append(node);
+  });
+
+  if(oldLayout) oldLayout.remove();
+  const grid=document.createElement('div');
+  grid.className='a5-datasheet-grid';
+  grid.append(main,side);
+  if(footer.children.length) grid.append(footer);
+  body.prepend(grid);
+  if(note) body.append(note);
+  card.dataset.a5Datasheet='true';
+}
+
+const A5_ADAPTIVE_TIER_ORDER=['standard','statsMicro','weaponsMicro','compact','dense','extreme'];
+const A5_ADAPTIVE_TIER_SETTINGS={
+  standard:{panel:1,profile:1,weapon:1,stat:1,gap:1},
+  statsMicro:{panel:1,profile:.975,weapon:1,stat:.965,gap:.995},
+  weaponsMicro:{panel:1,profile:.968,weapon:.982,stat:.955,gap:.985},
+  compact:{panel:.988,profile:.958,weapon:.972,stat:.945,gap:.97},
+  dense:{panel:.975,profile:.945,weapon:.96,stat:.93,gap:.945},
+  extreme:{panel:.962,profile:.932,weapon:.948,stat:.915,gap:.92}
+};
+
+function setAdaptiveA5Tier(card,tier='standard'){
+  if(!card || card.dataset.physicalFormat!=='a5Landscape') return;
+  const config=A5_ADAPTIVE_TIER_SETTINGS[tier] || A5_ADAPTIVE_TIER_SETTINGS.standard;
+  card.dataset.a5AdaptiveFit=tier;
+  card.style.setProperty('--a5-panel-scale',String(config.panel));
+  card.style.setProperty('--a5-profile-scale',String(config.profile||config.panel));
+  card.style.setProperty('--a5-weapon-scale',String(config.weapon));
+  card.style.setProperty('--a5-stat-scale',String(config.stat));
+  card.style.setProperty('--a5-gap-scale',String(config.gap));
+}
+
+function visualStackBottom(column){
+  if(!column) return 0;
+  const children=[...column.children].filter(node=>node?.getBoundingClientRect);
+  if(!children.length) return column.getBoundingClientRect().top;
+  return children.reduce((bottom,node)=>Math.max(bottom,node.getBoundingClientRect().bottom),column.getBoundingClientRect().top);
+}
+
+function measureA5PrintLayout(card){
+  if(!card || card.dataset.physicalFormat!=='a5Landscape') return null;
+  const body=card.querySelector(':scope > .card-body');
+  const grid=body?.querySelector(':scope > .a5-datasheet-grid');
+  const main=grid?.querySelector(':scope > .a5-datasheet-main');
+  const side=grid?.querySelector(':scope > .a5-datasheet-side');
+  const footer=grid?.querySelector(':scope > .a5-datasheet-footer');
+  const note=body?.querySelector(':scope > .card-note');
+  if(!body || !grid || !main || !side) return null;
+
+  const gridRect=grid.getBoundingClientRect();
+  const bodyRect=body.getBoundingClientRect();
+  const footerRect=footer?.getBoundingClientRect?.()||null;
+  const noteRect=note?.getBoundingClientRect?.()||null;
+  const computed=getComputedStyle(grid);
+  const rowGap=parseFloat(computed.rowGap||computed.gap||'0')||0;
+  // The main/side columns live in the first grid row. Their own clientHeight can
+  // expand with content, so compare their real child bottoms to the row boundary.
+  const rawFirstRowBottom=footerRect ? Math.min(gridRect.bottom,footerRect.top-rowGap) : gridRect.bottom;
+  const profileBlocks=main.querySelectorAll('.profile-block').length;
+  const weaponRows=main.querySelectorAll('.weapon-table tbody tr').length;
+  // Leave a tiny print-rounding reserve. Dense three-part compositions get a
+  // slightly larger reserve; this is the regression class for Tactical Squad +
+  // Asmodai + Ravenwing Command Squad and similar bodyguard+leader+support cards.
+  const mmPx=(card.getBoundingClientRect().width||card.clientWidth)/210;
+  const safetyMm=(profileBlocks>=3 && weaponRows>=6)?1.35:.35;
+  const firstRowBottom=rawFirstRowBottom-(safetyMm*mmPx);
+  const mainVisualBottom=visualStackBottom(main);
+  const sideVisualBottom=visualStackBottom(side);
+  const mainVisualOverflow=Math.max(0,mainVisualBottom-firstRowBottom);
+  const sideVisualOverflow=Math.max(0,sideVisualBottom-firstRowBottom);
+  const footerVisualOverflow=footerRect?Math.max(0,footerRect.bottom-gridRect.bottom):0;
+  const noteVisualOverflow=noteRect?Math.max(0,noteRect.bottom-bodyRect.bottom):0;
+
+  // Retain scroll measurements as a secondary guard, but visual geometry is the
+  // authority for the A5 row-clipping case.
+  const mainScrollOverflow=Math.max(0,main.scrollHeight-main.clientHeight);
+  const sideScrollOverflow=Math.max(0,side.scrollHeight-side.clientHeight);
+  const gridScrollOverflow=Math.max(0,grid.scrollHeight-grid.clientHeight);
+  const bodyScrollOverflow=Math.max(0,body.scrollHeight-body.clientHeight);
+  const overflow=Math.max(mainVisualOverflow,sideVisualOverflow,footerVisualOverflow,noteVisualOverflow,mainScrollOverflow,sideScrollOverflow,gridScrollOverflow,bodyScrollOverflow);
+  const visualSlack=Math.max(0,firstRowBottom-Math.max(mainVisualBottom,sideVisualBottom));
+
+  card.dataset.a5MainVisualOverflowPx=String(Math.round(mainVisualOverflow));
+  card.dataset.a5SideVisualOverflowPx=String(Math.round(sideVisualOverflow));
+  card.dataset.a5FirstRowBottomPx=String(Math.round(firstRowBottom));
+  card.dataset.a5FitSafetyMm=String(safetyMm);
+  card.dataset.a5MainBottomPx=String(Math.round(mainVisualBottom));
+  card.dataset.a5SideBottomPx=String(Math.round(sideVisualBottom));
+  card.dataset.a5AdaptiveOverflowPx=String(Math.round(overflow));
+  card.dataset.a5AdaptiveSlackPx=String(Math.round(visualSlack));
+  return {overflow,slack:visualSlack,mainVisualOverflow,sideVisualOverflow,footerVisualOverflow,noteVisualOverflow,mainScrollOverflow,sideScrollOverflow,gridScrollOverflow,bodyScrollOverflow};
+}
+
+function setContinuousA5Scales(card,{panel=1,profile=1,weapon=1,stat=1,gap=1}={}){
+  card.style.setProperty('--a5-panel-scale',String(panel));
+  card.style.setProperty('--a5-profile-scale',String(profile));
+  card.style.setProperty('--a5-weapon-scale',String(weapon));
+  card.style.setProperty('--a5-stat-scale',String(stat));
+  card.style.setProperty('--a5-gap-scale',String(gap));
+}
+
+function fitAdaptiveA5Card(card){
+  if(!card?.classList?.contains('data-card') || card.dataset.physicalFormat!=='a5Landscape') return;
+  const body=card.querySelector(':scope > .card-body');
+  const grid=body?.querySelector(':scope > .a5-datasheet-grid');
+  if(!body || !grid) return;
+
+  // Always start from the largest A5 layout. The continuous fitter only takes
+  // away the exact amount of space that is actually required by the mounted DOM.
+  let scales={panel:1,profile:1,weapon:1,stat:1,gap:1};
+  setContinuousA5Scales(card,scales);
+  card.dataset.a5AdaptiveFit='continuous';
+  let fit=measureA5PrintLayout(card);
+  if(!fit) return;
+
+  let iterations=0;
+  const remeasure=()=>{
+    setContinuousA5Scales(card,scales);
+    iterations++;
+    fit=measureA5PrintLayout(card);
+    return fit;
+  };
+
+  // Main-column rescue order: profile/stat blocks first. This is deliberately
+  // where Tactical Squad + Asmodai + Ravenwing Command Squad gets its room back.
+  while(fit.mainVisualOverflow>0.25 && scales.stat>.88 && iterations<30){
+    scales.stat=Math.max(.88,scales.stat-.005);
+    scales.profile=Math.max(.91,scales.profile-.004);
+    scales.gap=Math.max(.96,scales.gap-.0015);
+    remeasure();
+  }
+
+  // If the weapon stack is still the limiting factor, compact only weapons.
+  while(fit.mainVisualOverflow>0.25 && scales.weapon>.88 && iterations<56){
+    scales.weapon=Math.max(.88,scales.weapon-.005);
+    scales.gap=Math.max(.93,scales.gap-.002);
+    remeasure();
+  }
+
+  // Side-column overflow gets its own independent, tiny panel adjustment.
+  while(fit.sideVisualOverflow>0.25 && scales.panel>.91 && iterations<76){
+    scales.panel=Math.max(.91,scales.panel-.004);
+    scales.gap=Math.max(.91,scales.gap-.0015);
+    remeasure();
+  }
+
+  // Last-resort shared spacing. This is intentionally conservative and only
+  // runs when the card still physically clips after targeted reductions.
+  while(fit.overflow>0.25 && iterations<100){
+    const before=fit.overflow;
+    scales.gap=Math.max(.86,scales.gap-.004);
+    if(fit.mainVisualOverflow>0.25){
+      scales.weapon=Math.max(.84,scales.weapon-.003);
+      scales.stat=Math.max(.84,scales.stat-.002);
+      scales.profile=Math.max(.88,scales.profile-.002);
+    }
+    if(fit.sideVisualOverflow>0.25){
+      scales.panel=Math.max(.88,scales.panel-.003);
+    }
+    remeasure();
+    if(Math.abs(before-fit.overflow)<.05 && scales.gap<=.86 && scales.weapon<=.84 && scales.panel<=.88) break;
+  }
+
+  card.dataset.a5AdaptiveIterations=String(iterations);
+  card.dataset.a5AdaptiveMeasuredTier='continuous';
+  card.dataset.a5ContinuousStatScale=scales.stat.toFixed(3);
+  card.dataset.a5ContinuousProfileScale=scales.profile.toFixed(3);
+  card.dataset.a5ContinuousWeaponScale=scales.weapon.toFixed(3);
+  card.dataset.a5ContinuousPanelScale=scales.panel.toFixed(3);
+  card.dataset.a5ContinuousGapScale=scales.gap.toFixed(3);
+  card.dataset.a5AdaptiveFits=fit.overflow<=0.25?'true':'false';
+}
+
+function fitAllAdaptiveA5Cards(root=document){
+  root?.querySelectorAll?.('.data-card[data-render-mode="print"][data-physical-format="a5Landscape"]')?.forEach?.(fitAdaptiveA5Card);
+}
+
+function ensureA4PreviewShell(wrapper){
+  if(!wrapper) return;
+  const card=wrapper.querySelector(':scope > .data-card, :scope > .a4-preview-shell > .data-card');
+  if(!card) return;
+  let shell=wrapper.querySelector(':scope > .a4-preview-shell');
+  if(!shell){
+    shell=document.createElement('div');
+    shell.className='a4-preview-shell';
+    wrapper.insertBefore(shell, card);
+    shell.append(card);
+  }
+  fitA4PreviewShell(shell);
+}
+function fitA4PreviewShell(shell){
+  if(!shell || window.matchMedia('print').matches) return;
+  const card=shell.querySelector('.data-card');
+  if(!card) return;
+  card.style.transform='none';
+  card.style.transformOrigin='top left';
+  const naturalWidth=card.offsetWidth || Math.round(210/25.4*96);
+  const naturalHeight=card.offsetHeight || Math.round(297/25.4*96);
+  const parentWidth=shell.parentElement?.clientWidth||naturalWidth;
+  const available=Math.max(280, Math.min(parentWidth, 900));
+  const scale=Math.min(1, available/Math.max(1,naturalWidth));
+  shell.style.setProperty('--a4-preview-scale',String(scale));
+  shell.style.width=`${naturalWidth*scale}px`;
+  shell.style.height=`${naturalHeight*scale}px`;
+  card.style.transform=`scale(${scale})`;
+}
+function refreshA4PreviewScales(){
+  document.querySelectorAll('.a4-preview-shell').forEach(fitA4PreviewShell);
+}
+let a4PreviewResizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(a4PreviewResizeTimer);
+  a4PreviewResizeTimer=setTimeout(refreshA4PreviewScales,80);
+});
+
+
+const V305_THEME_DEFAULTS={emblem:true,ornateFrame:true,background:'parchment',outputLayout:'a4-single'};
+function v305Theme(){
+  state.theme=state.theme||{};
+  Object.entries(V305_THEME_DEFAULTS).forEach(([k,v])=>{if(state.theme[k]===undefined)state.theme[k]=v;});
+  return state.theme;
+}
+function v305PhysicalFormat(){return v305Theme().outputLayout==='a4-two-a5'?'a5Landscape':'a4Portrait';}
+
+
+
+const VALIDATED_FRAME_SAFE_ZONES={"a4Portrait": {"x": 0.21, "y": 0.15, "width": 0.58, "height": 0.7, "minimumTransparency": 0.9}, "a5Landscape": {"x": 0.21, "y": 0.21, "width": 0.58, "height": 0.58, "minimumTransparency": 0.9}};
+function frameSafeZoneFor(format){
+  return VALIDATED_FRAME_SAFE_ZONES[format]||VALIDATED_FRAME_SAFE_ZONES.a4Portrait;
+}
+function applyValidatedFrameSafeZone(card,format){
+  const z=frameSafeZoneFor(format);
+  card.style.setProperty('--frame-safe-x',String(z.x));
+  card.style.setProperty('--frame-safe-y',String(z.y));
+  card.style.setProperty('--frame-safe-w',String(z.width));
+  card.style.setProperty('--frame-safe-h',String(z.height));
+}
+
+const CLEAN_PRINT_DEFAULTS={emblem:true,frame:true,background:'parchment',layout:'a4-single'};
+function cleanPrintSettings(){
+  state.printTheme=state.printTheme||storageJson('astartesPrintThemeV306',null)||{};
+  Object.entries(CLEAN_PRINT_DEFAULTS).forEach(([k,v])=>{if(state.printTheme[k]===undefined)state.printTheme[k]=v;});
+  return state.printTheme;
+}
+function saveCleanPrintSettings(){
+  storageSet('astartesPrintThemeV306',JSON.stringify(cleanPrintSettings()));
+}
+function printPhysicalFormat(){
+  return cleanPrintSettings().layout==='a4-two-a5'?'a5Landscape':'a4Portrait';
+}
+
+function createCard(entry, unit, renderMode='datasheet') {
   const clone = $('#unitCardTemplate').content.cloneNode(true);
   const card = clone.querySelector('.data-card');
-  const style = smartTheme(isPreview ? state.theme : cardStyleFor(entry));
+  card.dataset.renderMode=renderMode;
+  const style = smartTheme(cardStyleFor(entry));
   const detectedChapter=chapterPresetForName(detectChapterName([...(unit?.tags||[])]) || factionNameFor(unit));
   const chapterKey=detectedChapter!=='generic-astartes' ? detectedChapter : (style.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes') || 'generic-astartes');
   card.classList.add(`pattern-${style.pattern}`, `chapter-${chapterKey}`);
@@ -1247,9 +1794,20 @@ function createCard(entry, unit, isPreview=false) {
   card.style.setProperty('--card-primary-text', style.primaryText);
   card.style.setProperty('--card-accent-text', style.accentText);
   card.style.setProperty('--card-paper-text', style.paperText);
+  // Artwork title plaques use a measured/light-surface swatch from the Chapter
+  // registry. Preserve the Chapter primary colour when it already meets WCAG
+  // contrast; only fall back to black/white when the artwork actually requires it.
+  const visualProfile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
+  const artTitleSurface=visualProfile?.artwork?.titleSurface || style.paper;
+  const artTitlePreferred=visualProfile?.artwork?.titleText || style.primary;
+  const artTitleText=contrastAwareText(artTitleSurface,artTitlePreferred,4.5);
+  card.style.setProperty('--art-title-surface',normaliseHex(artTitleSurface));
+  card.style.setProperty('--art-title-text',artTitleText);
+  card.dataset.artTitleContrast=contrastRatio(normaliseHex(artTitleSurface),artTitleText).toFixed(2);
   clone.querySelector('.card-kicker').textContent = factionNameFor(unit);
   const header=clone.querySelector('.card-header');
-  if(header && style.emblem!==false){
+  const showEmblem=renderMode==='print' ? cleanPrintSettings().emblem!==false : true;
+  if(header && showEmblem){
     const emblem=document.createElement('div'); emblem.className='chapter-emblem'; emblem.setAttribute('aria-label',`${factionNameFor(unit)} emblem`); emblem.innerHTML=chapterEmblemMarkup(chapterKey, `${factionNameFor(unit)} emblem`); header.append(emblem);
   }
   const leaderEntry = entry.leaderId ? state.roster.find(x => x.id === entry.leaderId) : null;
@@ -1263,16 +1821,62 @@ function createCard(entry, unit, isPreview=false) {
   const leaderWeapons = leaderEntry && leader ? getEntryWeapons(leaderEntry, leader) : [];
   const supportWeapons = supportEntry && support ? getEntryWeapons(supportEntry, support) : [];
   const unitWeapons = getEntryWeapons(entry, unit);
-  const printScale=printScaleForCard({unit,leader,support,unitWeapons,leaderWeapons,supportWeapons,enhancement});
+  const physicalFormat=renderMode==='print'?printPhysicalFormat():'';
+  const printScale=printScaleForCard({unit,leader,support,unitWeapons,leaderWeapons,supportWeapons,enhancement},physicalFormat);
+  card.dataset.codexComposition=codexCompositionFor({unit,leader,support,unitWeapons,leaderWeapons,supportWeapons});
   card.style.setProperty('--print-scale',String(printScale));
   card.dataset.printScale=String(printScale);
-  const layout=combinedSheetLayout(entry,leader,support);
-  card.dataset.combinedLayout=layout;
-  body.innerHTML = !leader && !support
-    ? singleUnitBody({unit,unitWeapons,enhancement})
-    : layout==='section'
-      ? groupedBySectionBody({entry,unit,leader,support,leaderWeapons,supportWeapons,unitWeapons,enhancement})
-      : groupedByModelBody({unit,leader,support,leaderWeapons,supportWeapons,unitWeapons,enhancement});
+  if(physicalFormat==='a5Landscape'){
+    card.dataset.a5Density=printScale<=.86?'extreme':printScale<=.89?'dense':printScale<=.92?'compact':'standard';
+  }
+  card.dataset.combinedLayout='unified';
+  body.innerHTML=unifiedDatasheetBody({entry,unit,leader,support,leaderWeapons,supportWeapons,unitWeapons,enhancement});
+  card.dataset.unifiedLayout='true';
+  classifyCodexPanels(card);
+
+  if(renderMode==='print'){
+    const printSettings=cleanPrintSettings();
+    card.dataset.physicalFormat=physicalFormat;
+    applyValidatedFrameSafeZone(card,card.dataset.physicalFormat);
+    card.dataset.printSurface='true';
+    card.dataset.printBackground=printSettings.background;
+    const surface=printSurfaceFor(printSettings.background,chapterKey);
+    card.style.setProperty('--print-surface',surface);
+    card.style.setProperty('--print-panel-bg',surface);
+    card.style.setProperty('--card-paper',surface);
+    card.style.setProperty('--card-parchment',surface);
+    card.style.setProperty('--card-ink',readableText(surface,'#111318'));
+    card.style.setProperty('--card-paper-text',readableText(surface,'#111318'));
+
+    // A5 is deliberately artwork-free from v3.0.16 onward. The A4 toggle is
+    // remembered so switching back to A4 restores the user's previous choice.
+    const frameEnabled=card.dataset.physicalFormat==='a4Portrait' && printSettings.frame!==false;
+    card.dataset.frameEnabled=frameEnabled?'true':'false';
+    if(card.dataset.physicalFormat==='a5Landscape') prepareA5PrintLayout(card);
+    try{
+      const pack=resolveCodexArtPackFromCard(card,unit);
+      if(frameEnabled && window.ASTARTES_A4_FRAME_ENGINE?.mountSeamlessFrame){
+        window.ASTARTES_A4_FRAME_ENGINE.mountSeamlessFrame(card,pack,{
+          format:'a4Portrait',
+          enabled:true
+        });
+        scheduleFrameOcclusionMask(card);
+      }else{
+        card.removeAttribute('data-a4-frame');
+        card.removeAttribute('data-art-pack');
+        card.querySelectorAll(':scope > .print-page-surface,:scope > .codex-seamless-frame,:scope > .codex-art-root,:scope > .codex-art-layer').forEach(x=>x.remove());
+      }
+    }catch(error){
+      console.warn('Print artwork skipped:',error);
+      card.dataset.artFrameError=String(error?.message||error||'Unknown print-art error');
+    }
+  }else{
+    // Functional Datasheets tab must never inherit artwork or fixed A4 sizing.
+    card.removeAttribute('data-a4-frame');
+    card.removeAttribute('data-art-pack');
+    card.removeAttribute('data-physical-format');
+    card.querySelectorAll('.print-page-surface,.codex-seamless-frame,.codex-art-root,.codex-art-layer').forEach(x=>x.remove());
+  }
   return clone;
 }
 
@@ -1282,25 +1886,17 @@ function weaponSection(title, weapons, extraClass='') {
 }
 
 function renderCards() {
-  const container = $('#cardsContainer'); container.innerHTML = '';
-  const attached = new Set(state.roster.flatMap(x => [x.leaderId,x.supportId]).filter(Boolean));
-  const printable = state.roster.filter(x => !attached.has(x.id));
-  if (!printable.length) { container.innerHTML = '<div class="empty">Import units to generate datasheets.</div>'; return; }
-  printable.forEach(entry => {
+  const container=$('#cardsContainer'); if(!container)return;
+  container.innerHTML='';
+  container.removeAttribute('data-output-layout');
+  const attached=new Set(state.roster.flatMap(x=>[x.leaderId,x.supportId]).filter(Boolean));
+  const printable=state.roster.filter(x=>!attached.has(x.id));
+  if(!printable.length){container.innerHTML='<div class="empty">Import units to generate datasheets.</div>';return;}
+  printable.forEach(entry=>{
     const unit=unitById(entry.unitId);
-    const composed=!!(entry.leaderId||entry.supportId);
     const wrapper=document.createElement('div');
-    wrapper.className='datasheet-card-wrapper';
-    if(composed){
-      const controls=document.createElement('div');
-      controls.className='datasheet-card-controls';
-      const effective=entry.datasheetLayout||state.datasheetLayout||'model';
-      controls.innerHTML=`<label><span>${escapeHtml(unit?.name||'Combined datasheet')} layout</span><select><option value="model" ${effective==='model'?'selected':''}>Grouped by model</option><option value="section" ${effective==='section'?'selected':''}>Grouped by section</option></select></label><button type="button" class="ghost use-default">Use default</button>`;
-      controls.querySelector('select').addEventListener('change',e=>{entry.datasheetLayout=e.target.value;saveState();renderCards();});
-      controls.querySelector('.use-default').addEventListener('click',()=>{delete entry.datasheetLayout;saveState();renderCards();});
-      wrapper.append(controls);
-    }
-    wrapper.append(createCard(entry,unit));
+    wrapper.className='datasheet-card-wrapper functional-datasheet-wrapper';
+    wrapper.append(createCard(entry,unit,'datasheet'));
     container.append(wrapper);
   });
 }
@@ -1608,75 +2204,497 @@ function themeTargetEntry() {
   return state.themeTarget === 'global' ? null : state.roster.find(x => x.id === state.themeTarget) || null;
 }
 
-function renderThemeTargets() {
-  const select = $('#themeTarget');
-  if (!select) return;
-  const entries = printableEntries();
-  if (state.themeTarget !== 'global' && !entries.some(x => x.id === state.themeTarget)) state.themeTarget = 'global';
-  select.innerHTML = '<option value="global">Global layout</option>' + entries.map(entry => {
-    const unit = unitById(entry.unitId);
-    const leaderEntry = entry.leaderId ? state.roster.find(x => x.id === entry.leaderId) : null;
-    const leader = leaderEntry ? unitById(leaderEntry.unitId) : null;
-    const supportEntry=entry.supportId?state.roster.find(x=>x.id===entry.supportId):null; const support=supportEntry?unitById(supportEntry.unitId):null;
-    return `<option value="${entry.id}">${[unit.name,leader?.name,support?.name].filter(Boolean).join(' + ')}</option>`;
-  }).join('');
-  select.value = state.themeTarget;
-}
+function renderThemeTargets(){ return; }
 
-function syncThemeControls() {
-  const entry = themeTargetEntry();
-  const style = entry ? cardStyleFor(entry) : state.theme;
-  $('#themePrimary').value = style.primary;
-  $('#themeAccent').value = style.accent;
-  $('#themePaper').value = style.paper;
-  $('#themeInk').value = style.ink;
-  $('#patternStyle').value = style.pattern;
-  if($('#themeDecorations')) $('#themeDecorations').checked=style.decorations!==false;
-  if($('#themeEmblem')) $('#themeEmblem').checked=style.emblem!==false;
-  if($('#themeWeathering')) $('#themeWeathering').checked=style.weathering!==false;
-  if($('#themeBannerDepth')) $('#themeBannerDepth').checked=style.bannerDepth!==false;
-  if($('#themeIllustrations')) $('#themeIllustrations').checked=style.illustrations!==false;
-  if($('#themeWatermark')) $('#themeWatermark').checked=style.watermark!==false;
-  $('#chapterPreset').value = state.chapterPreset || 'custom';
-  $('#resetUnitTheme').disabled = !entry;
-  $('#resetTheme').disabled = !!entry;
-  $('#themeTargetStatus').innerHTML = entry
-    ? `<span class="link-status linked">Custom layout for ${unitById(entry.unitId).name}</span><p class="muted">Changes apply only to this combined datasheet.</p>`
-    : '<span class="link-status available">Global layout</span><p class="muted">Changes apply to every card without its own override.</p>';
-}
+function syncThemeControls(){ syncCleanPrintControls(); }
 
-function applyChapterPreset() {
-  const key=$('#chapterPreset').value; state.chapterPreset=key;
-  if (key!=='custom' && chapterThemes[key]) {
-    const next={...chapterThemes[key]}; const entry=themeTargetEntry();
-    if(entry) entry.cardStyle=next; else state.theme=next;
-  }
-  applyTheme(); saveState(); syncThemeControls(); renderCards(); renderThemePreview();
-}
-function updateTheme() {
-  const entry=themeTargetEntry();
-  const current=entry ? cardStyleFor(entry) : state.theme;
-  const next={primary:$('#themePrimary').value,accent:$('#themeAccent').value,paper:$('#themePaper').value,ink:$('#themeInk').value,pattern:$('#patternStyle').value,chapter:current.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes'),decorations:$('#themeDecorations')?.checked!==false,emblem:$('#themeEmblem')?.checked!==false,weathering:$('#themeWeathering')?.checked!==false,bannerDepth:$('#themeBannerDepth')?.checked!==false,illustrations:$('#themeIllustrations')?.checked!==false,watermark:$('#themeWatermark')?.checked!==false};
-  if(entry) entry.cardStyle=next; else {state.theme=next; applyTheme();}
-  // Visual edits never change Chapter identity. This prevents emblem fallback to Generic/Custom.
-  saveState(); renderCards(); renderThemePreview(); syncThemeControls();
-}
+function applyChapterPreset(){ return; }
+function updateTheme(){ return; }
 function applyTheme() {
   const computed=applyThemeVariables(document.documentElement.style,state.theme);
   // Keep the user-selected palette, but persist the automatically selected paper ink.
   state.theme={...state.theme,ink:computed.paperText};
 }
-function renderThemePreview() {
-  const preview = $('#themePreview');
-  if (!preview) return;
-  preview.innerHTML = '';
-  const entry = themeTargetEntry();
-  if (entry) {
-    preview.append(createCard(entry, unitById(entry.unitId)));
+function fragmentCardElement(fragment){
+  const holder=document.createElement('div');
+  holder.append(fragment);
+  return holder.querySelector('.data-card');
+}
+function artworkChapterKeyForEntry(entry,unit){
+  const style=smartTheme(cardStyleFor(entry));
+  const detectedChapter=chapterPresetForName(detectChapterName([...(unit?.tags||[])]) || factionNameFor(unit));
+  return detectedChapter!=='generic-astartes'
+    ? detectedChapter
+    : (style.chapter || (state.chapterPreset!=='custom'?state.chapterPreset:'generic-astartes') || 'generic-astartes');
+}
+
+function artworkPrintContext(entry,unit){
+  const leaderEntry=entry.leaderId ? state.roster.find(x=>x.id===entry.leaderId) : null;
+  const leader=leaderEntry ? unitById(leaderEntry.unitId) : null;
+  const supportEntry=entry.supportId ? state.roster.find(x=>x.id===entry.supportId) : null;
+  const support=supportEntry ? unitById(supportEntry.unitId) : null;
+  const enhancement=allEnhancements().find(e=>e.id===(leaderEntry?.enhancementId || entry.enhancementId));
+  const leaderWeapons=leaderEntry&&leader ? getEntryWeapons(leaderEntry,leader) : [];
+  const supportWeapons=supportEntry&&support ? getEntryWeapons(supportEntry,support) : [];
+  const unitWeapons=getEntryWeapons(entry,unit);
+  return {entry,unit,leader,support,enhancement,leaderWeapons,supportWeapons,unitWeapons};
+}
+
+function canUseArtworkPrintPage(entry,unit){
+  const settings=cleanPrintSettings();
+  if(settings.layout==='a4-two-a5' || settings.frame===false) return false;
+  const chapterKey=artworkChapterKeyForEntry(entry,unit);
+  const profile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
+  return Boolean(profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
+}
+
+/* v3.0.50 — Dark Angels unified datasheet prototype.
+   This deliberately reuses the normal print datasheet DOM/components instead
+   of rebuilding them inside .artwork-print-page. Only the artwork shell/title
+   placement is specialized so we can compare both renderer architectures. */
+function canUseDarkAngelsDatasheetPrototype(entry,unit){
+  const settings=cleanPrintSettings();
+  if(settings.layout==='a4-two-a5' || settings.frame===false) return false;
+  const chapterKey=artworkChapterKeyForEntry(entry,unit);
+  if(chapterKey!=='dark-angels') return false;
+  const profile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
+  return Boolean(profile?.artwork?.renderer==='adaptive-datasheet' && profile?.artwork?.a4Frame);
+}
+
+const ADAPTIVE_ARTWORK_BASE={top:'50.6mm',width:'160.5mm',gapMm:2.15,radiusMm:2.0};
+const ADAPTIVE_ARTWORK_LIMITS={columnMin:.56,bottomSafetyMm:1.5,tolerancePx:.35};
+const A4_TYPE_BASE={
+  description:12,
+  sectionHeader:13.2,
+  weapon:9.4,
+  weaponHeader:10.6,
+  weaponKeyword:7.6,
+  unitDivider:10,
+  keyword:10.2,
+  rule:9.2,
+  ruleModel:8,
+  rulePill:8.6,
+  statValue:8.2,
+  statLabel:5.2,
+  invSave:5.1,
+  profileLabel:7.5
+};
+const A4_TYPE_VAR_NAMES=[
+  '--a4-desc-font','--a4-section-header-font','--a4-weapon-font','--a4-weapon-header-font','--a4-weapon-keyword-font',
+  '--a4-unit-divider-font','--a4-keyword-font','--a4-rule-font','--a4-rule-model-font','--a4-rule-pill-font',
+  '--a4-stat-value-font','--a4-stat-label-font','--a4-inv-save-font','--a4-profile-label-font','--a4-section-pad-y',
+  '--a4-section-pad-x','--a4-header-gap','--a4-stat-pad-y','--a4-stat-pad-x','--a4-ability-pad-y','--a4-ability-pad-x',
+  '--a4-ability-gap','--a4-list-indent','--a4-list-margin','--a4-rule-pad-y','--a4-rule-pad-x','--a4-rule-gap',
+  '--a4-weapon-pad-y','--a4-weapon-pad-x','--a4-scale-value'
+];
+function clearA4TypographyVars(target){
+  if(!target?.style) return;
+  A4_TYPE_VAR_NAMES.forEach(name=>target.style.removeProperty(name));
+}
+
+function adaptiveArtworkColumns(card){
+  const body=card?.querySelector?.(':scope > .card-body');
+  const layout=body?.querySelector?.(':scope > .codex-panel-layout')||null;
+  const main=layout?.querySelector?.(':scope > .codex-panel-main')||null;
+  const side=layout?.querySelector?.(':scope > .codex-panel-side')||null;
+  const note=body?.querySelector?.(':scope > .panel-note, :scope > .card-note')||null;
+  return {body,layout,main,side,note,mode:(main&&side)?'columns':'flat'};
+}
+
+function pt(value){ return `${Number(value).toFixed(3)}pt`; }
+function px(value){ return `${Number(value).toFixed(3)}px`; }
+
+function applyA4TypographyVars(target,scale=1){
+  if(!target?.style) return;
+  const s=Math.max(ADAPTIVE_ARTWORK_LIMITS.columnMin,Math.min(1,Number(scale)||1));
+  target.style.setProperty('--a4-desc-font',pt(A4_TYPE_BASE.description*s));
+  target.style.setProperty('--a4-section-header-font',pt(A4_TYPE_BASE.sectionHeader*s));
+  target.style.setProperty('--a4-weapon-font',pt(A4_TYPE_BASE.weapon*s));
+  target.style.setProperty('--a4-weapon-header-font',pt(A4_TYPE_BASE.weaponHeader*s));
+  target.style.setProperty('--a4-weapon-keyword-font',pt(A4_TYPE_BASE.weaponKeyword*s));
+  target.style.setProperty('--a4-unit-divider-font',pt(A4_TYPE_BASE.unitDivider*s));
+  target.style.setProperty('--a4-keyword-font',pt(A4_TYPE_BASE.keyword*s));
+  target.style.setProperty('--a4-rule-font',pt(A4_TYPE_BASE.rule*s));
+  target.style.setProperty('--a4-rule-model-font',pt(A4_TYPE_BASE.ruleModel*s));
+  target.style.setProperty('--a4-rule-pill-font',pt(A4_TYPE_BASE.rulePill*s));
+  target.style.setProperty('--a4-stat-value-font',pt(A4_TYPE_BASE.statValue*s));
+  target.style.setProperty('--a4-stat-label-font',pt(A4_TYPE_BASE.statLabel*s));
+  target.style.setProperty('--a4-inv-save-font',pt(A4_TYPE_BASE.invSave*s));
+  target.style.setProperty('--a4-profile-label-font',pt(A4_TYPE_BASE.profileLabel*s));
+  target.style.setProperty('--a4-section-pad-y',px(3.4*s));
+  target.style.setProperty('--a4-section-pad-x',px(4.4*s));
+  target.style.setProperty('--a4-header-gap',px(2.4*s));
+  target.style.setProperty('--a4-stat-pad-y',px(4*s));
+  target.style.setProperty('--a4-stat-pad-x',px(3*s));
+  target.style.setProperty('--a4-ability-pad-y',px(2.6*s));
+  target.style.setProperty('--a4-ability-pad-x',px(4.2*s));
+  target.style.setProperty('--a4-ability-gap',px(2*s));
+  target.style.setProperty('--a4-list-indent',px(12*s));
+  target.style.setProperty('--a4-list-margin',px(2*s));
+  target.style.setProperty('--a4-rule-pad-y',px(2.6*s));
+  target.style.setProperty('--a4-rule-pad-x',px(3.6*s));
+  target.style.setProperty('--a4-rule-gap',px(1.5*s));
+  target.style.setProperty('--a4-weapon-pad-y',px(1.7*s));
+  target.style.setProperty('--a4-weapon-pad-x',px(2.2*s));
+  target.style.setProperty('--a4-scale-value',String(s));
+}
+
+function resetAdaptiveArtworkGeometry(card){
+  if(!card) return;
+  const {main,side,note}=adaptiveArtworkColumns(card);
+  card.style.setProperty('--adaptive-body-top',ADAPTIVE_ARTWORK_BASE.top);
+  card.style.setProperty('--adaptive-body-width',ADAPTIVE_ARTWORK_BASE.width);
+  card.style.setProperty('--adaptive-panel-gap',`${ADAPTIVE_ARTWORK_BASE.gapMm}mm`);
+  card.style.setProperty('--adaptive-panel-radius',`${ADAPTIVE_ARTWORK_BASE.radiusMm}mm`);
+  card.style.setProperty('--print-scale','1');
+  card.dataset.printScale='1';
+  card.style.setProperty('--adaptive-panel-scale','1');
+  card.style.setProperty('--adaptive-weapon-scale','1');
+  [main,side,note].forEach(node=>{
+    node?.style?.removeProperty('--adaptive-panel-scale');
+    clearA4TypographyVars(node);
+  });
+  applyA4TypographyVars(card,1);
+  card.dataset.adaptiveMainScale='1.000';
+  card.dataset.adaptiveSideScale='1.000';
+  card.dataset.adaptiveFlowScale='1.000';
+  card.dataset.adaptiveMasterScale='1.000';
+  card.dataset.adaptivePanelGapMm=ADAPTIVE_ARTWORK_BASE.gapMm.toFixed(2);
+}
+
+function adaptiveVisiblePanels(root){
+  if(!root?.querySelectorAll) return [];
+  const selector='.profile-block,.card-section,.combined-abilities,.combined-rules,.keyword-footer,.panel-note,.card-note';
+  return [...root.querySelectorAll(selector)].filter(node=>{
+    const rect=node.getBoundingClientRect?.();
+    if(!rect || rect.width<=0 || rect.height<=0) return false;
+    const style=getComputedStyle(node);
+    return style.display!=='none' && style.visibility!=='hidden';
+  });
+}
+
+function measureA4PanelPixels(card){
+  if(!card?.classList?.contains('adaptive-datasheet-artwork-prototype')) return null;
+  const {body,main,side,note,mode}=adaptiveArtworkColumns(card);
+  if(!body) return null;
+  const cardRect=card.getBoundingClientRect();
+  if(!cardRect.height) return null;
+  const mmPx=cardRect.height/297;
+  const safeBottom=cardRect.bottom-(ADAPTIVE_ARTWORK_LIMITS.bottomSafetyMm*mmPx);
+  const panels=adaptiveVisiblePanels(body);
+  const panelMetrics=panels.map(panel=>{
+    const rect=panel.getBoundingClientRect();
+    return {panel,top:rect.top,bottom:rect.bottom,height:rect.height,overflow:Math.max(0,rect.bottom-safeBottom),label:(panel.querySelector('h4')?.textContent||panel.querySelector('.profile-label')?.textContent||panel.className||'panel').trim()};
+  });
+  const bodyTop=body.getBoundingClientRect().top;
+  const flowBottom=Math.max(bodyTop,...panels.map(p=>p.getBoundingClientRect().bottom));
+  const mainPanels=main?adaptiveVisiblePanels(main):[];
+  const sidePanels=side?adaptiveVisiblePanels(side):[];
+  const mainBottom=main?Math.max(main.getBoundingClientRect().top,...mainPanels.map(p=>p.getBoundingClientRect().bottom)):flowBottom;
+  const sideBottom=side?Math.max(side.getBoundingClientRect().top,...sidePanels.map(p=>p.getBoundingClientRect().bottom)):flowBottom;
+  const noteBottom=note?.getBoundingClientRect?.().bottom||0;
+  const last=panelMetrics.reduce((best,item)=>!best||item.bottom>best.bottom?item:best,null);
+  // Pixel geometry is the sole authority. Do not use structural scroll metrics here:
+  // absolute print layouts can retain a stale/structural scroll height even
+  // while the actual rendered panels have already become shorter.
+  const contentBottom=Math.max(last?.bottom||bodyTop,noteBottom,mode==='flat'?flowBottom:Math.max(mainBottom,sideBottom));
+  const overflow=Math.max(0,contentBottom-safeBottom);
+  const mainOverflow=mode==='columns'?Math.max(0,mainBottom-safeBottom):overflow;
+  const sideOverflow=mode==='columns'?Math.max(0,sideBottom-safeBottom):0;
+  const noteOverflow=Math.max(0,noteBottom-safeBottom);
+  const clipped=panelMetrics.filter(item=>item.overflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx);
+  card.dataset.adaptivePixelMode=mode;
+  card.dataset.adaptivePixelSafeBottom=Math.round(safeBottom);
+  card.dataset.adaptivePixelLastBottom=Math.round(last?.bottom||0);
+  card.dataset.adaptivePixelContentBottom=Math.round(contentBottom);
+  card.dataset.adaptivePixelOverflowPx=overflow.toFixed(2);
+  card.dataset.adaptivePixelMainOverflowPx=mainOverflow.toFixed(2);
+  card.dataset.adaptivePixelSideOverflowPx=sideOverflow.toFixed(2);
+  card.dataset.adaptivePixelClippedPanels=String(clipped.length);
+  card.dataset.adaptivePixelLastPanel=last?.label||'';
+  return {mode,safeBottom,panelMetrics,last,overflow,mainOverflow,sideOverflow,noteOverflow,clipped,mainBottom,sideBottom,flowBottom,noteBottom,contentBottom};
+}
+
+function setA4ColumnScale(card,column,value){
+  const {main,side,note}=adaptiveArtworkColumns(card);
+  const scale=Math.max(ADAPTIVE_ARTWORK_LIMITS.columnMin,Math.min(1,Number(value)||1));
+  if(column==='main'){
+    applyA4TypographyVars(main,scale);
+    card.dataset.adaptiveMainScale=scale.toFixed(3);
+  }else if(column==='side'){
+    applyA4TypographyVars(side,scale);
+    card.dataset.adaptiveSideScale=scale.toFixed(3);
+  }else if(column==='note'){
+    applyA4TypographyVars(note,scale);
+  }
+}
+
+function setA4MasterScale(card,value){
+  const scale=Math.max(ADAPTIVE_ARTWORK_LIMITS.columnMin,Math.min(1,Number(value)||1));
+  applyA4TypographyVars(card,scale);
+  // Keep the old variable synchronized for legacy rules that still consume it,
+  // but the Dark Angels A4 typography no longer depends on it for font sizing.
+  card.style.setProperty('--print-scale',String(scale));
+  card.dataset.printScale=String(scale);
+  card.dataset.adaptiveMasterScale=scale.toFixed(3);
+}
+
+function setA4FlowScale(card,value){
+  const scale=Math.max(ADAPTIVE_ARTWORK_LIMITS.columnMin,Math.min(1,Number(value)||1));
+  setA4MasterScale(card,scale);
+  card.dataset.adaptiveFlowScale=scale.toFixed(3);
+}
+
+function setA4PanelGap(card,valueMm){
+  const gap=Math.max(.82,Math.min(ADAPTIVE_ARTWORK_BASE.gapMm,Number(valueMm)||ADAPTIVE_ARTWORK_BASE.gapMm));
+  card.style.setProperty('--adaptive-panel-gap',`${gap.toFixed(3)}mm`);
+  card.dataset.adaptivePanelGapMm=gap.toFixed(3);
+}
+
+function findLargestPixelFit({card,min=ADAPTIVE_ARTWORK_LIMITS.columnMin,max=1,setter,check,metric=result=>result?.contentBottom||0}){
+  setter(max); void card.offsetHeight;
+  let result=measureA4PanelPixels(card);
+  if(check(result)) return {scale:max,result,effective:true};
+  const startMetric=metric(result);
+  let failing=max;
+  let fitting=null;
+  let fittingResult=null;
+  // First bracket a real fitting size. Never reset to 1 simply because an
+  // indirect metric failed to move; inspect the actual panel pixels each step.
+  for(let scale=max-.025;scale>=min-.0001;scale-=.025){
+    const candidate=Math.max(min,+scale.toFixed(4));
+    setter(candidate); void card.offsetHeight;
+    result=measureA4PanelPixels(card);
+    if(check(result)){
+      fitting=candidate;
+      fittingResult=result;
+      break;
+    }
+    failing=candidate;
+  }
+  if(fitting===null){
+    setter(min); void card.offsetHeight;
+    result=measureA4PanelPixels(card);
+    const endMetric=metric(result);
+    card.dataset.adaptiveScaleEffective=String(endMetric < startMetric-0.5);
+    return {scale:min,result,effective:endMetric < startMetric-0.5};
+  }
+  let low=fitting,high=Math.min(max,failing+.025),best=fitting,bestResult=fittingResult;
+  for(let i=0;i<10;i++){
+    const mid=(low+high)/2;
+    setter(mid); void card.offsetHeight;
+    result=measureA4PanelPixels(card);
+    if(check(result)){
+      best=mid; bestResult=result; low=mid;
+    }else{
+      high=mid;
+    }
+  }
+  setter(best); void card.offsetHeight;
+  result=measureA4PanelPixels(card)||bestResult;
+  card.dataset.adaptiveScaleEffective='true';
+  return {scale:best,result,effective:true};
+}
+
+function applyAdaptiveArtworkPrototype(card){
+  if(!card) return;
+  resetAdaptiveArtworkGeometry(card);
+}
+
+function fitAdaptiveArtworkToPage(card){
+  if(!card?.classList?.contains('adaptive-datasheet-artwork-prototype')) return;
+  const {body,main,side,note,mode}=adaptiveArtworkColumns(card);
+  if(!body) return;
+  resetAdaptiveArtworkGeometry(card);
+  void card.offsetHeight;
+  let fit=measureA4PanelPixels(card);
+  if(!fit) return;
+  card.dataset.adaptiveMeasuredStartBottom=String(Math.round(fit.contentBottom));
+  if(fit.overflow<=ADAPTIVE_ARTWORK_LIMITS.tolerancePx){
+    card.dataset.adaptiveMeasuredTier='pixel-pass-full-size';
+    card.dataset.adaptiveFits='true';
     return;
   }
-  const sampleUnit = state.importedUnits[0] || {id:'preview-unit', name:'Imported Unit Preview', category:'Adeptus Astartes', points:0, size:'', tags:['Infantry','Adeptus Astartes'], stats:{M:'—',T:'—',SV:'—',W:'—',LD:'—',OC:'—'}, weapons:[], abilities:[], modelAbilities:[]};
-  preview.append(createCard({unitId:sampleUnit.id, leaderId:'', supportId:'', enhancementId:'', cardStyle:{}}, sampleUnit, true));
+
+  if(mode==='flat'){
+    // A composed unit is one vertical flow: shrink the complete typographic
+    // system uniformly from the 12pt baseline. Width stays exactly 160.5 mm.
+    const search=findLargestPixelFit({
+      card,min:ADAPTIVE_ARTWORK_LIMITS.columnMin,max:1,
+      setter:value=>setA4FlowScale(card,value),
+      check:result=>Boolean(result && result.overflow<=ADAPTIVE_ARTWORK_LIMITS.tolerancePx)
+    });
+    fit=search.result||measureA4PanelPixels(card);
+  }else{
+    if(fit.mainOverflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx){
+      const search=findLargestPixelFit({
+        card,min:ADAPTIVE_ARTWORK_LIMITS.columnMin,max:1,
+        setter:value=>setA4ColumnScale(card,'main',value),
+        check:result=>Boolean(result && result.mainOverflow<=ADAPTIVE_ARTWORK_LIMITS.tolerancePx),
+        metric:result=>result?.mainBottom||0
+      });
+      fit=search.result||measureA4PanelPixels(card);
+    }
+    if(fit.sideOverflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx){
+      const search=findLargestPixelFit({
+        card,min:ADAPTIVE_ARTWORK_LIMITS.columnMin,max:1,
+        setter:value=>setA4ColumnScale(card,'side',value),
+        check:result=>Boolean(result && result.sideOverflow<=ADAPTIVE_ARTWORK_LIMITS.tolerancePx),
+        metric:result=>result?.sideBottom||0
+      });
+      fit=search.result||measureA4PanelPixels(card);
+    }
+  }
+
+  if(fit?.overflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx){
+    // Reduce vertical inter-panel whitespace only after typography reaches the
+    // minimum usable size. This cannot alter panel width.
+    let gap=ADAPTIVE_ARTWORK_BASE.gapMm;
+    while(fit.overflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx && gap>.82){
+      gap=Math.max(.82,gap-.08);
+      setA4PanelGap(card,gap); void card.offsetHeight;
+      fit=measureA4PanelPixels(card);
+    }
+  }
+
+  if(fit?.noteOverflow>ADAPTIVE_ARTWORK_LIMITS.tolerancePx && note){
+    const noteScale=mode==='flat'?Number(card.dataset.adaptiveFlowScale||1):Math.min(Number(card.dataset.adaptiveMainScale||1),Number(card.dataset.adaptiveSideScale||1));
+    setA4ColumnScale(card,'note',noteScale); void card.offsetHeight;
+    fit=measureA4PanelPixels(card);
+  }
+
+  card.dataset.adaptiveMeasuredEndBottom=String(Math.round(fit?.contentBottom||0));
+  card.dataset.adaptiveMeasuredTier=mode==='flat'?'pixel-explicit-flat':'pixel-explicit-columns';
+  card.dataset.adaptiveFits=fit && fit.overflow<=ADAPTIVE_ARTWORK_LIMITS.tolerancePx?'true':'false';
+}
+
+function fitAllAdaptiveArtworkPages(root=document){
+  root?.querySelectorAll?.('.adaptive-datasheet-artwork-prototype').forEach(fitAdaptiveArtworkToPage);
+}
+
+function buildDarkAngelsDatasheetPrototype(entry,unit){
+  const card=fragmentCardElement(createCard(entry,unit,'print'));
+  if(!card) return null;
+  card.classList.add('dark-angels-datasheet-prototype','adaptive-datasheet-artwork-prototype');
+  card.dataset.prototypeRenderer='adaptive-datasheet-artwork';
+  card.dataset.prototypeChapter='dark-angels';
+  applyAdaptiveArtworkPrototype(card);
+  return card;
+}
+
+/* v3.0.24 — clean A4 artwork renderer with chapter-native cutouts.
+   This intentionally does NOT create a .data-card. Historical datasheet/frame
+   CSS therefore cannot paint, crop or resize any structural artwork layer.
+   Physical stack: page surface -> frame PNG -> title text -> loose info panels. */
+function buildArtworkPrintPage(entry,unit){
+  if(!entry||!unit) return null;
+  const settings=cleanPrintSettings();
+  const ctx=artworkPrintContext(entry,unit);
+  const chapterKey=artworkChapterKeyForEntry(entry,unit);
+  const style=smartTheme(cardStyleFor(entry));
+  const profile=window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(chapterKey)||null;
+  const frameSrc=profile?.artwork?.a4Frame||'';
+  if(!profile?.artwork?.frameReady || !frameSrc) return null;
+
+  const surface=printSurfaceFor(settings.background,chapterKey);
+  const ink=readableText(surface,'#111318');
+  const titleSurface=profile?.artwork?.titleSurface || style.paper;
+  const titlePreferred=profile?.artwork?.titleText || style.primary;
+  const titleText=contrastAwareText(titleSurface,titlePreferred,4.5);
+  const totalPoints=unit.points+(ctx.leader?.points||0)+(ctx.support?.points||0)+(ctx.enhancement?.points||0);
+  const title=[unit.name,ctx.leader?.name,ctx.support?.name].filter(Boolean).join(' + ');
+  const printScale=printScaleForCard(ctx,'a4Portrait');
+
+  const page=document.createElement('article');
+  page.className=`artwork-print-page chapter-${chapterKey}`;
+  page.dataset.renderMode='print-artwork';
+  page.dataset.physicalFormat='a4Portrait';
+  page.dataset.artPack=chapterKey;
+  page.dataset.frameGeometry=profile?.artwork?.geometryMaster||'a4-chapter-frame-gold-v1';
+  page.dataset.printBackground=settings.background;
+  page.dataset.printScale=String(printScale);
+  page.style.setProperty('--print-scale',String(printScale));
+  page.style.setProperty('--card-primary',style.primary);
+  page.style.setProperty('--card-accent',style.accent);
+  page.style.setProperty('--card-paper',surface);
+  page.style.setProperty('--card-parchment',surface);
+  page.style.setProperty('--card-ink',ink);
+  page.style.setProperty('--print-surface',surface);
+  page.style.setProperty('--print-panel-bg',surface);
+  page.style.setProperty('--art-title-text',titleText);
+
+  const background=document.createElement('div');
+  background.className='artwork-print-background';
+  background.setAttribute('aria-hidden','true');
+
+  const frame=document.createElement('img');
+  frame.className='artwork-print-frame';
+  frame.alt='';
+  frame.setAttribute('aria-hidden','true');
+  frame.src=frameSrc;
+
+  const header=document.createElement('header');
+  header.className='artwork-print-title';
+  header.innerHTML=`<div class="artwork-title-copy"><p class="card-kicker">${escapeHtml(factionNameFor(unit))}</p><h3 class="card-title">${escapeHtml(title)}</h3></div><div class="card-points">${totalPoints} pts</div>`;
+
+  const panels=document.createElement('section');
+  panels.className='artwork-print-panels';
+  panels.innerHTML=unifiedDatasheetBody(ctx);
+
+  page.append(background,frame,header,panels);
+  return page;
+}
+
+function printCardElement(entry){
+  const unit=unitById(entry.unitId);
+  if(!unit)return null;
+  if(canUseDarkAngelsDatasheetPrototype(entry,unit)) return buildDarkAngelsDatasheetPrototype(entry,unit);
+  if(canUseArtworkPrintPage(entry,unit)) return buildArtworkPrintPage(entry,unit);
+  return fragmentCardElement(createCard(entry,unit,'print'));
+}
+function fitPrintPreviewCard(shell,card){
+  if(!shell||!card)return;
+  card.style.transform='none';
+  card.style.transformOrigin='top left';
+  fitAdaptiveArtworkToPage(card);
+  fitAdaptiveA5Card(card);
+  const physicalWidth=card.dataset.physicalFormat==='a5Landscape'
+    ? Math.round(210/25.4*96)
+    : Math.round(210/25.4*96);
+  const physicalHeight=card.dataset.physicalFormat==='a5Landscape'
+    ? Math.round(148.5/25.4*96)
+    : Math.round(297/25.4*96);
+  const available=Math.max(280,Math.min(shell.parentElement?.clientWidth||760,760));
+  const scale=Math.min(1,available/physicalWidth);
+  shell.style.width=`${physicalWidth*scale}px`;
+  shell.style.height=`${physicalHeight*scale}px`;
+  card.style.transform=`scale(${scale})`;
+  if(card.classList.contains('data-card')) scheduleFrameOcclusionMask(card);
+}
+function renderThemePreview() {
+  const preview=document.getElementById('themePreview');
+  if(!preview)return;
+  preview.innerHTML='';
+  const entries=printableEntries();
+  if(!entries.length){
+    preview.innerHTML='<div class="empty">Import a roster to preview the printed datasheet.</div>';
+    return;
+  }
+  const entry=entries[0];
+  const card=printCardElement(entry);
+  if(!card){
+    preview.innerHTML='<div class="empty">Unable to build print preview.</div>';
+    return;
+  }
+  const shell=document.createElement('div');
+  shell.className='true-print-preview-shell';
+  shell.append(card);
+  preview.append(shell);
+  const title=document.getElementById('printPreviewTitle');
+  const badge=document.getElementById('printPreviewBadge');
+  if(title) title.textContent=unitById(entry.unitId)?.name||'Datasheet';
+  if(badge) badge.textContent=cleanPrintSettings().layout==='a4-two-a5'?'A5 landscape · clean datasheet · 2 per A4':'A4 portrait';
+  requestAnimationFrame(()=>fitPrintPreviewCard(shell,card));
 }
 
 
@@ -2246,7 +3264,7 @@ function normalizeArmyFromSourceGraph(sourceGraph, sourceName='roster.ros') {
       attachmentEligibilityProfileId:(isSupport?supportEligibility.sourceProfileId:leaderEligibility.sourceProfileId)||'',
       imported:true,importSource:'New Recruit lossless graph'
     };
-    units.push(unit); entries.push({id:crypto.randomUUID(),unitId:id,weaponId:'',enabledWeapons:weapons.map(w=>w.id),leaderId:'',supportId:'',enhancementId:'',cardStyle:{}});
+    units.push(unit); entries.push({id:makeRuntimeId(),unitId:id,weaponId:'',enabledWeapons:weapons.map(w=>w.id),leaderId:'',supportId:'',enhancementId:'',cardStyle:{}});
   });
   return {units,entries};
 }
@@ -2765,14 +3783,23 @@ function parseRosterJson(data, sourceName='roster.json') {
     return {id:`import-${slug(item.name||'unit')}-${index}`,name:item.name||`Imported unit ${index+1}`,category:(typeof categories[0]==='string'?categories[0]:categories[0]?.name)||'Imported unit',points:Number(item.points||item.cost||0),size:String(item.size||item.number||'1 model'),tags:categories.map(c=>typeof c==='string'?c:c.name).filter(Boolean),stats:item.stats||{M:'—',T:'—',SV:'—',W:'—',LD:'—',OC:'—'},weapons,abilities:(item.abilities||[]).map(a=>typeof a==='string'?a:`${a.name||'Ability'}: ${a.text||a.description||''}`),modelAbilities:[{model:item.name||'Unit',abilities:(item.abilities||[]).map(a=>typeof a==='string'?a:`${a.name||'Ability'}: ${a.text||a.description||''}`)}],rules:(item.rules||[]).map(r=>typeof r==='string'?r:(r.name||'Rule')),modelRules:[{model:item.name||'Unit',rules:(item.rules||[]).map(r=>typeof r==='string'?r:(r.name||'Rule'))}],selectedEnhancements:[],leader,support,canLead:[],canSupport:[],imported:true,importSource:'New Recruit JSON'};
   });
   const bodyguards=units.filter(u=>!isCharacterUnit(u)&&!isSupportUnit(u)).map(u=>u.id); units.filter(isCharacterUnit).forEach(u=>{u.leader=true;u.canLead=[...bodyguards]}); units.filter(isSupportUnit).forEach(u=>{u.support=true;u.canSupport=[...bodyguards]});
-  const entries=units.map(u=>({id:crypto.randomUUID(),unitId:u.id,weaponId:'',enabledWeapons:u.weapons.map(w=>w.id||w.name),leaderId:'',enhancementId:'',cardStyle:{}}));
+  const entries=units.map(u=>({id:makeRuntimeId(),unitId:u.id,weaponId:'',enabledWeapons:u.weapons.map(w=>w.id||w.name),leaderId:'',enhancementId:'',cardStyle:{}}));
   const detachmentName=root.detachment?.name||root.detachment||'';
   const detachmentId=slug(detachmentName || 'imported-detachment');
   const rules=(root.rules||[]).map(r=>typeof r==='string'?classifyImportedRule(r,'',detachmentName):classifyImportedRule(r.name||'',r.text||r.description||'',detachmentName)).filter(Boolean);
   return {name:root.name||sourceName.replace(/\.[^.]+$/,''),source:sourceName,units,entries,rules,points:units.reduce((s,u)=>s+(u.points||0),0),detachment:detachmentName,detachmentId,detachmentData:{id:detachmentId,name:detachmentName||'Imported Detachment',rules:rules.filter(r=>r.kind==='detachment'),enhancements:[],stratagems:rules.filter(r=>r.kind==='stratagem')}};
 }
 
-init();
+try {
+  init();
+} catch(error) {
+  console.error('Astartes Forge failed to initialise:', error);
+  const host=document.querySelector('main') || document.body;
+  const notice=document.createElement('div');
+  notice.className='panel runtime-recovery-notice';
+  notice.innerHTML='<strong>Astartes Forge startup recovery</strong><p>The app encountered a startup error. Reload the page. If it persists, use Clear imported data or reset the site storage.</p>';
+  host.prepend(notice);
+}
 
 
 // V4 Print Center -----------------------------------------------------------
@@ -2806,13 +3833,42 @@ function selectedEnhancementsMarkup() {
   return cards.join('') || '<div class="empty">No selected enhancements in this roster.</div>';
 }
 
+
+function printDatasheetMarkup(){
+  return printableEntries().map(entry=>{
+    const card=printCardElement(entry);
+    return card?card.outerHTML:'';
+  }).join('');
+}
+function datasheetPrintPagesMarkup(){
+  const cards=printableEntries().map(entry=>printCardElement(entry)).filter(Boolean);
+  if(cleanPrintSettings().layout==='a4-two-a5'){
+    const pages=[];
+    for(let i=0;i<cards.length;i+=2){
+      pages.push(`<div class="print-sheet print-sheet-two-a5">${cards.slice(i,i+2).map(c=>c.outerHTML).join('')}</div>`);
+    }
+    return pages.join('');
+  }
+  return cards.map(c=>`<div class="print-sheet print-sheet-a4">${c.outerHTML}</div>`).join('');
+}
+function printDatasheetsOnly(){
+  if(!state.roster.length){switchView('builder');return;}
+  const output=$('#armyPackPrint');
+  output.innerHTML=`<section class="clean-datasheets-print">${datasheetPrintPagesMarkup()}</section>`;
+  document.body.classList.remove('print-rules');
+  document.body.classList.add('print-pack','print-datasheets-only');
+  fitAllAdaptiveArtworkPages(output);
+  fitAllAdaptiveA5Cards(output);
+  requestAnimationFrame(()=>window.print());
+}
+
 function buildArmyPackMarkup() {
   // Refresh source views before cloning their final rendered output.
-  renderCards(); renderReference();
+  renderReference();
   const chapter=factionNameFor(state.importedUnits[0]||{});
   const detachment=detachmentDisplayName();
   const rosterName=state.importedMeta?.name || 'Imported Army';
-  const cardsHtml=[...document.querySelectorAll('#cardsContainer .data-card')].map(card=>card.outerHTML).join('');
+  const cardsHtml=datasheetPrintPagesMarkup();
   const armyRulesHtml=($('#armyRules')?.innerHTML||'') + ($('#referenceRules')?.innerHTML||'');
   const coreHtml=$('#coreStratagemList')?.innerHTML||'';
   const detHtml=$('#stratagemList')?.innerHTML||'';
@@ -2845,7 +3901,11 @@ function generateArmyPack() {
   output.querySelectorAll('[data-pack-output]').forEach(section=>section.classList.toggle('pack-hidden',!selected.has(section.dataset.packOutput)));
   document.body.classList.remove('print-rules');
   document.body.classList.add('print-pack');
-  requestAnimationFrame(()=>window.print());
+  fitAllAdaptiveArtworkPages(output);
+  fitAllAdaptiveA5Cards(output);
+  // Keep the browser print dialog inside the original user click. Some browsers
+  // can ignore window.print() when it is deferred to requestAnimationFrame.
+  window.print();
 }
 
 window.addEventListener('DOMContentLoaded',()=>{ document.getElementById('refreshDataQuality')?.addEventListener('click',renderDataQualityDashboard); renderDataQualityDashboard(); });
@@ -2858,3 +3918,52 @@ document.addEventListener('toggle', event=>{
   if(!(target instanceof HTMLDetailsElement) || !target.classList.contains('developer-subpanel') || !target.open) return;
   document.querySelectorAll('.developer-subpanel[open]').forEach(other=>{ if(other!==target) other.open=false; });
 }, true);
+
+
+window.inspectCodexArtwork=function(){
+  return [...document.querySelectorAll('.data-card')].map(card=>({
+    title:card.querySelector('.card-title')?.textContent||'',
+    decorationPack:card.dataset.decorationPack||'',
+    artPack:card.dataset.artPack||'',
+    a4Frame:card.dataset.a4Frame||'',
+    artLayers:[...card.querySelectorAll('.codex-art-layer')].map(img=>({
+      slot:img.dataset.slot||'',
+      src:img.getAttribute('src')||'',
+      complete:img.complete,
+      naturalWidth:img.naturalWidth,
+      naturalHeight:img.naturalHeight
+    }))
+  }));
+};
+
+
+window.runRenderPipelineSelfCheck=function(){
+  const result={
+    appVersion:APP_VERSION,
+    decorationLibrary:!!window.ASTARTES_DECORATION_PACK_LIBRARY,
+    chapterVisualRegistry:!!window.ASTARTES_CHAPTER_VISUAL_REGISTRY,
+    visualProfiles:window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.list?.().length||0,
+    frameReadyProfiles:(window.ASTARTES_CHAPTER_VISUAL_REGISTRY?.list?.()||[]).filter(p=>p.artwork?.frameReady).map(p=>p.id),
+    frameEngine:!!window.ASTARTES_A4_FRAME_ENGINE,
+    cardTemplate:!!document.querySelector('#unitCardTemplate'),
+    renderedCards:document.querySelectorAll('.data-card').length,
+    previewShells:document.querySelectorAll('.a4-preview-shell').length,
+    frameErrors:[...document.querySelectorAll('[data-art-frame-error]')].map(x=>x.dataset.artFrameError)
+  };
+  console.table(result);
+  return result;
+};
+
+window.measureFrameTextCollision=function(card){
+ card=card||document.querySelector('.data-card'); if(!card)return {ok:false,reason:'No card'};
+ const fr=card.querySelector(':scope > .codex-seamless-frame')?.getBoundingClientRect(); if(!fr)return {ok:true,collisions:[]};
+ const collisions=[]; card.querySelectorAll('.codex-text-panel,.card-header').forEach(p=>{const r=p.getBoundingClientRect();
+  const inset=34; if(r.left<fr.left+inset||r.right>fr.right-inset||r.top<fr.top+inset||r.bottom>fr.bottom-inset)collisions.push(p.className);});
+ return {ok:!collisions.length,collisions};
+};
+
+
+
+
+function buildFrameOcclusionMask(card){return;}
+function scheduleFrameOcclusionMask(card){return;}
