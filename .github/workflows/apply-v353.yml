@@ -1,0 +1,66 @@
+name: Apply Astartes Forge v3.0.53
+
+on:
+  push:
+    branches:
+      - feature/artwork-geometry-contract-v3.0.53
+    paths:
+      - .github/workflows/apply-v353.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-verify-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and apply v3.0.53 patch
+        run: |
+          cat tools/v353.patch.b64.part00 tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05 > /tmp/v353.patch.b64
+          base64 -d /tmp/v353.patch.b64 > /tmp/v353.patch
+          git apply --check /tmp/v353.patch
+          git apply /tmp/v353.patch
+
+      - name: Install validator dependencies
+        run: python3 -m pip install --user pillow numpy
+
+      - name: Verify JavaScript and libraries
+        run: |
+          node --check src/core/app.js
+          node --check src/libraries/art/frame-geometry-library.js
+          node --check src/libraries/art/a4-frame-engine.js
+          node tests/scripts/verify-libraries.js
+          node tests/scripts/verify-chapter-visual-registry.js
+          node tests/scripts/verify-runtime-hardening.js
+          node tests/scripts/verify-dark-angels-prototype.js
+          node tests/scripts/verify-artwork-print-renderer.js
+          node tests/scripts/verify-a5-adaptive-fit.js
+          node tests/scripts/verify-measurable-print-fit.js
+          node tests/scripts/verify-artwork-title-geometry.js
+
+      - name: Verify geometry and artwork contracts
+        run: |
+          python3 tests/scripts/verify-frame-geometry-contract.py
+          python3 tests/scripts/verify-golden-frame-standard.py
+          python3 tests/scripts/validate-frames.py
+
+      - name: Run structural audits
+        run: |
+          python3 tests/scripts/audit_rosz.py
+          python3 tests/scripts/audit-chapter-scope.py
+          python3 tests/scripts/audit-structure.py
+
+      - name: Commit verified v3.0.53
+        run: |
+          rm -f tools/v353.patch.b64.part00 tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05
+          rm -f .github/workflows/apply-v353.yml
+          git config user.name "Astartes Forge Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "v3.0.53: add artwork geometry contract"
+          git push origin HEAD:${GITHUB_REF_NAME}
