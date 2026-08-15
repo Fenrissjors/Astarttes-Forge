@@ -21,7 +21,7 @@ jobs:
 
       - name: Reconstruct and apply v3.0.53 patch
         run: |
-          cat tools/v353.patch.b64.part00 tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05 > /tmp/v353.patch.b64
+          cat tools/v353.patch.b64.part00a tools/v353.patch.b64.part00b tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05 > /tmp/v353.patch.b64
           base64 -d /tmp/v353.patch.b64 > /tmp/v353.patch
           git apply --check /tmp/v353.patch
           git apply /tmp/v353.patch
@@ -57,7 +57,7 @@ jobs:
 
       - name: Commit verified v3.0.53
         run: |
-          rm -f tools/v353.patch.b64.part00 tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05
+          rm -f tools/v353.patch.b64.part00 tools/v353.patch.b64.part00a tools/v353.patch.b64.part00b tools/v353.patch.b64.part01 tools/v353.patch.b64.part02 tools/v353.patch.b64.part03 tools/v353.patch.b64.part04 tools/v353.patch.b64.part05
           rm -f .github/workflows/apply-v353.yml
           git config user.name "Astartes Forge Automation"
           git config user.email "actions@users.noreply.github.com"
