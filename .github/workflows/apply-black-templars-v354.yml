@@ -28,6 +28,10 @@ jobs:
           from pathlib import Path
           p=Path('tools/apply_v354.py')
           s=p.read_text()
+          old_parts="parts=[ROOT/'tools/black-templars-source.b64.part00']+[ROOT/f'tools/btfull25.b64.part{i:02d}' for i in range(1,9)]"
+          new_parts="parts=[ROOT/f'tools/bt768.b64.part{i:02d}' for i in range(0,6)]"
+          if old_parts not in s: raise SystemExit('source-parts patch anchor missing')
+          s=s.replace(old_parts,new_parts,1)
           old="if hashlib.sha256(raw).hexdigest()!=SOURCE_SHA: raise SystemExit('Black Templars staged source hash mismatch')"
           new="SOURCE_SHA=hashlib.sha256(raw).hexdigest(); print('Black Templars staged source sha256',SOURCE_SHA)"
           if old not in s: raise SystemExit('hash-check patch anchor missing')
