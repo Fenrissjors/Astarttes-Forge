@@ -4,7 +4,7 @@ const path=require('path');
 const root=path.resolve(__dirname,'../..');
 const app=fs.readFileSync(path.join(root,'src/core/app.js'),'utf8');
 function ok(cond,msg){ if(!cond){console.error('FAIL:',msg);process.exitCode=1;} else console.log('PASS:',msg); }
-ok(app.includes("const APP_VERSION = '3.0.53-artwork-geometry-contract'"),'v3.0.53 app version');
+ok(app.includes("const APP_VERSION = '3.0.54-black-templars-golden-frame'"),'v3.0.54 app version');
 ok(app.includes('function makeRuntimeId('),'compatible runtime ID generator exists');
 ok(!app.includes('crypto.randomUUID()'),'no direct crypto.randomUUID dependency remains');
 ok(app.includes('function storageJson('),'safe JSON storage loader exists');

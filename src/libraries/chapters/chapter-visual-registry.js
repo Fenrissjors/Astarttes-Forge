@@ -66,7 +66,7 @@
       theme:baseTheme('black-templars',{primary:'#17191d',accent:'#d8cbb0',paper:'#eee1c7',ink:'#171513',decorationIntensity:62}),
       printSurface:'#ececed',
       emblem:{remoteFile:'BlackTemplarssymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Crusade reliquary',decorationLabel:'CHAINS · CROSSES · SEALS',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Crusade reliquary',decorationLabel:'CHAINS · CROSSES · SEALS',titleSurface:'#d8cbb0',a4Frame:'assets/art/black-templars/frames/black-templars-a4-portrait.png',frameManifest:'assets/art/black-templars/frames/frame-manifest.json',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'imperial-fists': {
       id:'imperial-fists', name:'Imperial Fists', aliases:['Imperial Fists'],
@@ -187,7 +187,7 @@
   }));}
 
   const api={
-    version:'3.0.53-artwork-geometry-contract',
+    version:'3.0.54-black-templars-golden-frame',
     genericKey:GENERIC,
     a4GeometryMaster:A4_GEOMETRY_MASTER,a4FrameStandard:A4_FRAME_STANDARD,
     profiles,

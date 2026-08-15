@@ -1,4 +1,4 @@
-const APP_VERSION = '3.0.53-artwork-geometry-contract';
+const APP_VERSION = '3.0.54-black-templars-golden-frame';
 const RULES_LIBRARY = window.ASTARTES_RULES_LIBRARY || null;
 const EDITION_SCHEMA_LIBRARY = window.ASTARTES_EDITION_SCHEMA_LIBRARY || null;
 const CHAPTER_LIBRARY = window.ASTARTES_CHAPTER_LIBRARY || null;
