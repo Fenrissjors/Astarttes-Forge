@@ -4,7 +4,7 @@ import json, sys
 from PIL import Image
 import numpy as np
 ROOT=Path(__file__).resolve().parents[2]
-CHAPTERS=['space-wolves','ultramarines','blood-angels','dark-angels','black-templars']
+CHAPTERS=['space-wolves','ultramarines','blood-angels','dark-angels','black-templars','imperial-fists']
 CONTRACT='artwork-geometry-px-v1'
 fail=[]
 for ch in CHAPTERS:

@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.55 — Imperial Fists Frame
+
+- Added validated Imperial Fists A4 artwork using the shared adaptive renderer and pixel geometry contract.
+- Title field remains empty/emblem-free; no Chapter name is baked into artwork.
+- Existing Golden references, Black Templars, A5, and A4 without artwork are unchanged.
+
 ## v3.0.54 — Black Templars Golden Frame
 
 - Added the new Black Templars A4 artwork frame with a completely clear live-title plaque and no baked-in Chapter name.
