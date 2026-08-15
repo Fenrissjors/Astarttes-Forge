@@ -24,7 +24,26 @@ jobs:
 
       - name: Reconstruct approved artwork source
         run: |
-          cat tools/if-frame-webp.b64.part* | base64 -d > /tmp/imperial-fists-source.webp
+          cat \
+            tools/if-frame-webp.b64.part00 \
+            tools/if-frame-webp.b64.part01 \
+            tools/if-frame-webp.b64.part02 \
+            tools/if-frame-webp.b64.part03 \
+            tools/if-frame-webp.b64.part04 \
+            tools/if-frame-webp.b64.part05 \
+            tools/if-frame-webp.b64.part06 \
+            tools/if-frame-webp.b64.fix00 \
+            tools/if-frame-webp.b64.fix01 \
+            tools/if-frame-webp.b64.fix02 \
+            tools/if-frame-webp.b64.fix03 \
+            tools/if-frame-webp.b64.fix04 \
+            tools/if-frame-webp.b64.fix05 \
+            tools/if-frame-webp.b64.fix06 \
+            tools/if-frame-webp.b64.fix07 \
+            tools/if-frame-webp.b64.fix08 \
+            tools/if-frame-webp.b64.fix09 \
+            tools/if-frame-webp.b64.part08 \
+            | base64 -d > /tmp/imperial-fists-source.webp
           echo "1553f862424d10373867442c3b19124f1501e1a07dba21b994df1488169d36ea  /tmp/imperial-fists-source.webp" | sha256sum -c -
 
       - name: Apply v3.0.55 migration
@@ -58,7 +77,7 @@ jobs:
 
       - name: Commit verified Imperial Fists frame
         run: |
-          rm -f tools/if-frame-webp.b64.part* tools/if-frame-src.b64.part* tools/apply_if_v355.py
+          rm -f tools/if-frame-webp.b64.part* tools/if-frame-webp.b64.fix* tools/if-frame-src.b64.part* tools/apply_if_v355.py
           rm -f .github/workflows/apply-imperial-fists-v355.yml
           git config user.name "Astartes Forge Automation"
           git config user.email "actions@users.noreply.github.com"
