@@ -1,0 +1,12 @@
+{
+  "version": "3.0.55",
+  "chapter": "imperial-fists",
+  "status": "PASS",
+  "standard": "a4-chapter-frame-gold-v1",
+  "asset": "assets/art/imperial-fists/frames/imperial-fists-a4-portrait.png",
+  "notes": [
+    "Title plaque intentionally contains no baked chapter name.",
+    "Title live-text field is clear of emblems.",
+    "Opening contour is Imperial Fists-native and not copied from another Chapter."
+  ]
+}

@@ -73,7 +73,7 @@
       theme:baseTheme('imperial-fists',{primary:'#c99f00',accent:'#a72820',paper:'#f1e4c4',ink:'#211b10',decorationIntensity:48}),
       printSurface:'#fbf3cf',
       emblem:{remoteFile:'IFsymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Bastion plate',decorationLabel:'FORTRESS · INDUSTRIAL',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Bastion plate',decorationLabel:'FORTRESSES · ARTILLERY · HAZARD STRIPES',titleSurface:'#e1d7c6',a4Frame:'assets/art/imperial-fists/frames/imperial-fists-a4-portrait.png',frameManifest:'assets/art/imperial-fists/frames/frame-manifest.json',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'salamanders': {
       id:'salamanders', name:'Salamanders', aliases:['Salamanders'],
@@ -187,7 +187,7 @@
   }));}
 
   const api={
-    version:'3.0.54-black-templars-golden-frame',
+    version:'3.0.55-imperial-fists-frame',
     genericKey:GENERIC,
     a4GeometryMaster:A4_GEOMETRY_MASTER,a4FrameStandard:A4_FRAME_STANDARD,
     profiles,
