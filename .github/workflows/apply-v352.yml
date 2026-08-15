@@ -35,8 +35,8 @@ jobs:
           node tests/scripts/verify-a5-adaptive-fit.js
           node tests/scripts/verify-measurable-print-fit.js
 
-      - name: Install artwork validator dependency
-        run: python3 -m pip install --user pillow
+      - name: Install artwork validator dependencies
+        run: python3 -m pip install --user pillow numpy
 
       - name: Verify locked artwork
         run: |
