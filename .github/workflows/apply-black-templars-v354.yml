@@ -1,0 +1,63 @@
+name: Apply Black Templars v3.0.54
+
+on:
+  push:
+    branches:
+      - feature/black-templars-golden-frame-v3.0.54
+    paths:
+      - .github/workflows/apply-black-templars-v354.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-verify-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install validator dependencies
+        run: python3 -m pip install --user pillow numpy
+
+      - name: Build Black Templars frame and integration
+        run: python3 tools/apply_v354.py
+
+      - name: Verify JavaScript and libraries
+        run: |
+          node --check src/core/app.js
+          node --check src/libraries/art/frame-geometry-library.js
+          node --check src/libraries/art/a4-frame-engine.js
+          node tests/scripts/verify-libraries.js
+          node tests/scripts/verify-chapter-visual-registry.js
+          node tests/scripts/verify-runtime-hardening.js
+          node tests/scripts/verify-dark-angels-prototype.js
+          node tests/scripts/verify-artwork-print-renderer.js
+          node tests/scripts/verify-a5-adaptive-fit.js
+          node tests/scripts/verify-measurable-print-fit.js
+          node tests/scripts/verify-artwork-title-geometry.js
+
+      - name: Verify Golden and artwork geometry contracts
+        run: |
+          python3 tests/scripts/verify-frame-geometry-contract.py
+          python3 tests/scripts/verify-golden-frame-standard.py
+          python3 tests/scripts/validate-frames.py
+
+      - name: Run roster structural audits
+        run: |
+          python3 tests/scripts/audit_rosz.py
+          python3 tests/scripts/audit-chapter-scope.py
+          python3 tests/scripts/audit-structure.py
+
+      - name: Commit verified Black Templars frame
+        run: |
+          rm -f tools/black-templars-source.b64.part* tools/btfull25.b64.part* tools/bt768.b64.part*
+          rm -f tools/black-templars-source.webp tools/apply_v354.py
+          rm -f .github/workflows/apply-black-templars-v354.yml
+          git config user.name "Astartes Forge Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "v3.0.54: add validated Black Templars A4 frame"
+          git push origin HEAD:${GITHUB_REF_NAME}
