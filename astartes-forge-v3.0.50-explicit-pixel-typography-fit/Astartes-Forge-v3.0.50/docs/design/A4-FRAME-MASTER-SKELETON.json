@@ -1,0 +1,27 @@
+{
+  "id": "a4-chapter-frame-gold-v1",
+  "canvasPx": {"width": 2480, "height": 3508},
+  "physicalMm": {"width": 210, "height": 297},
+  "overscanMm": {"left": 0, "right": 0, "top": 0, "bottom": 0},
+  "landmarksPx": {
+    "titleTopDecorativeBandStartY": 216,
+    "titleInnerTopEdgeY": 248,
+    "titleBottomBorderStartY": 498,
+    "titleBottomBorderEndY": 529,
+    "bodyOpeningStartsY": 619,
+    "footerOpeningStartsY": 3187,
+    "bodyOpeningLeftXAtY700": 289,
+    "bodyOpeningRightXAtY700": 2192,
+    "midSideInnerLeftXAtY1500": 517,
+    "midSideInnerRightXAtY1500": 1964
+  },
+  "goldStandardSpec": "docs/design/A4-CHAPTER-FRAME-GOLD-STANDARD.json",
+  "referenceChapters": ["space-wolves", "ultramarines", "blood-angels"],
+  "rules": [
+    "The three reference Chapters jointly define the Golden Standard; no single Chapter alpha mask is the master.",
+    "Canvas, title anchors, renderer layering and full-bleed edge policy are shared.",
+    "Each Chapter retains a native connected inner opening and its own inward ornament silhouette.",
+    "No shared destructive alpha mask may be used.",
+    "Artwork is rendered exactly at 210x297 mm with no zoom, overscan or crop."
+  ]
+}

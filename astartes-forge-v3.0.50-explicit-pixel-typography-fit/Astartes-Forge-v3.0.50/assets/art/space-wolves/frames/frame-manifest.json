@@ -1,0 +1,44 @@
+{
+  "version": "3.0.33",
+  "chapter": "space-wolves",
+  "frameStandard": "a4-chapter-frame-gold-v1",
+  "goldenReference": true,
+  "lockedSha256": "0967a48fbd46a585957281e092f1f1f393a7fb72192af336c23a73b8df9a7a8a",
+  "frames": {
+    "a4Portrait": {
+      "asset": "assets/art/space-wolves/frames/space-wolves-a4-portrait.png",
+      "pixelSize": [
+        2480,
+        3508
+      ],
+      "physicalSizeMm": [
+        210,
+        297
+      ],
+      "safeZone": {
+        "x": 0.21,
+        "y": 0.15,
+        "width": 0.58,
+        "height": 0.7,
+        "minimumTransparency": 0.9
+      }
+    }
+  },
+  "geometryMaster": "a4-chapter-frame-gold-v1",
+  "geometrySpec": "docs/design/A4-CHAPTER-FRAME-GOLD-STANDARD.json",
+  "openingMode": "chapter-native",
+  "layoutLandmarksPx": {
+    "titleTopDecorativeBandStartY": 216,
+    "titleInnerTopEdgeY": 248,
+    "titleBottomBorderStartY": 498,
+    "titleBottomBorderEndY": 529,
+    "bodyOpeningStartsY": 619,
+    "footerOpeningStartsY": 3187,
+    "bodyOpeningLeftXAtY700": 289,
+    "bodyOpeningRightXAtY700": 2192,
+    "midSideInnerLeftXAtY1500": 517,
+    "midSideInnerRightXAtY1500": 1964
+  },
+  "nativeOpening": true,
+  "outerEdgePolicy": "straight-full-bleed-a4"
+}

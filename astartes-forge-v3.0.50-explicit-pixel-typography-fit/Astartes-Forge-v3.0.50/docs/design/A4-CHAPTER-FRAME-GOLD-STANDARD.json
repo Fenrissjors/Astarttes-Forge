@@ -1,0 +1,106 @@
+{
+  "id": "a4-chapter-frame-gold-v1",
+  "name": "Astartes Forge A4 Chapter Frame Golden Standard",
+  "version": "3.0.33",
+  "referenceFrames": {
+    "space-wolves": {
+      "asset": "assets/art/space-wolves/frames/space-wolves-a4-portrait.png",
+      "sha256": "0967a48fbd46a585957281e092f1f1f393a7fb72192af336c23a73b8df9a7a8a"
+    },
+    "ultramarines": {
+      "asset": "assets/art/ultramarines/frames/ultramarines-a4-portrait.png",
+      "sha256": "058653b687ca9deb84b943aefa2347349d72bcf29eeca6dd1cc4e56b3a867367"
+    },
+    "blood-angels": {
+      "asset": "assets/art/blood-angels/frames/blood-angels-a4-portrait.png",
+      "sha256": "7877ff571f6de62f1d6205dc6a5155da8c98c9fecfcb7ba062adb1cdd6c0c100"
+    }
+  },
+  "canvas": {
+    "pixelSize": [2480, 3508],
+    "physicalMm": [210, 297],
+    "overscanMm": [0, 0, 0, 0],
+    "rendererObjectFit": "fill",
+    "rendererCrop": false
+  },
+  "layerContract": [
+    "A4 full-page background colour",
+    "chapter artwork frame",
+    "live title text",
+    "individual live information panels"
+  ],
+  "outerEdgeContract": {
+    "alphaThreshold": 12,
+    "opaqueBandPx": 20,
+    "minimumOpaqueFractionEachEdge": 1.0,
+    "rules": [
+      "Artwork must reach all four A4 edges.",
+      "The visible outer boundary is straight and page-aligned on all four sides.",
+      "No transparent bites, gaps or cut-outs may connect to a page edge.",
+      "No ears, wings, horns, weapons or other ornaments may protrude beyond or appear clipped by the A4 canvas."
+    ]
+  },
+  "titlePlaqueContract": {
+    "singleContinuousField": true,
+    "recommendedLandmarksPx": {
+      "decorativeBandStartY": 216,
+      "innerTopEdgeY": 248,
+      "bottomBorderStartY": 498,
+      "bottomBorderEndY": 529
+    },
+    "liveTextSafeZones": [
+      {"name": "name", "rectPx": [400, 300, 1550, 490], "minimumLightNeutralFraction": 0.98},
+      {"name": "points", "rectPx": [1750, 300, 2100, 490], "minimumLightNeutralFraction": 0.93},
+      {"name": "centre-lower", "rectPx": [950, 310, 1530, 500], "minimumLightNeutralFraction": 0.95}
+    ],
+    "lightNeutralTest": {"minimumLuminance": 145, "maximumSaturation": 0.38},
+    "rules": [
+      "There is one clear, uninterrupted title field; it may not be split into left/right panels.",
+      "The central emblem belongs above the title field and may intrude no more than about 5 px into the usable title-text field.",
+      "The title field must remain visually quiet enough for long unit names and points text.",
+      "The frame supplies a titleSurface swatch so the renderer can choose readable title text automatically."
+    ]
+  },
+  "contentOpeningContract": {
+    "openingMode": "chapter-native",
+    "alphaThreshold": 12,
+    "safeZone": {"x": 0.21, "y": 0.15, "width": 0.58, "height": 0.70, "minimumTransparency": 0.90},
+    "centralConnectedTransparencyMinimumShare": 0.998,
+    "centralOpeningAreaFraction": [0.42, 0.49],
+    "openingBoundingBoxPx": {
+      "minX": [350, 500],
+      "maxX": [1980, 2180],
+      "minY": [540, 600],
+      "maxY": [3100, 3330]
+    },
+    "scanlineWidthPx": [
+      {"y": 600, "range": [1400, 1800]},
+      {"y": 700, "range": [1450, 1800]},
+      {"y": 1500, "range": [1200, 1500]},
+      {"y": 2500, "range": [1450, 1750]},
+      {"y": 3000, "range": [1200, 1700]}
+    ],
+    "maximumLeftRightMarginDifferencePxAtScanlines": 100,
+    "rules": [
+      "Each Chapter keeps its own natural inner ornament contour; never copy another Chapter's alpha mask onto it.",
+      "The central transparent opening must be one dominant connected region.",
+      "Do not punch secondary transparent holes into side rails or the footer to make panels fit.",
+      "Bottom ornamentation must remain non-critical because live panels may overlap it on dense sheets.",
+      "Side ornamentation may extend inward and may be covered by live panels; it may not extend outward beyond the page."
+    ]
+  },
+  "artDirectionRules": [
+    "Artwork contains no roster/rules text.",
+    "Chapter identity changes materials, heraldry and ornament, not the physical page geometry.",
+    "The lower border should be less information-dense than the upper/side decoration so panel overlap is visually forgiving.",
+    "Generate or compose at the final A4 portrait aspect ratio; do not repair a bad frame later by destructive crop or foreign alpha masks."
+  ],
+  "promotionGate": [
+    "Frame asset exists and is 2480x3508 RGBA.",
+    "Frame manifest declares a4-chapter-frame-gold-v1.",
+    "validate-frames.py passes all automated geometry/alpha/title checks.",
+    "Golden-reference hashes remain unchanged unless this standard is intentionally versioned.",
+    "Manual review confirms no clipped outer ornament and the title plaque is a single usable field.",
+    "Only after these checks may chapter-visual-registry.js set frameReady=true."
+  ]
+}

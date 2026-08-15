@@ -1,0 +1,37 @@
+{
+  "version": "NEXT_APP_VERSION",
+  "chapter": "chapter-slug",
+  "frameStandard": "a4-chapter-frame-gold-v1",
+  "goldenReference": false,
+  "frames": {
+    "a4Portrait": {
+      "asset": "assets/art/chapter-slug/frames/chapter-slug-a4-portrait.png",
+      "pixelSize": [2480, 3508],
+      "physicalSizeMm": [210, 297],
+      "safeZone": {
+        "x": 0.21,
+        "y": 0.15,
+        "width": 0.58,
+        "height": 0.70,
+        "minimumTransparency": 0.90
+      }
+    }
+  },
+  "geometryMaster": "a4-chapter-frame-gold-v1",
+  "geometrySpec": "docs/design/A4-CHAPTER-FRAME-GOLD-STANDARD.json",
+  "openingMode": "chapter-native",
+  "layoutLandmarksPx": {
+    "titleTopDecorativeBandStartY": 216,
+    "titleInnerTopEdgeY": 248,
+    "titleBottomBorderStartY": 498,
+    "titleBottomBorderEndY": 529,
+    "bodyOpeningStartsY": 619,
+    "footerOpeningStartsY": 3187,
+    "bodyOpeningLeftXAtY700": 289,
+    "bodyOpeningRightXAtY700": 2192,
+    "midSideInnerLeftXAtY1500": 517,
+    "midSideInnerRightXAtY1500": 1964
+  },
+  "nativeOpening": true,
+  "outerEdgePolicy": "straight-full-bleed-a4"
+}

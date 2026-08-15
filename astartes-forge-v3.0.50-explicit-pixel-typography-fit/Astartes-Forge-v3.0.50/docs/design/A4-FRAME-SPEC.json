@@ -1,0 +1,33 @@
+{
+  "engine": "A4 Illustrated Frame Engine",
+  "version": "3.0.1",
+  "page": {
+    "width_mm": 210,
+    "height_mm": 297
+  },
+  "safe_area_mm": {
+    "top": 18,
+    "right": 15,
+    "bottom": 20,
+    "left": 15
+  },
+  "art_slots": {
+    "topFrame": "210x27mm",
+    "topLeft": "40x55mm",
+    "topRight": "45x55mm",
+    "leftRail": "19x250mm",
+    "rightRail": "19x250mm",
+    "lowerLeft": "55x59mm",
+    "bottomFrame": "174x27mm",
+    "background": "180x259mm",
+    "heroArtwork": "73x92mm",
+    "standardAccent": "42x68mm"
+  },
+  "principles": [
+    "Artwork never contains live rules text.",
+    "New Recruit data remains HTML.",
+    "Frame assets are replaceable per Chapter.",
+    "Dense cards suppress nonessential artwork before shrinking content.",
+    "A4 physical dimensions are the source of truth."
+  ]
+}

@@ -1,0 +1,6092 @@
+{
+  "aggregate": {
+    "files": 30,
+    "selection_types": {
+      "upgrade": 1727,
+      "model": 448,
+      "unit": 99
+    },
+    "profile_types": {
+      "Ranged Weapons": 815,
+      "Abilities": 754,
+      "Melee Weapons": 461,
+      "Unit": 406,
+      "Transport": 13
+    },
+    "characteristics_by_profile_type": {
+      "Unit": {
+        "M": 406,
+        "T": 406,
+        "Sv": 406,
+        "W": 406,
+        "LD": 406,
+        "OC": 406,
+        "InSv": 406
+      },
+      "Abilities": {
+        "Description": 754
+      },
+      "Ranged Weapons": {
+        "Range": 815,
+        "A": 815,
+        "BS": 815,
+        "S": 815,
+        "AP": 815,
+        "D": 815,
+        "Keywords": 815
+      },
+      "Melee Weapons": {
+        "Range": 461,
+        "A": 461,
+        "WS": 461,
+        "S": 461,
+        "AP": 461,
+        "D": 461,
+        "Keywords": 461
+      },
+      "Transport": {
+        "Capacity": 13
+      }
+    },
+    "category_names": {
+      "Ranged Weapon": 385,
+      "Imperium": 325,
+      "Faction: Adeptus Astartes": 307,
+      "Infantry": 263,
+      "Configuration": 242,
+      "Melee Weapon": 236,
+      "Bolt Weapon": 233,
+      "Pistol Weapon": 208,
+      "Character": 175,
+      "Grenades": 151,
+      "Tacticus": 130,
+      "Vehicle": 111,
+      "Faction: Space Wolves": 96,
+      "Battleline": 81,
+      "Fly": 65,
+      "Epic Hero": 64,
+      "Smoke": 51,
+      "Attacks Dx Weapon": 48,
+      "Terminator": 46,
+      "Dedicated Transport": 42,
+      "Allies: Imperial Agents": 42,
+      "Mounted": 41,
+      "Damage Dx Weapon": 40,
+      "Captain": 36,
+      "Beast": 36,
+      "Plasma": 36,
+      "Wolf Guard": 32,
+      "Transport": 31,
+      "Uncategorized": 30,
+      "Swarm": 30,
+      "Monster": 30,
+      "Drone": 30,
+      "Fortification": 30,
+      "Unit": 30,
+      "Allies: Astra Militarum": 30,
+      "Allies: Chaos Knights": 30,
+      "Allies: Heretic Astartes": 30,
+      "Allies: Imperial Knights": 30,
+      "Allies: Legiones Daemonica": 30,
+      "Allies: Titanicus Traitoris": 30,
+      "Allies: Unaligned Forces": 30,
+      "Reference": 30,
+      "Allies: Adeptus Titanicus": 30,
+      "Illegal Units": 30,
+      "Warlord": 28,
+      "Jump Pack": 27,
+      "Ancient": 24,
+      "Gravis": 23,
+      "Power Weapon": 22,
+      "Take and Hold": 20,
+      "Psychic Weapon": 20,
+      "Apothecary": 20,
+      "Wolf Guard Terminators": 19,
+      "Aircraft": 19,
+      "Frame": 19,
+      "Stormraven Gunship": 18,
+      "Walker": 18,
+      "Dreadnought": 18,
+      "Grey Hunters": 14,
+      "Arjac Rockfist": 13,
+      "Inquisitorial Chimera": 12,
+      "Faction: Agents of the Imperium": 12,
+      "Wolf Priest": 12,
+      "Reconnaissance": 11,
+      "Judiciar": 10,
+      "Psyker": 10,
+      "Librarian": 10,
+      "Assault Intercessor Squad": 10,
+      "Intercessor Squad": 10,
+      "Tactical Squad": 10,
+      "Biologis": 10,
+      "Stormhawk Interceptor": 8,
+      "Stormtalon Gunship": 8,
+      "Extra Attacks Weapon": 7,
+      "Battle Leader": 7,
+      "Disruption": 6,
+      "Bjorn the Fell-Handed": 6,
+      "Chapter Master": 6,
+      "Logan Grimnar": 6,
+      "Ulrik the Slayer": 6,
+      "Blood Claws": 6,
+      "Assault Intercessors with Jump Packs": 6,
+      "Suppressor Squad": 6,
+      "Headtakers": 6,
+      "Hunting Wolves": 6,
+      "Phobos": 6,
+      "Wolf Scouts": 6,
+      "Gladiator Lancer": 6,
+      "Redemptor Dreadnought": 6,
+      "Whirlwind": 6,
+      "Priority Assets": 4,
+      "3DP Detachment": 3,
+      "Ballistus Dreadnought": 3,
+      "Brutalis Dreadnought": 3,
+      "Fire Raptor Gunship": 3,
+      "Purge the Foe": 2,
+      "Faction: Salamanders": 2,
+      "Eradicator Squad": 2,
+      "Adrax Agatone": 1,
+      "Vulkan He'stan": 1,
+      "Chaplain": 1,
+      "Heavy Intercessor Squad": 1,
+      "Eradicator Squad with Heavy Bolters": 1,
+      "Hellblaster Squad": 1,
+      "Outrider Squad": 1,
+      "Ferren Areios": 1,
+      "Titanic": 1,
+      "Mastodon": 1,
+      "Thunderwolf Cavalry": 1,
+      "Storm Speeder Thunderstrike": 1
+    },
+    "rule_names": {
+      "Oath of Moment": 366,
+      "Pistol": 149,
+      "Close-quarters": 125,
+      "Rapid Fire": 108,
+      "Leader": 103,
+      "Twin-linked": 84,
+      "Devastating Wounds": 74,
+      "Deep Strike": 74,
+      "Heavy": 60,
+      "Anti": 60,
+      "Hazardous": 59,
+      "Assault": 53,
+      "Deadly Demise D3": 53,
+      "Blast": 50,
+      "Support": 36,
+      "Psychic": 30,
+      "Precision": 23,
+      "Hover": 21,
+      "Deadly Demise D6": 21,
+      "Torrent": 21,
+      "Sustained Hits": 17,
+      "Ignores Cover": 15,
+      "Firing Deck 2": 12,
+      "Assigned Agents": 12,
+      "Master of Wolves": 7,
+      "Feel No Pain 6+": 7,
+      "Extra Attacks": 7,
+      "Psychic Disciplines": 6,
+      "Deadly Demise 1": 6,
+      "Feel No Pain 5+": 6,
+      "Lethal Hits": 6,
+      "Infiltrators": 6,
+      "Scouts 7\"": 6,
+      "One Shot": 6,
+      "Indirect Fire": 6,
+      "Shield of the Imperium": 5,
+      "Imperator Unleashed": 5,
+      "Skystrike": 4,
+      "Melta": 3,
+      "Lightning Assault": 2,
+      "New Rule": 2,
+      "The Great Wolf Watches": 1,
+      "Close-Range Eradication": 1,
+      "Extremis-level Threat": 1,
+      "Combat Doctrines": 1,
+      "Armoured Wrath": 1,
+      "Loping Charge": 1,
+      "Legendary Slayers": 1,
+      "Heroes All": 1,
+      "Pack's Quarry": 1,
+      "Interlocking Tactics": 1,
+      "Deadly Demise 2D6": 1,
+      "Shadow Masters": 1,
+      "Old Greymanes": 1
+    },
+    "weapon_rule_names": {
+      "Oath of Moment": 306,
+      "Pistol": 149,
+      "Close-quarters": 125,
+      "Rapid Fire": 108,
+      "Leader": 103,
+      "Twin-linked": 84,
+      "Devastating Wounds": 74,
+      "Deep Strike": 74,
+      "Heavy": 60,
+      "Anti": 60,
+      "Hazardous": 59,
+      "Assault": 53,
+      "Deadly Demise D3": 53,
+      "Blast": 50,
+      "Support": 36,
+      "Psychic": 30,
+      "Precision": 23,
+      "Hover": 21,
+      "Deadly Demise D6": 21,
+      "Torrent": 21,
+      "Sustained Hits": 17,
+      "Ignores Cover": 15,
+      "Firing Deck 2": 12,
+      "Assigned Agents": 12,
+      "Feel No Pain 6+": 7,
+      "Extra Attacks": 7,
+      "Deadly Demise 1": 6,
+      "Feel No Pain 5+": 6,
+      "Lethal Hits": 6,
+      "Infiltrators": 6,
+      "Scouts 7\"": 6,
+      "One Shot": 6,
+      "Indirect Fire": 6,
+      "Melta": 3,
+      "Deadly Demise 2D6": 1
+    },
+    "detachment_names": {
+      "Detachment": 30,
+      "Saga of the Great Wolf": 7,
+      "Librarius Conclave": 6,
+      "Anvil Siege Force": 5,
+      "Vengeful Hosts": 5,
+      "Fulguris Task Force": 4,
+      "Stormlance Task Force": 2,
+      "Subversion Assets": 2,
+      "Champions of Fenris": 1,
+      "Firestorm Assault Force": 1,
+      "1st Company Task Force": 1,
+      "Gladius Task Force": 1,
+      "Ironstorm Spearhead": 1,
+      "Legends of Saga and Song": 1,
+      "Saga of the Beastslayer": 1,
+      "Saga of the Bold": 1,
+      "Saga of the Hunter": 1,
+      "Bastion Task Force": 1,
+      "Vanguard Spearhead": 1,
+      "Veterans of the Fang": 1
+    },
+    "enhancement_groups": {},
+    "cost_names": {
+      "pts": 371,
+      "Detachment Points": 43,
+      "Enhancements": 15
+    },
+    "units": {
+      "Wolf Guard Terminators": 19,
+      "Stormraven Gunship": 18,
+      "Captain with Jump Pack": 15,
+      "Grey Hunters": 14,
+      "Arjac Rockfist": 13,
+      "Inquisitorial Chimera": 12,
+      "Captain in Gravis Armour": 10,
+      "Judiciar": 10,
+      "Librarian": 10,
+      "Assault Intercessor Squad": 10,
+      "Intercessor Squad": 10,
+      "Tactical Squad": 10,
+      "Apothecary": 10,
+      "Apothecary Biologis": 10,
+      "Ancient": 8,
+      "Ancient in Terminator Armor": 8,
+      "Ancient on Bike [Legends]": 8,
+      "Stormhawk Interceptor": 8,
+      "Stormtalon Gunship": 8,
+      "Captain": 8,
+      "Wolf Guard Battle Leader": 7,
+      "Bjorn the Fell-Handed": 6,
+      "Logan Grimnar": 6,
+      "Ulrik the Slayer": 6,
+      "Wolf Priest": 6,
+      "Blood Claws": 6,
+      "Assault Intercessors with Jump Packs": 6,
+      "Suppressor Squad": 6,
+      "Wolf Guard Headtakers": 6,
+      "Wolf Scouts": 6,
+      "Gladiator Lancer": 6,
+      "Redemptor Dreadnought": 6,
+      "Whirlwind": 6,
+      "Ballistus Dreadnought": 3,
+      "Brutalis Dreadnought": 3,
+      "Fire Raptor Gunship [Legends]": 3,
+      "Adrax Agatone": 1,
+      "Vulkan He'stan": 1,
+      "Chaplain on Bike": 1,
+      "Heavy Intercessor Squad": 1,
+      "Eradicator Squad": 1,
+      "Eradicator Squad with Heavy Bolters": 1,
+      "Hellblaster Squad": 1,
+      "Outrider Squad": 1,
+      "Ferren Areios [Legends]": 1,
+      "Mastodon [Legends]": 1,
+      "Thunderwolf Cavalry": 1,
+      "Storm Speeder Thunderstrike": 1
+    },
+    "multi_profile_weapons": [
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "path": [
+          "Captain in Gravis Armour"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Judiciar",
+        "path": [
+          "Judiciar"
+        ],
+        "profiles": [
+          {
+            "name": "Absolvor bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "2",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Executioner Relic Blade",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "7",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "Devastating Wounds, Precision"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Librarian",
+        "path": [
+          "Librarian"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Force weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "6",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Smite",
+        "path": [
+          "Librarian",
+          "Smite"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Assault Intercessor Squad",
+        "path": [
+          "Assault Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Assault Intercessor Sergeant",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Assault Intercessors",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessors"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Intercessor Squad",
+        "path": [
+          "Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Intercessor Sergeant",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Intercessor",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Tactical Squad",
+        "path": [
+          "Tactical Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Tactical Marine",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Tactical Marine Sergeant",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Stormraven Gunship",
+        "path": [
+          "Stormraven Gunship"
+        ],
+        "profiles": [
+          {
+            "name": "Armoured Hull",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "4+",
+              "S": "8",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Stormstrike Missile Launcher",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "10",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Twin assault cannon",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Devastating wounds, Twin-linked"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Typhoon missile launcher",
+        "path": [
+          "Stormraven Gunship",
+          "Typhoon missile launcher"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Arjac Rockfist",
+        "path": [
+          "Arjac Rockfist"
+        ],
+        "profiles": [
+          {
+            "name": "Foehammer",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "8",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "Anti-Monster 3+, Anti-Vehicle 3+, Precision"
+            }
+          },
+          {
+            "name": "Foehammer",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "6\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "8",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "Anti-Monster 3+, Anti-Vehicle 3+, Assault"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Foehammer",
+        "path": [
+          "Arjac Rockfist",
+          "Foehammer"
+        ],
+        "profiles": [
+          {
+            "name": "Foehammer",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "8",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "Anti-Monster 3+, Anti-Vehicle 3+, Precision"
+            }
+          },
+          {
+            "name": "Foehammer",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "6\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "8",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "Anti-Monster 3+, Anti-Vehicle 3+, Assault"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Captain with Jump Pack",
+        "path": [
+          "Captain with Jump Pack"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "7",
+              "WS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Melee and Pistol",
+        "path": [
+          "Captain with Jump Pack",
+          "Melee and Pistol"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "7",
+              "WS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Captain with Jump Pack",
+        "path": [
+          "Captain with Jump Pack"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "7",
+              "WS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Melee and Pistol",
+        "path": [
+          "Captain with Jump Pack",
+          "Melee and Pistol"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "7",
+              "WS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "2+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Grey Hunters",
+        "path": [
+          "Grey Hunters"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt Carbine",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 1"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Carbine",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 1"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Grey Hunter",
+        "path": [
+          "Grey Hunters",
+          "Grey Hunter"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt Carbine",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 1"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Grey Hunter Pack Leader",
+        "path": [
+          "Grey Hunters",
+          "Grey Hunter Pack Leader"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Carbine",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 1"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Wolf Guard Terminators",
+        "path": [
+          "Wolf Guard Terminators"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Power Weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Storm Bolter",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 2"
+            }
+          },
+          {
+            "name": "Master-crafted Power Weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Storm Bolter",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 2"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Wolf Guard Terminator Pack Leader",
+        "path": [
+          "Wolf Guard Terminators",
+          "Wolf Guard Terminator Pack Leader"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Power Weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Storm Bolter",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 2"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Storm Bolter & Master-crafted Power Weapon",
+        "path": [
+          "Wolf Guard Terminators",
+          "Wolf Guard Terminator Pack Leader",
+          "Storm Bolter & Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Power Weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Storm Bolter",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 2"
+            }
+          }
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Wolf Guard Terminator w/ storm bolter",
+        "path": [
+          "Wolf Guard Terminators",
+          "Wolf Guard Terminator w/ storm bolter"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Power Weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Storm Bolter",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Rapid Fire 2"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "path": [
+          "Captain in Gravis Armour"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Judiciar",
+        "path": [
+          "Judiciar"
+        ],
+        "profiles": [
+          {
+            "name": "Absolvor bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "2",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Executioner Relic Blade",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "7",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "Devastating Wounds, Precision"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Librarian",
+        "path": [
+          "Librarian"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Force weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "6",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Smite",
+        "path": [
+          "Librarian",
+          "Smite"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Assault Intercessor Squad",
+        "path": [
+          "Assault Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Assault Intercessor Sergeant",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Assault Intercessors",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessors"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Intercessor Squad",
+        "path": [
+          "Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Intercessor Sergeant",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Intercessor",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Tactical Squad",
+        "path": [
+          "Tactical Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Tactical Marine",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Tactical Marine Sergeant",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Stormraven Gunship",
+        "path": [
+          "Stormraven Gunship"
+        ],
+        "profiles": [
+          {
+            "name": "Armoured Hull",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "4+",
+              "S": "8",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Stormstrike Missile Launcher",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "10",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Twin assault cannon",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Devastating wounds, Twin-linked"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "firestorm assault force.rosz",
+        "selection": "Typhoon missile launcher",
+        "path": [
+          "Stormraven Gunship",
+          "Typhoon missile launcher"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "path": [
+          "Captain in Gravis Armour"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Judiciar",
+        "path": [
+          "Judiciar"
+        ],
+        "profiles": [
+          {
+            "name": "Absolvor bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "2",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Executioner Relic Blade",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "7",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "Devastating Wounds, Precision"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Librarian",
+        "path": [
+          "Librarian"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Force weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "6",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Smite",
+        "path": [
+          "Librarian",
+          "Smite"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Assault Intercessor Squad",
+        "path": [
+          "Assault Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Assault Intercessor Sergeant",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Assault Intercessors",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessors"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Intercessor Squad",
+        "path": [
+          "Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Intercessor Sergeant",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Intercessor",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Tactical Squad",
+        "path": [
+          "Tactical Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Tactical Marine",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Tactical Marine Sergeant",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Stormraven Gunship",
+        "path": [
+          "Stormraven Gunship"
+        ],
+        "profiles": [
+          {
+            "name": "Armoured Hull",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "4+",
+              "S": "8",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Stormstrike Missile Launcher",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "10",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Twin assault cannon",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Devastating wounds, Twin-linked"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "first company task force.rosz",
+        "selection": "Typhoon missile launcher",
+        "path": [
+          "Stormraven Gunship",
+          "Typhoon missile launcher"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "path": [
+          "Captain in Gravis Armour"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Judiciar",
+        "path": [
+          "Judiciar"
+        ],
+        "profiles": [
+          {
+            "name": "Absolvor bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "2",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Executioner Relic Blade",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "7",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "Devastating Wounds, Precision"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Librarian",
+        "path": [
+          "Librarian"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Force weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "6",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Smite",
+        "path": [
+          "Librarian",
+          "Smite"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Smite - Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "D3",
+              "Keywords": "Psychic"
+            }
+          },
+          {
+            "name": "➤ Smite - Focused Witchfire",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "D6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "-2",
+              "D": "D3",
+              "Keywords": "Devastating Wounds, Hazardous, Psychic"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Assault Intercessor Squad",
+        "path": [
+          "Assault Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Assault Intercessor Sergeant",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Assault Intercessors",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessors"
+        ],
+        "profiles": [
+          {
+            "name": "Astartes Chainsword",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "4",
+              "WS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Heavy Bolt Pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Pistol"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Intercessor Squad",
+        "path": [
+          "Intercessor Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Intercessor Sergeant",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Intercessor",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "-1",
+              "D": "1",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "3",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Tactical Squad",
+        "path": [
+          "Tactical Squad"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Tactical Marine",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine"
+        ],
+        "profiles": [
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Tactical Marine Sergeant",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine Sergeant"
+        ],
+        "profiles": [
+          {
+            "name": "Close combat weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "2",
+              "WS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "12\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Close-Quarters"
+            }
+          },
+          {
+            "name": "Boltgun",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Stormraven Gunship",
+        "path": [
+          "Stormraven Gunship"
+        ],
+        "profiles": [
+          {
+            "name": "Armoured Hull",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "4+",
+              "S": "8",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Stormstrike Missile Launcher",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "10",
+              "AP": "-2",
+              "D": "3",
+              "Keywords": "-"
+            }
+          },
+          {
+            "name": "Twin assault cannon",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "24\"",
+              "A": "6",
+              "BS": "3+",
+              "S": "6",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Devastating wounds, Twin-linked"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "fulguris task force.rosz",
+        "selection": "Typhoon missile launcher",
+        "path": [
+          "Stormraven Gunship",
+          "Typhoon missile launcher"
+        ],
+        "profiles": [
+          {
+            "name": "➤ Typhoon missile launcher - frag",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2D6",
+              "BS": "3+",
+              "S": "4",
+              "AP": "0",
+              "D": "1",
+              "Keywords": "Blast"
+            }
+          },
+          {
+            "name": "➤ Typhoon missile launcher - krak",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "48\"",
+              "A": "2",
+              "BS": "3+",
+              "S": "9",
+              "AP": "-2",
+              "D": "D6",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "Gladius task force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "path": [
+          "Captain in Gravis Armour"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "Gladius task force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon"
+        ],
+        "profiles": [
+          {
+            "name": "Master-crafted Heavy Bolt Rifle",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "30\"",
+              "A": "2",
+              "BS": "2+",
+              "S": "5",
+              "AP": "-1",
+              "D": "3",
+              "Keywords": "Assault, Heavy"
+            }
+          },
+          {
+            "name": "Master-crafted power weapon",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "6",
+              "WS": "2+",
+              "S": "5",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "-"
+            }
+          }
+        ]
+      },
+      {
+        "file": "Gladius task force.rosz",
+        "selection": "Judiciar",
+        "path": [
+          "Judiciar"
+        ],
+        "profiles": [
+          {
+            "name": "Absolvor bolt pistol",
+            "type": "Ranged Weapons",
+            "chars": {
+              "Range": "18\"",
+              "A": "1",
+              "BS": "3+",
+              "S": "5",
+              "AP": "-1",
+              "D": "2",
+              "Keywords": "Pistol"
+            }
+          },
+          {
+            "name": "Executioner Relic Blade",
+            "type": "Melee Weapons",
+            "chars": {
+              "Range": "Melee",
+              "A": "5",
+              "WS": "2+",
+              "S": "7",
+              "AP": "-2",
+              "D": "2",
+              "Keywords": "Devastating Wounds, Precision"
+            }
+          }
+        ]
+      }
+    ],
+    "local_weapon_rule_examples": [
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "rule": "Leader",
+        "path": [
+          "Captain in Gravis Armour"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Captain in Gravis Armour",
+        "rule": "Oath of Moment",
+        "path": [
+          "Captain in Gravis Armour"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle",
+        "rule": "Heavy",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+          "Master-crafted Heavy Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Master-crafted Heavy Bolt Rifle",
+        "rule": "Assault",
+        "path": [
+          "Captain in Gravis Armour",
+          "Master-crafted Heavy Bolt Rifle and Master-crafted Power Weapon",
+          "Master-crafted Heavy Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Judiciar",
+        "rule": "Leader",
+        "path": [
+          "Judiciar"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Judiciar",
+        "rule": "Oath of Moment",
+        "path": [
+          "Judiciar"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Absolvor bolt pistol",
+        "rule": "Pistol",
+        "path": [
+          "Judiciar",
+          "Absolvor bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Executioner Relic Blade",
+        "rule": "Devastating Wounds",
+        "path": [
+          "Judiciar",
+          "Executioner Relic Blade"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Executioner Relic Blade",
+        "rule": "Precision",
+        "path": [
+          "Judiciar",
+          "Executioner Relic Blade"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Librarian",
+        "rule": "Leader",
+        "path": [
+          "Librarian"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Librarian",
+        "rule": "Oath of Moment",
+        "path": [
+          "Librarian"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt pistol",
+        "rule": "Close-quarters",
+        "path": [
+          "Librarian",
+          "Bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Force weapon",
+        "rule": "Psychic",
+        "path": [
+          "Librarian",
+          "Force weapon"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Smite",
+        "rule": "Hazardous",
+        "path": [
+          "Librarian",
+          "Smite"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Smite",
+        "rule": "Psychic",
+        "path": [
+          "Librarian",
+          "Smite"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Smite",
+        "rule": "Devastating Wounds",
+        "path": [
+          "Librarian",
+          "Smite"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Assault Intercessor Squad",
+        "rule": "Oath of Moment",
+        "path": [
+          "Assault Intercessor Squad"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Heavy Bolt Pistol",
+        "rule": "Pistol",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessor Sergeant",
+          "Heavy Bolt Pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Heavy Bolt Pistol",
+        "rule": "Pistol",
+        "path": [
+          "Assault Intercessor Squad",
+          "Assault Intercessors",
+          "Heavy Bolt Pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Intercessor Squad",
+        "rule": "Oath of Moment",
+        "path": [
+          "Intercessor Squad"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt pistol",
+        "rule": "Close-quarters",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant",
+          "Bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt Rifle",
+        "rule": "Assault",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant",
+          "Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt Rifle",
+        "rule": "Heavy",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor Sergeant",
+          "Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt pistol",
+        "rule": "Close-quarters",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor",
+          "Bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt Rifle",
+        "rule": "Assault",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor",
+          "Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt Rifle",
+        "rule": "Heavy",
+        "path": [
+          "Intercessor Squad",
+          "Intercessor",
+          "Bolt Rifle"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Tactical Squad",
+        "rule": "Oath of Moment",
+        "path": [
+          "Tactical Squad"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt pistol",
+        "rule": "Close-quarters",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine",
+          "Bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Bolt pistol",
+        "rule": "Close-quarters",
+        "path": [
+          "Tactical Squad",
+          "Tactical Marine Sergeant",
+          "Bolt pistol"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Stormraven Gunship",
+        "rule": "Hover",
+        "path": [
+          "Stormraven Gunship"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Stormraven Gunship",
+        "rule": "Deadly Demise D6",
+        "path": [
+          "Stormraven Gunship"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Stormraven Gunship",
+        "rule": "Oath of Moment",
+        "path": [
+          "Stormraven Gunship"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Twin assault cannon",
+        "rule": "Twin-linked",
+        "path": [
+          "Stormraven Gunship",
+          "Twin assault cannon"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Twin assault cannon",
+        "rule": "Devastating Wounds",
+        "path": [
+          "Stormraven Gunship",
+          "Twin assault cannon"
+        ]
+      },
+      {
+        "file": "anvil siege force.rosz",
+        "selection": "Typhoon missile launcher",
+        "rule": "Blast",
+        "path": [
+          "Stormraven Gunship",
+          "Typhoon missile launcher"
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Arjac Rockfist",
+        "rule": "Deep Strike",
+        "path": [
+          "Arjac Rockfist"
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Arjac Rockfist",
+        "rule": "Leader",
+        "path": [
+          "Arjac Rockfist"
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Arjac Rockfist",
+        "rule": "Oath of Moment",
+        "path": [
+          "Arjac Rockfist"
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Foehammer",
+        "rule": "Anti",
+        "path": [
+          "Arjac Rockfist",
+          "Foehammer"
+        ]
+      },
+      {
+        "file": "champions of fenris.rosz",
+        "selection": "Foehammer",
+        "rule": "Assault",
+        "path": [
+          "Arjac Rockfist",
+          "Foehammer"
+        ]
+      }
+    ],
+    "support_examples": [],
+    "leader_examples": [],
+    "detachment_examples": [],
+    "enhancement_examples": []
+  },
+  "files": [
+    {
+      "file": "anvil siege force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Anvil Siege Force",
+          "path": [
+            "Detachment",
+            "Anvil Siege Force"
+          ],
+          "rules": [
+            "Shield of the Imperium"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 57,
+        "profiles": 57,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "champions of fenris.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Champions of Fenris",
+          "path": [
+            "Detachment",
+            "Champions of Fenris"
+          ],
+          "rules": [
+            "The Great Wolf Watches"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "firestorm assault force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Firestorm Assault Force",
+          "path": [
+            "Detachment",
+            "Firestorm Assault Force"
+          ],
+          "rules": [
+            "Close-Range Eradication"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 57,
+        "profiles": 57,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "first company task force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "1st Company Task Force",
+          "path": [
+            "Detachment",
+            "1st Company Task Force"
+          ],
+          "rules": [
+            "Extremis-level Threat"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "fulguris task force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Fulguris Task Force",
+          "path": [
+            "Detachment",
+            "Fulguris Task Force"
+          ],
+          "rules": [
+            "Skystrike"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "Gladius task force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Gladius Task Force",
+          "path": [
+            "Detachment",
+            "Gladius Task Force"
+          ],
+          "rules": [
+            "Combat Doctrines"
+          ],
+          "dp": 3.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 125
+      }
+    },
+    {
+      "file": "ironstorm spearhead.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Ironstorm Spearhead",
+          "path": [
+            "Detachment",
+            "Ironstorm Spearhead"
+          ],
+          "rules": [
+            "Armoured Wrath"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "legends of saga and song.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Legends of Saga and Song",
+          "path": [
+            "Detachment",
+            "Legends of Saga and Song"
+          ],
+          "rules": [
+            "Loping Charge"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "librarius conclave.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "saga of the beastslayer.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Saga of the Beastslayer",
+          "path": [
+            "Detachment",
+            "Saga of the Beastslayer"
+          ],
+          "rules": [
+            "Legendary Slayers"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "saga of the bold.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Saga of the Bold",
+          "path": [
+            "Detachment",
+            "Saga of the Bold"
+          ],
+          "rules": [
+            "Heroes All"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "saga of the great wolf.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "saga of the hunter.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Saga of the Hunter",
+          "path": [
+            "Detachment",
+            "Saga of the Hunter"
+          ],
+          "rules": [
+            "Pack's Quarry"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    },
+    {
+      "file": "salamander test.rosz",
+      "units": [
+        "Adrax Agatone",
+        "Vulkan He'stan",
+        "Chaplain on Bike",
+        "Heavy Intercessor Squad",
+        "Eradicator Squad",
+        "Eradicator Squad with Heavy Bolters",
+        "Hellblaster Squad",
+        "Outrider Squad"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Anvil Siege Force",
+          "path": [
+            "Detachment",
+            "Anvil Siege Force"
+          ],
+          "rules": [
+            "Shield of the Imperium"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 66,
+        "profiles": 68,
+        "rules": 49,
+        "categories": 138
+      }
+    },
+    {
+      "file": "SPace mariens test 2.rosz",
+      "units": [
+        "Ancient",
+        "Ancient",
+        "Ancient in Terminator Armor",
+        "Ancient in Terminator Armor",
+        "Ancient on Bike [Legends]",
+        "Ancient on Bike [Legends]",
+        "Apothecary",
+        "Apothecary",
+        "Apothecary Biologis",
+        "Apothecary Biologis",
+        "Stormhawk Interceptor",
+        "Stormhawk Interceptor",
+        "Stormraven Gunship",
+        "Stormraven Gunship",
+        "Stormtalon Gunship",
+        "Stormtalon Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Anvil Siege Force",
+          "path": [
+            "Detachment",
+            "Anvil Siege Force"
+          ],
+          "rules": [
+            "Shield of the Imperium"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 84,
+        "profiles": 106,
+        "rules": 80,
+        "categories": 187
+      }
+    },
+    {
+      "file": "SPace mariens test 3.rosz",
+      "units": [
+        "Ancient",
+        "Ancient",
+        "Ancient in Terminator Armor",
+        "Ancient in Terminator Armor",
+        "Ancient on Bike [Legends]",
+        "Ancient on Bike [Legends]",
+        "Apothecary",
+        "Apothecary",
+        "Apothecary Biologis",
+        "Apothecary Biologis",
+        "Stormhawk Interceptor",
+        "Stormhawk Interceptor",
+        "Stormraven Gunship",
+        "Stormraven Gunship",
+        "Stormtalon Gunship",
+        "Stormtalon Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 4.0
+        },
+        {
+          "name": "Anvil Siege Force",
+          "path": [
+            "Detachment",
+            "Anvil Siege Force"
+          ],
+          "rules": [
+            "Shield of the Imperium"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Fulguris Task Force",
+          "path": [
+            "Detachment",
+            "Fulguris Task Force"
+          ],
+          "rules": [
+            "Skystrike"
+          ],
+          "dp": 1.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 85,
+        "profiles": 106,
+        "rules": 81,
+        "categories": 188
+      }
+    },
+    {
+      "file": "SPace mariens test 4.rosz",
+      "units": [
+        "Ancient",
+        "Ancient",
+        "Ancient in Terminator Armor",
+        "Ancient in Terminator Armor",
+        "Ancient on Bike [Legends]",
+        "Ancient on Bike [Legends]",
+        "Apothecary",
+        "Apothecary",
+        "Apothecary Biologis",
+        "Apothecary Biologis",
+        "Stormhawk Interceptor",
+        "Stormhawk Interceptor",
+        "Stormraven Gunship",
+        "Stormraven Gunship",
+        "Stormtalon Gunship",
+        "Stormtalon Gunship",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Stormlance Task Force",
+          "path": [
+            "Detachment",
+            "Stormlance Task Force"
+          ],
+          "rules": [
+            "Lightning Assault"
+          ],
+          "dp": 3.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 113,
+        "profiles": 148,
+        "rules": 109,
+        "categories": 241
+      }
+    },
+    {
+      "file": "SPace mariens test 5.rosz",
+      "units": [
+        "Apothecary",
+        "Apothecary",
+        "Apothecary Biologis",
+        "Apothecary Biologis",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Captain",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera",
+        "Inquisitorial Chimera"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Fulguris Task Force",
+          "path": [
+            "Detachment",
+            "Fulguris Task Force"
+          ],
+          "rules": [
+            "Skystrike"
+          ],
+          "dp": 1.0
+        },
+        {
+          "name": "Subversion Assets",
+          "path": [
+            "Detachment",
+            "Subversion Assets"
+          ],
+          "rules": [
+            "New Rule"
+          ],
+          "dp": 1.0
+        },
+        {
+          "name": "Vengeful Hosts",
+          "path": [
+            "Detachment",
+            "Vengeful Hosts"
+          ],
+          "rules": [
+            "Imperator Unleashed"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 100,
+        "profiles": 124,
+        "rules": 73,
+        "categories": 241
+      }
+    },
+    {
+      "file": "SPace mariens test 6.rosz",
+      "units": [
+        "Ferren Areios [Legends]",
+        "Ballistus Dreadnought",
+        "Ballistus Dreadnought",
+        "Ballistus Dreadnought",
+        "Brutalis Dreadnought",
+        "Brutalis Dreadnought",
+        "Brutalis Dreadnought",
+        "Fire Raptor Gunship [Legends]",
+        "Fire Raptor Gunship [Legends]",
+        "Fire Raptor Gunship [Legends]",
+        "Mastodon [Legends]"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Bastion Task Force",
+          "path": [
+            "Detachment",
+            "Bastion Task Force"
+          ],
+          "rules": [
+            "Interlocking Tactics"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Fulguris Task Force",
+          "path": [
+            "Detachment",
+            "Fulguris Task Force"
+          ],
+          "rules": [
+            "Skystrike"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 80,
+        "profiles": 82,
+        "rules": 74,
+        "categories": 112
+      }
+    },
+    {
+      "file": "SPace mariens test.rosz",
+      "units": [
+        "Ancient",
+        "Ancient",
+        "Ancient in Terminator Armor",
+        "Ancient in Terminator Armor",
+        "Ancient on Bike [Legends]",
+        "Ancient on Bike [Legends]",
+        "Apothecary",
+        "Apothecary",
+        "Apothecary Biologis",
+        "Apothecary Biologis",
+        "Stormhawk Interceptor",
+        "Stormhawk Interceptor",
+        "Stormraven Gunship",
+        "Stormraven Gunship",
+        "Stormtalon Gunship",
+        "Stormtalon Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Anvil Siege Force",
+          "path": [
+            "Detachment",
+            "Anvil Siege Force"
+          ],
+          "rules": [
+            "Shield of the Imperium"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 83,
+        "profiles": 106,
+        "rules": 79,
+        "categories": 186
+      }
+    },
+    {
+      "file": "Space wolves Test 2(1).rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 133,
+        "profiles": 150,
+        "rules": 102,
+        "categories": 233
+      }
+    },
+    {
+      "file": "Space wolves Test 2.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Librarius Conclave",
+          "path": [
+            "Detachment",
+            "Librarius Conclave"
+          ],
+          "rules": [
+            "Psychic Disciplines"
+          ],
+          "dp": 1.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 133,
+        "profiles": 150,
+        "rules": 102,
+        "categories": 233
+      }
+    },
+    {
+      "file": "Space Wolves test 3.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Captain with Jump Pack",
+        "Wolf Guard Battle Leader",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Thunderwolf Cavalry",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Storm Speeder Thunderstrike",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Vengeful Hosts",
+          "path": [
+            "Detachment",
+            "Vengeful Hosts"
+          ],
+          "rules": [
+            "Imperator Unleashed"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 142,
+        "profiles": 166,
+        "rules": 112,
+        "categories": 275
+      }
+    },
+    {
+      "file": "Space wolves Test(1).rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Vengeful Hosts",
+          "path": [
+            "Detachment",
+            "Vengeful Hosts"
+          ],
+          "rules": [
+            "Imperator Unleashed"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 133,
+        "profiles": 150,
+        "rules": 102,
+        "categories": 233
+      }
+    },
+    {
+      "file": "Space wolves Test(2).rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Vengeful Hosts",
+          "path": [
+            "Detachment",
+            "Vengeful Hosts"
+          ],
+          "rules": [
+            "Imperator Unleashed"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 133,
+        "profiles": 150,
+        "rules": 102,
+        "categories": 233
+      }
+    },
+    {
+      "file": "Space wolves Test.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Bjorn the Fell-Handed",
+        "Logan Grimnar",
+        "Ulrik the Slayer",
+        "Wolf Guard Battle Leader",
+        "Wolf Priest",
+        "Blood Claws",
+        "Grey Hunters",
+        "Assault Intercessors with Jump Packs",
+        "Suppressor Squad",
+        "Wolf Guard Headtakers",
+        "Wolf Guard Terminators",
+        "Wolf Guard Terminators",
+        "Wolf Scouts",
+        "Gladiator Lancer",
+        "Redemptor Dreadnought",
+        "Whirlwind"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Saga of the Great Wolf",
+          "path": [
+            "Detachment",
+            "Saga of the Great Wolf"
+          ],
+          "rules": [
+            "Master of Wolves"
+          ],
+          "dp": 2.0
+        },
+        {
+          "name": "Vengeful Hosts",
+          "path": [
+            "Detachment",
+            "Vengeful Hosts"
+          ],
+          "rules": [
+            "Imperator Unleashed"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 133,
+        "profiles": 150,
+        "rules": 102,
+        "categories": 233
+      }
+    },
+    {
+      "file": "stormlance task force.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 3.0
+        },
+        {
+          "name": "Stormlance Task Force",
+          "path": [
+            "Detachment",
+            "Stormlance Task Force"
+          ],
+          "rules": [
+            "Lightning Assault"
+          ],
+          "dp": 3.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 125
+      }
+    },
+    {
+      "file": "subversion assets.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Subversion Assets",
+          "path": [
+            "Detachment",
+            "Subversion Assets"
+          ],
+          "rules": [
+            "New Rule"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "vanguard spearhead.rosz",
+      "units": [
+        "Captain in Gravis Armour",
+        "Judiciar",
+        "Librarian",
+        "Assault Intercessor Squad",
+        "Intercessor Squad",
+        "Tactical Squad",
+        "Stormraven Gunship"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 2.0
+        },
+        {
+          "name": "Vanguard Spearhead",
+          "path": [
+            "Detachment",
+            "Vanguard Spearhead"
+          ],
+          "rules": [
+            "Shadow Masters"
+          ],
+          "dp": 2.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 56,
+        "profiles": 56,
+        "rules": 38,
+        "categories": 124
+      }
+    },
+    {
+      "file": "veterans of the fang.rosz",
+      "units": [
+        "Arjac Rockfist",
+        "Captain with Jump Pack",
+        "Captain with Jump Pack",
+        "Grey Hunters",
+        "Wolf Guard Terminators"
+      ],
+      "detachments": [
+        {
+          "name": "Detachment",
+          "path": [
+            "Detachment"
+          ],
+          "rules": [],
+          "dp": 1.0
+        },
+        {
+          "name": "Veterans of the Fang",
+          "path": [
+            "Detachment",
+            "Veterans of the Fang"
+          ],
+          "rules": [
+            "Old Greymanes"
+          ],
+          "dp": 1.0
+        }
+      ],
+      "enhancements": [],
+      "counts": {
+        "selections": 42,
+        "profiles": 33,
+        "rules": 26,
+        "categories": 93
+      }
+    }
+  ]
+}

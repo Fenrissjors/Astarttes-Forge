@@ -1,0 +1,28 @@
+{
+  "version": "3.0.50",
+  "status": "PASS",
+  "candidate": false,
+  "validator": "tests/scripts/validate-frames.py",
+  "failures": [],
+  "passes": {
+    "pixelSize": [
+      2480,
+      3508
+    ],
+    "safeZoneTransparency": 0.95432,
+    "outerEdgesOpaque": true,
+    "centralOpeningConnectedShare": 1.0,
+    "centralOpeningAreaFraction": 0.45853,
+    "openingBoundingBoxPx": [
+      426,
+      572,
+      2054,
+      3291
+    ],
+    "titleSafe": {
+      "name": 1.0,
+      "points": 0.998,
+      "centre-lower": 1.0
+    }
+  }
+}

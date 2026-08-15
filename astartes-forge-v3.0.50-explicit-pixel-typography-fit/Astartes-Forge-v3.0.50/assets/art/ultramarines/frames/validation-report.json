@@ -1,0 +1,13 @@
+{
+  "version": "3.0.18",
+  "status": "PASS",
+  "validator": "tests/scripts/validate-frames.py",
+  "results": [
+    {
+      "frame": "a4Portrait",
+      "size": [2480, 3508],
+      "safeZoneTransparency": 0.90834,
+      "valid": true
+    }
+  ]
+}
