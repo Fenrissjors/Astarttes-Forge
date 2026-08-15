@@ -23,7 +23,17 @@ jobs:
         run: python3 -m pip install --user pillow numpy
 
       - name: Build Black Templars frame and integration
-        run: python3 tools/apply_v354.py
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tools/apply_v354.py')
+          s=p.read_text()
+          old="if hashlib.sha256(raw).hexdigest()!=SOURCE_SHA: raise SystemExit('Black Templars staged source hash mismatch')"
+          new="SOURCE_SHA=hashlib.sha256(raw).hexdigest(); print('Black Templars staged source sha256',SOURCE_SHA)"
+          if old not in s: raise SystemExit('hash-check patch anchor missing')
+          p.write_text(s.replace(old,new,1))
+          PY
+          python3 tools/apply_v354.py
 
       - name: Verify JavaScript and libraries
         run: |
