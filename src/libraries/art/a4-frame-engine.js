@@ -4,7 +4,7 @@
   const A4 = Object.freeze({ widthMm:210, heightMm:297 });
 
   const frameSchema = Object.freeze({
-    version:'3.0.52',
+    version:'3.0.53',
     page:A4,
     safeArea:{
       topMm:18,
@@ -165,6 +165,15 @@
     return el;
   }
 
+  function artworkGeometryFor(chapter=''){
+    return window.ASTARTES_FRAME_GEOMETRY_LIBRARY?.resolve?.(chapter)||null;
+  }
+  function geometryBoxMm(chapter='',boxName='titleBoxPx'){
+    const geometry=artworkGeometryFor(chapter);
+    const box=geometry?.[boxName];
+    return box ? window.ASTARTES_FRAME_GEOMETRY_LIBRARY?.boxToMm?.(box,geometry.canvasPx) : null;
+  }
+
   window.ASTARTES_A4_FRAME_ENGINE={
     version:'3.0.46',
     frameSchema,
@@ -173,6 +182,7 @@
     mountFrame,
     mountSeamlessFrame,
     frameAssetFor,
+    artworkGeometryFor,geometryBoxMm,
     mmToPx(mm,dpi=96){ return mm/MM_PER_INCH*dpi; }
   };
 })();

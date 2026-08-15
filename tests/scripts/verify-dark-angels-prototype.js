@@ -19,7 +19,7 @@ ok(css.includes('.rule-title-group>strong{margin-bottom:calc(2px * var(--print-s
 ok(css.includes('.artwork-print-panels .rule-title-group>strong'),'clean artwork rules source labels remain reduced');
 ok(css.includes('border:0!important;') && css.includes('padding:0!important;'),'legacy data-card border/padding is removed');
 ok(css.includes('> .codex-seamless-frame,') && css.includes('top:0!important;'),'art frame is pinned to the A4 origin');
-ok(css.includes('left:26.2mm!important;') && css.includes('top:24.2mm!important;'),'title uses absolute A4 coordinates');
+ok(css.includes('left:var(--art-title-left,26.2mm)!important;') && css.includes('top:var(--art-title-top,24.2mm)!important;'),'title uses per-frame geometry variables');
 ok(css.includes('top:var(--adaptive-body-top,50.6mm)!important;'),'panel stack uses fixed A4 top');
 ok(css.includes('width:var(--adaptive-body-width,160.5mm)!important;'),'panel width remains fixed');
 ok(css.includes('.data-card.adaptive-datasheet-artwork') && css.includes('font-size:var(--a4-desc-font,12pt)!important'),'shared adaptive description typography is explicitly controlled');

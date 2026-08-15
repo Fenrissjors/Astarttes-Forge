@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.0.53 — Artwork Geometry Contract
+
+- Every validated A4 artwork frame now carries an exact native-pixel `titleBoxPx` in its frame manifest.
+- Ultramarines and Blood Angels use their own measured title positions instead of inheriting the Dark Angels coordinates.
+- Space Wolves and Dark Angels retain their already-approved title placement.
+- The renderer converts native 2480×3508 PNG coordinates into physical A4 millimetres and fits long unit names inside that frame-defined title box.
+- The 160.5 mm information-panel width remains unchanged.
+
 ## v3.0.52 — Unified Adaptive Artwork
 
 - Space Wolves, Ultramarines, Blood Angels, and Dark Angels now share the user-approved adaptive A4 datasheet renderer.
