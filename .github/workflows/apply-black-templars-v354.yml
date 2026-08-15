@@ -35,7 +35,11 @@ jobs:
           old="if hashlib.sha256(raw).hexdigest()!=SOURCE_SHA: raise SystemExit('Black Templars staged source hash mismatch')"
           new="SOURCE_SHA=hashlib.sha256(raw).hexdigest(); print('Black Templars staged source sha256',SOURCE_SHA)"
           if old not in s: raise SystemExit('hash-check patch anchor missing')
-          p.write_text(s.replace(old,new,1))
+          s=s.replace(old,new,1)
+          old_engine="repl('src/libraries/art/a4-frame-engine.js',\"version:'3.0.53'\",\"version:'3.0.54'\",2)"
+          new_engine="repl('src/libraries/art/a4-frame-engine.js',\"version:'3.0.53'\",\"version:'3.0.54'\",1)"
+          if old_engine not in s: raise SystemExit('frame-engine migration anchor missing')
+          p.write_text(s.replace(old_engine,new_engine,1))
           PY
           python3 tools/apply_v354.py
 
