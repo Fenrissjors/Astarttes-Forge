@@ -1,53 +1,72 @@
-# Astartes Forge Artwork Geometry Contract v1.1
+# Astartes Forge Artwork Geometry Contract v1.2
 
 ## Authority
-Blood Angels is the immutable geometry/composition master. The master geometry is stored as exact compressed masks in `config/artwork-master-geometry-v1.1.json`.
+Blood Angels remains the immutable geometry/composition master. Ultramarines is used only as an approved positive calibration reference for normal title-zone texture. It does not redefine geometry.
 
 ## Production canvas
-Every production frame is exactly 2480 × 3508 px, portrait and full bleed.
+Every production frame is exactly 2480 × 3508 px, portrait and full bleed. Native 1447 × 2048 source/reference frames may be checked in auto mode and receive `PASS_SOURCE_ONLY`; they are not production-ready until exported at 2480 × 3508. Use `--production` to enforce production resolution.
 
 ## Central opening
-The canonical opening is the 8-connected `alpha <= 128` component containing the transparent pixel nearest the centre of the supplied Blood Angels master. The exact native mask is frozen in the master geometry file. New frames may change decoration but may not change this functional silhouette beyond the validator tolerance.
+The canonical opening remains the frozen Blood Angels alpha geometry. v1.2 does not loosen the v1.1 opening tolerance.
 
 Native Blood Angels opening bbox: **x 249–1199, y 334–1921**.
 
 ## Formal title safe zone
-The title field is now a separate formal geometry zone. Because the parchment is opaque, it cannot be extracted from alpha. It was derived once from the Blood Angels master using a deterministic light/low-chroma component rule and then inset with two 13×13 binary erosions. The resulting mask is frozen for contract v1.1.
-
-Future chapter frames do **not** redefine the title zone using their own colours. The validator checks the fixed master zone for opacity and excessive high-contrast edges. This makes centrally crossing shields, skulls, crosses, badges, chains and equivalent obstructions mechanically detectable while allowing subtle chapter-specific texture.
+The frozen title-safe mask remains unchanged.
 
 Native Blood Angels title-safe bbox: **x 201–1245, y 131–276**.
 
-## Points safe zone
-The points area is a separate formal sub-zone: the rightmost 18% of the frozen title-safe-zone bounding box, intersected with the title-safe mask.
+### v1.2 calibration
+v1.1 measured high-contrast edges across the whole title-safe mask. That incorrectly penalized the approved Ultramarines frame because normal blue/gold frame detail near the perimeter entered the metric.
 
-Native points-safe bbox: **x 1058–1245, y 132–276**.
+v1.2 therefore validates two nested regions inside the same frozen title-safe mask:
+
+- **core**: 6 native pixels further inset; allows at most 1.5% strong-edge pixels;
+- **deep core**: 10 native pixels further inset; allows at most 0.25% strong-edge pixels.
+
+This preserves the original safe-zone geometry while distinguishing perimeter decoration/texture from a real shield, cross, skull, badge, chain or other high-contrast device entering the live title field.
+
+## Points safe zone
+The frozen points-safe zone remains unchanged: **x 1058–1245, y 132–276** in native master coordinates. It receives the same core/deep-core obstruction test as the title zone.
 
 ## Outer contour
-All four production-canvas edges must remain fully opaque (`alpha >= 250`). Unexpected transparent edge pixels fail validation.
+All four candidate edges must remain fully opaque (`alpha >= 250`). Unexpected transparent edge pixels fail validation.
 
 ## Validator
-Install the two small dependencies and run:
+Install dependencies:
 
 ```bash
 python -m pip install pillow numpy
-python tools/validate_artwork_geometry.py assets/art/<chapter>/frames/<frame>.png
 ```
 
-The validator checks:
+Source/reference validation:
 
-- exact 2480 × 3508 production canvas;
-- closed/opaque outer contour;
-- central-opening mask mismatch against the frozen Blood Angels master;
-- title-safe-zone opacity;
-- title-safe-zone high-contrast edge density;
-- points-safe-zone opacity;
-- points-safe-zone high-contrast edge density.
+```bash
+python tools/validate_artwork_geometry.py path/to/frame.png
+```
 
-It emits JSON and exits with `0` for PASS, `1` for FAIL and `2` for input/config errors.
+Production validation:
+
+```bash
+python tools/validate_artwork_geometry.py --production path/to/frame.png
+```
+
+Statuses:
+
+- `PASS` — valid production-size frame;
+- `PASS_SOURCE_ONLY` — valid 1447 × 2048 source/reference geometry, but not a production export;
+- `FAIL` — one or more contract requirements failed;
+- `ERROR` — invalid input/configuration.
+
+## Calibration evidence
+v1.2 was calibrated against:
+
+- Blood Angels master: PASS_SOURCE_ONLY, zero title/deep-core obstruction;
+- approved Ultramarines frame: PASS_SOURCE_ONLY, title core ~0.819%, title deep core 0%, points core ~0.602%, points deep core 0%;
+- synthetic central obstruction test: FAIL because title deep-core obstruction exceeded the 0.25% blocking threshold.
 
 ## Detection, not correction
-The validator owns detection only. A failed artwork frame must be regenerated or reworked. The validator must never clip, fill, reshape or silently alter artwork in order to make it pass.
+The validator only detects violations. It never clips, fills, masks, scales or modifies artwork to force a pass.
 
 ## Change control
-The frozen masks belong to contract v1.1. Chapter decoration can evolve without changing the contract. Any intentional functional geometry change requires an explicit new contract version.
+Blood Angels remains the only geometry authority. Positive calibration references may tune detection logic but may never redefine the frozen opening, title or points masks.
