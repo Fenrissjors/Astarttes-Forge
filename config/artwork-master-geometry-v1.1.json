@@ -1,0 +1,60 @@
+{
+  "schema": "astartes-forge/artwork-master-geometry",
+  "version": "1.1.0",
+  "authority": {
+    "chapter": "Blood Angels",
+    "sourceFilename": "blood-angels-a4-portrait(2).png",
+    "sourceSize": {
+      "width": 1447,
+      "height": 2048
+    },
+    "sourceSha256": "8d441b7b13372b484d4bc687c81484870055a28a0d2904ae6dc0ab4c075a288d",
+    "coordinateSystem": {
+      "origin": "top-left",
+      "x": "right",
+      "y": "down",
+      "units": "native-master-pixels"
+    }
+  },
+  "projection": {
+    "productionCanvas": {
+      "width": 2480,
+      "height": 3508
+    },
+    "comparisonSpace": "native-master-pixels",
+    "candidateProjection": "resize production candidate to 1447x2048 using nearest-neighbour for alpha/safe-zone geometry diagnostics"
+  },
+  "encoding": {
+    "type": "zlib+base64 of numpy packbits",
+    "bitOrder": "big",
+    "shape": [2048,1447]
+  },
+  "centralOpening": {
+    "definition": "8-connected alpha<=128 component containing the transparent pixel nearest the canvas centre",
+    "alphaThreshold": 128,
+    "bboxInclusive": [249,334,1199,1921],
+    "pixelArea": 1360047,
+    "packedMask": "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"
+  },
+  "titleSafeZone": {
+    "status": "formal frozen semantic zone",
+    "definition": "A deliberately inset calm text field derived once from the Blood Angels master; candidate frames are tested against this frozen mask and are never re-segmented to redefine it.",
+    "derivation": {
+      "searchBandYInclusive": [90,315],
+      "pixelRule": "RGB chroma <= 80 and mean RGB brightness >= 125",
+      "componentRule": "8-connected qualifying component nearest the search-band centre",
+      "insetRule": "two consecutive 13x13 binary minimum filters"
+    },
+    "bboxInclusive": [201,131,1245,276],
+    "pixelArea": 137608,
+    "packedMask": "eNrt3VFu4kgQBmCzSMtLJB/BR/HR8NF8FB+BRx4svCSEAXbJSnR7qS3N90kzQiQefjrV1W0gnqYBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhXN7znYZbl+HBHv5xNl9vt+c9+GZtmNz0e9efdN4/XOzfLt9vXDqvn3X0/xuHr5vnv7Xy+9/vO4Zr/K1X7t0f/uIv46znv70JvHvKvn/nbeSzb5Wf3P/f98u9uz3cZ1i+MV9wefvPSccdVQ+9LQ+9eOm61st68PF731dm/dNzp85A/VgjdD6+O1+WxC6rj8jP6eH9lPIZuXz94lcIueNj5euy24OA1CntTEboo8zLVh95WhO6KQo+rLysv9Y990aEr1HRbFnoonA7rjHVXHnpXGrp6Kvblobuw0Pvy0Puw0OVlWVwd1aE3S4BjRG3Eho7JXFcem6DQ07uX8DWMAUt4tSFgNayWsTpOGatjDtjghbbpqIGuatNRA13TpqNWlqo2HVYdNW26Cwudb4dX1abjSnrOtxxWtem4eXhI2KVrCqRLGDpyoIurOnKgi6t6Hxl6ytalKzYf29DQQ8J5WLr56CMzl24+Qgd6zljSp4wlPSdcWkoXxNB5WLoghq6HpQtiaObCBTF2ES9cEGM7XlnPa5eEofuMoffRoed007As9C5j6D5j6PCSLtl8hGcu2HzEz8OCzcc2PvSYsHkUbD7a+NDZzloKV3Ft+l2h40v6mLFNHzK26Sljmx4ztukhYZteMrbp3+VUPLw8Sl4zDS+PktdMw1fxktdMEy4t/4NVfMw4EYeME7FJGLrora19wjbdZGzTm4xtepuwTcefA4wZN3lDxrWlSVgeRR2vTdg8wstjzBg64cdTCj+f0iUs6ehN3pAwdOHHU7p80zDppwi7fL0jOPRv9WHvLmHziA09ZAyd8TdFjhlDTxlDDwlDl/92XJ+wpCNHeso40kPC0BW/pdonLOnA0FPC0DXXEugSDnRc6LEidJuv4QWOdJMwdNUlX5p8XTru3a2aeRj17lbVtXWi3r44Zgxdd4W8NmFJB4WuvBRhTHlMTcKRHjOGHqrLY3hn9MvOoakd6dM7x3v+Ou+ovTrv7utfaN/ZNvo1Lt78ztBjs572jSWdLvS8Zujdw1j0TzpUV17D1z371KysexyL3ZPx2ZUvfZvV6/nu5Y/HkZ+uQQ/PQw8/nfkcrt883G3am//AP+pte7k68+1c7vN/PBnuamf48cxnelJ9p+Zt2run8vEwa29X2f+8tT38+srzdNu5AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACC/vwDHDuis"
+  },
+  "pointsSafeZone": {
+    "status": "formal frozen sub-zone",
+    "definition": "rightmost 18 percent of title-safe-zone bbox intersected with title-safe-zone",
+    "splitXInclusive": 1058,
+    "bboxInclusive": [1058,132,1245,276],
+    "pixelArea": 21831,
+    "packedMask": "eNrt3TFu20AQBVAyW7AJwCPwKDwafTQfJUdImUIQk9gxEorL1pkvvNel+yBGf1YGtRkGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO1n3fv2dFnvY3WaHn99AvUaGX/Y8fYRP9Jmmst4/Q99//+pIRev/r11x/jcg87gcZg92OoTMGezqG/pZU0x9es2o6aabXfc971ttj6ISP4h4YekwM3RJDT6fQAf0xJ4ZeEsfjVNMJi/xU0wnL5ZQ54MviuaYDvpafa/qeWNM3Na2m1bSaVtNqWk2H1nTAgGyJoTuZy0/12AtdfapbL3T1w8fUC1398DH3Qlc/fCy90Ik1Xf7w8TQ1Xf1Jd2u6+pNuiQtxSlyIc+JCXBIX4pq4EHs1Xb7z9sDQY2Lo1g9de7tMiaHnxNBLYui1H7r24aNf08UPH/3MtQ8fFzVd+/BxUdO1Dx8XNV372/icuMWfqaZrh94Sd8seuFvGxN3SEnfLlLhb5sTdsgRmvqjp4n8/2AJXy5C4WsbEry0tcLVc1XTp1XJV06VXi5pW02paTatpNf1JNV288bbA8hgSP4dj4ki3xJGeEkd6Dmzpfk3X3uEXNV08c7emy79FmPhu25j4bltLfLdtSiwP703/z5ou/1OiLXCkh8SRHhNfUG+JIz0ljvQcONK9mq7/K9U1cKR7NV1+pIe8E163pus/6Jb364VuTZcvvF5Nl8/cqemAuwTWxJ/lP8edHgGXNoyJ0/EkN+QFjPSceFPlEniJ0ZNcZPoSEPp45FgiroAfj0tljbidtx1rY434HE5p1zY/1HRM5n9q+pYTeki6hvyhPl6zQre4/53jvT7uQ552GwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADI9xPGBJ8A"
+  }
+}
