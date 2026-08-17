@@ -1,0 +1,50 @@
+{
+  "contractVersion": "1.0.0",
+  "name": "Astartes Forge Chapter Artwork Geometry Contract",
+  "master": {
+    "chapter": "Blood Angels",
+    "role": "immutable geometry and composition reference",
+    "referenceAsset": "blood-angels-a4-portrait",
+    "referenceSourceSize": { "width": 1447, "height": 2048 },
+    "productionCanvas": { "width": 2480, "height": 3508, "orientation": "portrait", "fullBleed": true }
+  },
+  "rules": {
+    "outerContour": "closed_and_flush_to_all_edges",
+    "centralOpening": "must_match_master_silhouette",
+    "titleZone": "single_uninterrupted_clear_zone",
+    "pointsArea": "upper_right_must_remain_clear_and_readable",
+    "bakedChapterName": false,
+    "helperPanels": false,
+    "translucentTitlePlates": false,
+    "semiTransparentGuides": false,
+    "contentClippingAllowed": false
+  },
+  "geometryPolicy": {
+    "coordinateSpace": "normalized_0_to_1",
+    "productionPixelCoordinates": "derive_from_normalized_coordinates_and_2480x3508_canvas",
+    "silhouetteAuthority": "master_alpha_mask",
+    "comparisonMode": "mask_and_landmark_validation",
+    "chapterDecorationMayVary": true,
+    "chapterDecorationMayAlterFunctionalGeometry": false
+  },
+  "functionalZones": {
+    "title": { "purpose": "dynamic title rendered by app", "mustRemainUnobstructed": true },
+    "centralData": { "purpose": "dynamic datasheet panels rendered by app", "mustRemainOpen": true },
+    "points": { "purpose": "dynamic points value", "mustRemainReadable": true }
+  },
+  "forbiddenTitleObstructions": ["central_cross","shield","skull","badge","chained_ornament","parchment_strip","heraldic_device"],
+  "validation": {
+    "canvasMustEqualProductionCanvas": true,
+    "requireAlphaChannel": true,
+    "requireClosedOuterContour": true,
+    "requireMasterCentralOpeningSilhouette": true,
+    "requireClearTitleZone": true,
+    "requireClearPointsArea": true,
+    "rejectUnexpectedTransparencyAtOuterEdges": true
+  },
+  "notes": [
+    "The supplied Blood Angels artwork is the visual/geometric authority even though its supplied source raster is 1447x2048.",
+    "Production chapter assets must be 2480x3508.",
+    "Exact masks/landmarks are stored separately so this contract remains human-readable and versionable."
+  ]
+}
