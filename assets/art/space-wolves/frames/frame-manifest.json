@@ -7,21 +7,9 @@
   "frames": {
     "a4Portrait": {
       "asset": "assets/art/space-wolves/frames/space-wolves-a4-portrait.png",
-      "pixelSize": [
-        2480,
-        3508
-      ],
-      "physicalSizeMm": [
-        210,
-        297
-      ],
-      "safeZone": {
-        "x": 0.21,
-        "y": 0.15,
-        "width": 0.58,
-        "height": 0.7,
-        "minimumTransparency": 0.9
-      }
+      "pixelSize": [2480,3508],
+      "physicalSizeMm": [210,297],
+      "safeZone": {"x":0.21,"y":0.15,"width":0.58,"height":0.7,"minimumTransparency":0.9}
     }
   },
   "geometryMaster": "a4-chapter-frame-gold-v1",
@@ -43,34 +31,10 @@
   "outerEdgePolicy": "straight-full-bleed-a4",
   "geometryContract": "artwork-geometry-px-v1",
   "artworkGeometry": {
-    "titleBoxPx": {
-      "x": 310,
-      "y": 286,
-      "width": 1864,
-      "height": 224
-    },
-    "canvasPx": {
-      "width": 2480,
-      "height": 3508
-    },
-    "titlePaddingPx": {
-      "top": 21,
-      "right": 76,
-      "bottom": 21,
-      "left": 76
-    },
-    "titleTypography": {
-      "maxTitlePt": 15.0,
-      "minTitlePt": 8.5,
-      "kickerPt": 6.5,
-      "pointsPt": 9.0,
-      "singleLine": true
-    },
-    "panelBoxPx": {
-      "x": 292,
-      "y": 598,
-      "width": 1896,
-      "bottom": 3490
-    }
+    "titleBoxPx": {"x":310,"y":286,"width":1864,"height":180},
+    "canvasPx": {"width":2480,"height":3508},
+    "titlePaddingPx": {"top":21,"right":76,"bottom":21,"left":76},
+    "titleTypography": {"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},
+    "panelBoxPx": {"x":292,"y":598,"width":1896,"bottom":3490}
   }
 }
