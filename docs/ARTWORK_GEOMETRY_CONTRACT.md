@@ -1,34 +1,53 @@
-# Astartes Forge Artwork Geometry Contract v1.0
+# Astartes Forge Artwork Geometry Contract v1.1
 
 ## Authority
-The Blood Angels master frame is the immutable geometry and composition reference for all chapter artwork frames.
+Blood Angels is the immutable geometry/composition master. The master geometry is stored as exact compressed masks in `config/artwork-master-geometry-v1.1.json`.
 
 ## Production canvas
-- 2480 x 3508 px
-- A4 portrait
-- Full bleed
-- Outer contour closed and flush to all four edges
+Every production frame is exactly 2480 × 3508 px, portrait and full bleed.
 
-## Functional geometry
-Every chapter frame must preserve the Blood Angels master's title zone, central datasheet opening silhouette, panel area, side intrusions and lower opening boundary. Chapter identity may change decoration, materials, heraldry and colour, but may not alter functional geometry.
+## Central opening
+The canonical opening is the 8-connected `alpha <= 128` component containing the transparent pixel nearest the centre of the supplied Blood Angels master. The exact native mask is frozen in the master geometry file. New frames may change decoration but may not change this functional silhouette beyond the validator tolerance.
 
-## Title zone
-The title area is one uninterrupted clear zone for dynamic renderer text. No central cross, shield, skull, badge, chained ornament, parchment strip, heraldic device or equivalent decoration may cross it.
+Native Blood Angels opening bbox: **x 249–1199, y 334–1921**.
 
-## Points zone
-The upper-right points area must remain visually clear and readable.
+## Formal title safe zone
+The title field is now a separate formal geometry zone. Because the parchment is opaque, it cannot be extracted from alpha. It was derived once from the Blood Angels master using a deterministic light/low-chroma component rule and then inset with two 13×13 binary erosions. The resulting mask is frozen for contract v1.1.
 
-## Central data opening
-The central opening is reserved for dynamic datasheet panels. It must match the master silhouette and may not be narrowed, filled or obstructed by chapter decoration.
+Future chapter frames do **not** redefine the title zone using their own colours. The validator checks the fixed master zone for opacity and excessive high-contrast edges. This makes centrally crossing shields, skulls, crosses, badges, chains and equivalent obstructions mechanically detectable while allowing subtle chapter-specific texture.
 
-## Artwork-only rule
-The PNG contains decorative artwork only. No chapter name, helper panels, translucent title plates, beige overlays, semi-transparent guides or renderer content may be baked into the asset.
+Native Blood Angels title-safe bbox: **x 201–1245, y 131–276**.
 
-## Validation model
-Validation is based on the master alpha mask plus fixed landmarks/safe zones. It must validate the final raster, not merely inferred layout values. A chapter asset is accepted only if its production canvas, outer contour, central opening, title zone and points zone satisfy this contract.
+## Points safe zone
+The points area is a separate formal sub-zone: the rightmost 18% of the frozen title-safe-zone bounding box, intersected with the title-safe mask.
 
-## Source vs production resolution
-The supplied Blood Angels reference raster is 1447 x 2048. It defines the approved design and normalized geometry. Production assets are 2480 x 3508, so geometry is mapped through normalized coordinates rather than copying source pixels directly.
+Native points-safe bbox: **x 1058–1245, y 132–276**.
+
+## Outer contour
+All four production-canvas edges must remain fully opaque (`alpha >= 250`). Unexpected transparent edge pixels fail validation.
+
+## Validator
+Install the two small dependencies and run:
+
+```bash
+python -m pip install pillow numpy
+python tools/validate_artwork_geometry.py assets/art/<chapter>/frames/<frame>.png
+```
+
+The validator checks:
+
+- exact 2480 × 3508 production canvas;
+- closed/opaque outer contour;
+- central-opening mask mismatch against the frozen Blood Angels master;
+- title-safe-zone opacity;
+- title-safe-zone high-contrast edge density;
+- points-safe-zone opacity;
+- points-safe-zone high-contrast edge density.
+
+It emits JSON and exits with `0` for PASS, `1` for FAIL and `2` for input/config errors.
+
+## Detection, not correction
+The validator owns detection only. A failed artwork frame must be regenerated or reworked. The validator must never clip, fill, reshape or silently alter artwork in order to make it pass.
 
 ## Change control
-The geometry contract is versioned. Changes to chapter decoration do not require a contract revision. Any intentional change to functional geometry requires an explicit new contract version and must never happen implicitly while generating a chapter frame.
+The frozen masks belong to contract v1.1. Chapter decoration can evolve without changing the contract. Any intentional functional geometry change requires an explicit new contract version.
