@@ -1,19 +1,19 @@
 {
-  "contractVersion": "1.1.0",
+  "contractVersion": "1.2.0",
   "name": "Astartes Forge Chapter Artwork Geometry Contract",
   "master": {
     "chapter": "Blood Angels",
     "role": "immutable geometry and composition reference",
     "geometryFile": "config/artwork-master-geometry-v1.1.json"
   },
-  "productionCanvas": {
-    "width": 2480,
-    "height": 3508,
-    "orientation": "portrait",
-    "fullBleed": true
-  },
+  "positiveCalibrationReferences": [
+    {"chapter": "Blood Angels", "role": "geometry_and_title_master"},
+    {"chapter": "Ultramarines", "role": "approved_title-zone_texture_calibration_only", "mayRedefineGeometry": false}
+  ],
+  "productionCanvas": {"width": 2480, "height": 3508, "orientation": "portrait", "fullBleed": true},
+  "nativeReferenceCanvas": {"width": 1447, "height": 2048, "role": "source/reference validation only"},
   "rules": {
-    "centralOpening": "must_match_master_silhouette",
+    "centralOpening": "must_match_blood_angels_master_silhouette",
     "titleZone": "must_preserve_formal_frozen_title_safe_zone",
     "pointsArea": "must_preserve_formal_frozen_points_safe_zone",
     "outerContour": "closed_and_flush_to_all_edges",
@@ -30,9 +30,15 @@
       "safeZoneMinAlpha": 250,
       "minSafeZoneOpaqueRatio": 0.995,
       "gradientThreshold": 38,
-      "maxTitleZoneEdgeRatio": 0.02,
-      "maxPointsZoneEdgeRatio": 0.02
+      "titleCoreErosionPxNative": 6,
+      "titleDeepCoreErosionPxNative": 10,
+      "maxTitleCoreEdgeRatio": 0.015,
+      "maxPointsCoreEdgeRatio": 0.015,
+      "maxTitleDeepCoreEdgeRatio": 0.0025,
+      "maxPointsDeepCoreEdgeRatio": 0.0025
     },
-    "failureIsBlocking": true
+    "failureIsBlocking": true,
+    "sourceReferenceMayPassWithoutProductionResolution": true,
+    "productionModeRequiresExactProductionResolution": true
   }
 }
