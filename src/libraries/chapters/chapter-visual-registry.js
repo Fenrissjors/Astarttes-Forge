@@ -87,21 +87,21 @@
       theme:baseTheme('white-scars',{primary:'#e4e0d6',accent:'#b51f2e',paper:'#f0e4ca',ink:'#171717',decorationIntensity:46}),
       printSurface:'#f4f2ed',
       emblem:{remoteFile:'WhiteScarssymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Chogorian storm',decorationLabel:'LIGHTNING · WIND MARKS',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Chogorian storm',decorationLabel:'LIGHTNING · WIND MARKS',titleSurface:'#ded9ce',a4Frame:'assets/art/white-scars/frames/white-scars-a4-portrait.png',frameManifest:'assets/art/white-scars/frames/frame-manifest.json',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'raven-guard': {
       id:'raven-guard', name:'Raven Guard', aliases:['Raven Guard'],
       theme:baseTheme('raven-guard',{primary:'#1c2028',accent:'#aeb7c2',paper:'#ebe0c8',ink:'#171717',decorationIntensity:52}),
       printSurface:'#eceef1',
       emblem:{remoteFile:'RavenGuardsymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Deliverance shadow',decorationLabel:'FEATHERS · SHADOW TEARS',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Deliverance shadow',decorationLabel:'FEATHERS · SHADOW TEARS',titleSurface:'#30343b',a4Frame:'assets/art/raven-guard/frames/raven-guard-a4-portrait.png',frameManifest:'assets/art/raven-guard/frames/frame-manifest.json',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'iron-hands': {
       id:'iron-hands', name:'Iron Hands', aliases:['Iron Hands'],
       theme:baseTheme('iron-hands',{primary:'#17191d',accent:'#9ba5af',paper:'#e9dfca',ink:'#171717',decorationIntensity:52}),
       printSurface:'#eceeef',
       emblem:{remoteFile:'Iron_Hands-logo.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Medusan machine',decorationLabel:'MECHANICAL · CABLES',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Medusan machine',decorationLabel:'MECHANICAL · CABLES',titleSurface:'#35383d',a4Frame:'assets/art/iron-hands/frames/iron-hands-a4-portrait.png',frameManifest:'assets/art/iron-hands/frames/frame-manifest.json',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'deathwatch': {
       id:'deathwatch', name:'Deathwatch', aliases:['Deathwatch'],
@@ -187,7 +187,7 @@
   }));}
 
   const api={
-    version:'3.0.55-imperial-fists-frame',
+    version:'3.0.55-artwork-batch-3',
     genericKey:GENERIC,
     a4GeometryMaster:A4_GEOMETRY_MASTER,a4FrameStandard:A4_FRAME_STANDARD,
     profiles,
