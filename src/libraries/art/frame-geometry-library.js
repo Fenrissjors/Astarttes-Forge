@@ -6,7 +6,10 @@
     'blood-angels': Object.freeze({"titleBoxPx":{"x":380,"y":259,"width":1714,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
     'dark-angels': Object.freeze({"titleBoxPx":{"x":310,"y":286,"width":1864,"height":224},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
     'black-templars': Object.freeze({"titleBoxPx":{"x":380,"y":285,"width":1720,"height":210},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
-    'imperial-fists': Object.freeze({"titleBoxPx":{"x":360,"y":280,"width":1760,"height":205},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}})
+    'imperial-fists': Object.freeze({"titleBoxPx":{"x":360,"y":280,"width":1760,"height":205},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
+    'white-scars': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
+    'raven-guard': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
+    'iron-hands': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}})
   });
   function pxToMmX(px,canvas=2480){ return Number(px||0)/canvas*210; }
   function pxToMmY(px,canvas=3508){ return Number(px||0)/canvas*297; }
@@ -22,5 +25,5 @@
     const key=String(chapter||'').toLowerCase().trim().replace(/\s+/g,'-');
     return geometries[key]?`assets/art/${key}/frames/frame-manifest.json`:'';
   }
-  window.ASTARTES_FRAME_GEOMETRY_LIBRARY={version:'3.0.55',contract:CONTRACT,geometries,resolve,manifestPath,boxToMm,pxToMmX,pxToMmY};
+  window.ASTARTES_FRAME_GEOMETRY_LIBRARY={version:'3.0.55-artwork-batch-3',contract:CONTRACT,geometries,resolve,manifestPath,boxToMm,pxToMmX,pxToMmY};
 })();
