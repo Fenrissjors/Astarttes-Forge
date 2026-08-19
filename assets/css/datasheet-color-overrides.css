@@ -1,0 +1,44 @@
+/* Per-datasheet colour coding — clean A5 and clean A4 only. */
+.datasheet-color-control {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0 0 8px;
+  min-height: 34px;
+}
+.datasheet-color-label {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 6px 8px 6px 11px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 9px;
+  background: rgba(10,15,22,.72);
+  color: #e7edf4;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+.datasheet-primary-picker {
+  width: 36px;
+  height: 26px;
+  min-width: 36px;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: #111923;
+  cursor: pointer;
+}
+.datasheet-primary-picker::-webkit-color-swatch-wrapper { padding: 1px; }
+.datasheet-primary-picker::-webkit-color-swatch { border: 0; border-radius: 3px; }
+.datasheet-primary-picker::-moz-color-swatch { border: 0; border-radius: 3px; }
+
+/* Primary-colour surfaces always use the automatically calculated contrast text. */
+.data-card .card-header { color: var(--card-primary-text, #fff); }
+.data-card .leader-profile .profile-label { color: var(--card-primary-text, #fff); }
+
+@media print {
+  .datasheet-color-control { display: none !important; }
+}
