@@ -3,6 +3,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 7px;
   margin: 0 0 8px;
   min-height: 34px;
 }
@@ -34,6 +35,23 @@
 .datasheet-primary-picker::-webkit-color-swatch-wrapper { padding: 1px; }
 .datasheet-primary-picker::-webkit-color-swatch { border: 0; border-radius: 3px; }
 .datasheet-primary-picker::-moz-color-swatch { border: 0; border-radius: 3px; }
+.datasheet-color-reset {
+  width: auto;
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 9px;
+  background: rgba(255,255,255,.07);
+  color: #e7edf4;
+  font-size: .72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.datasheet-color-reset:hover:not(:disabled) { background: rgba(255,255,255,.12); }
+.datasheet-color-reset:disabled {
+  opacity: .38;
+  cursor: default;
+}
 
 /* Primary-colour surfaces always use the automatically calculated contrast text. */
 .data-card .card-header { color: var(--card-primary-text, #fff); }
