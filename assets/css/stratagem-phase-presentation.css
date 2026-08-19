@@ -1,0 +1,64 @@
+/* Phase-driven Stratagem presentation. */
+.warhammer-stratagem[class*="phase-"]{
+  --phase-accent:var(--phase-color);
+  border-left:1px solid color-mix(in srgb,var(--phase-color) 75%,#342719)!important;
+  border-top:5px solid var(--phase-color)!important;
+}
+.warhammer-stratagem[class*="phase-"] .stratagem-spine{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--phase-color) 78%,black),var(--phase-color),color-mix(in srgb,var(--phase-color) 84%,white))!important;
+  color:#fff!important;
+  box-shadow:5px 0 10px rgba(0,0,0,.18)!important;
+}
+.warhammer-stratagem[class*="phase-"] .phase-mark{
+  width:48px!important;
+  height:48px!important;
+  border:0!important;
+  background:transparent!important;
+  color:#fff!important;
+  transform:none!important;
+  box-shadow:none!important;
+  padding:4px;
+}
+.warhammer-stratagem .phase-mark svg{width:100%;height:100%;display:block}
+.warhammer-stratagem[class*="phase-"] .cp-diamond{
+  width:52px!important;
+  height:58px!important;
+  margin-top:12px!important;
+  padding:6px 4px!important;
+  border:1px solid rgba(255,255,255,.65)!important;
+  border-radius:6px!important;
+  background:#f7f0df!important;
+  color:#152030!important;
+  transform:none!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  line-height:1!important;
+  box-shadow:0 3px 7px rgba(0,0,0,.22)!important;
+}
+.warhammer-stratagem .cp-diamond>*{transform:none!important}
+.warhammer-stratagem .cp-diamond b{font-size:1.3rem;line-height:1;font-weight:950}
+.warhammer-stratagem .cp-diamond small{font-size:.62rem;line-height:1;font-weight:950;letter-spacing:.05em}
+.warhammer-stratagem[class*="phase-"] .turn-tag{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.48)!important;
+  background:rgba(0,0,0,.13)!important;
+}
+.warhammer-stratagem[class*="phase-"] .stratagem-type{
+  color:var(--phase-color)!important;
+  border-left-color:var(--phase-color)!important;
+  background:color-mix(in srgb,var(--phase-color) 12%,transparent)!important;
+}
+.warhammer-stratagem[class*="phase-"] header{border-bottom-color:var(--phase-color)!important}
+
+@media print{
+  .warhammer-stratagem[class*="phase-"] .stratagem-spine{
+    background:var(--phase-color)!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .warhammer-stratagem[class*="phase-"] .phase-mark{color:#fff!important}
+  .warhammer-stratagem[class*="phase-"] .cp-diamond{background:#f7f0df!important;color:#152030!important}
+}
