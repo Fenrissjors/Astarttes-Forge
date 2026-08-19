@@ -5,6 +5,7 @@
  * - keep the Themes artwork control disabled until the active faction has artwork
  * - normalise non-breaking punctuation observed in New Recruit Orks exports
  * - use the registered faction palette for clean datasheets and print surfaces
+ * - normalise source-integrity coverage for merged/duplicate provenance rows
  */
 (function(global){
   'use strict';
@@ -70,8 +71,6 @@
     engine.mountFrame=function(card,pack,options={}){if(!factionAllowsAstartesArtwork()) return null; return originalMountFrame(card,pack,options);};
   }
 
-  // Clean print surfaces must also be faction-aware. Without this override,
-  // "Chapter light" silently resolves through generic-astartes for Orks.
   if(typeof printSurfaceFor==='function'){
     const originalPrintSurfaceFor=printSurfaceFor;
     printSurfaceFor=function(mode='parchment',chapter='generic-astartes'){
@@ -104,6 +103,34 @@
     const originalCleanCodexText=cleanCodexText;
     cleanCodexText=function(text=''){
       return originalCleanCodexText(String(text||'').replace(/\u00a0/g,' ').replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g,'-').replace(/\s+([,.;:!?])/g,'$1'));
+    };
+  }
+
+  // sourceIntegrityReport previously used the raw expected profile array length
+  // as its denominator. New Recruit can repeat the same source profile id in the
+  // graph, while the validator correctly tracks represented ids in a Set. That
+  // produced misleading output such as 23/37 despite complete provenance.
+  if(typeof sourceIntegrityReport==='function'){
+    const originalSourceIntegrityReport=sourceIntegrityReport;
+    sourceIntegrityReport=function(imported,mergedDetachments=[]){
+      const result=originalSourceIntegrityReport(imported,mergedDetachments);
+      try{
+        const graph=imported?.importGraph?.sourceGraph;
+        if(!graph||!result?.detail||typeof graphProfileLooksLikeWeapon!=='function') return result;
+        const selections=new Map((graph.selections||[]).map(x=>[x.id,x]));
+        const unitRootIds=new Set((imported.units||[]).map(u=>u.sourceSelectionId).filter(Boolean));
+        const expectedIds=new Set((graph.profiles||[]).filter(profile=>{
+          if(!graphProfileLooksLikeWeapon(profile)) return false;
+          const owner=selections.get(profile.ownerSelectionId);
+          return Boolean(owner&&unitRootIds.has(owner.topId||owner.id));
+        }).map(profile=>profile.id).filter(Boolean));
+        if(!expectedIds.size) return result;
+        const match=result.detail.match(/(\d+)\/(\d+) unit weapon source profiles represented/);
+        if(!match) return result;
+        const represented=Number(match[1]);
+        result.detail=result.detail.replace(match[0],`${represented}/${expectedIds.size} unique unit weapon source profiles represented`);
+      }catch(error){console.warn('Could not normalise source-integrity coverage.',error);}
+      return result;
     };
   }
 
