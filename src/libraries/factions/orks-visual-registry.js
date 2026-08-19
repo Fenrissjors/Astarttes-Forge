@@ -19,14 +19,14 @@
       chapter:'orks',
       decorations:false,
       decorationIntensity:0,
-      emblem:false,
+      emblem:true,
       weathering:false,
       bannerDepth:false,
       illustrations:false,
       watermark:false
     },
     printSurface:'#d9cfb7',
-    emblem:{remoteFile:'',local:''},
+    emblem:{remoteFile:'',local:'assets/art/orks/emblems/orks-emblem.svg'},
     artwork:{
       frameStandard:registry.a4FrameStandard||'a4-chapter-frame-gold-v1',
       geometryMaster:registry.a4GeometryMaster||'a4-chapter-frame-gold-v1',
