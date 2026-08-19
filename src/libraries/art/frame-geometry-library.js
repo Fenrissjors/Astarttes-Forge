@@ -12,7 +12,8 @@
     'iron-hands': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
     'salamanders': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
     'deathwatch': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
-    'generic-astartes': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}})
+    'generic-astartes': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490}}),
+    'orks': Object.freeze({"titleBoxPx":{"x":380,"y":280,"width":1720,"height":180},"canvasPx":{"width":2480,"height":3508},"titlePaddingPx":{"top":21,"right":76,"bottom":21,"left":76},"titleTypography":{"maxTitlePt":15.0,"minTitlePt":8.5,"kickerPt":6.5,"pointsPt":9.0,"singleLine":true},"panelBoxPx":{"x":292,"y":598,"width":1896,"bottom":3490},"openingBoundingBoxPx":{"left":426,"top":572,"right":2054,"bottom":3291},"validationStatus":"PASS","alphaMaskMaster":"blood-angels"})
   });
   function pxToMmX(px,canvas=2480){ return Number(px||0)/canvas*210; }
   function pxToMmY(px,canvas=3508){ return Number(px||0)/canvas*297; }
@@ -28,5 +29,5 @@
     const key=String(chapter||'').toLowerCase().trim().replace(/\s+/g,'-');
     return geometries[key]?`assets/art/${key}/frames/frame-manifest.json`:'';
   }
-  window.ASTARTES_FRAME_GEOMETRY_LIBRARY={version:'3.0.55-artwork-final-batch',contract:CONTRACT,geometries,resolve,manifestPath,boxToMm,pxToMmX,pxToMmY};
+  window.ASTARTES_FRAME_GEOMETRY_LIBRARY={version:'3.0.56-orks-artwork',contract:CONTRACT,geometries,resolve,manifestPath,boxToMm,pxToMmX,pxToMmY};
 })();
