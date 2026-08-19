@@ -1,6 +1,7 @@
 /* Astartes Forge — phase-driven Stratagem presentation
- * Presentation-only enhancement: phase-coloured spine, phase icon, upright CP badge.
- * Underlying Stratagem data, filtering and Army Pack reuse remain unchanged.
+ * Phase-coloured spine, phase icon, upright CP badge, and exact phase filtering.
+ * The dropdown classifies Stratagems from their formal phase field only; rule
+ * body text never influences which phase a card belongs to.
  */
 (function(){
   'use strict';
@@ -21,6 +22,35 @@
     return icons[phaseClass] || icons['phase-special'];
   }
 
+  function formalPhaseCategory(rawPhase=''){
+    const phase=String(rawPhase||'')
+      .toLowerCase()
+      .replace(/[’]/g,"'")
+      .replace(/\s+/g,' ')
+      .trim();
+
+    // "Any phase" is its own category; it does not mean "show under every phase".
+    if(/\bany phase\b/.test(phase)) return 'any';
+
+    // Own-turn and opponent-turn variants deliberately share the same phase
+    // category. Example: Shooting phase + Opponent Shooting phase => shooting.
+    if(/\bcommand phase\b/.test(phase)) return 'command';
+    if(/\bmovement phase\b|\breinforcement step\b/.test(phase)) return 'movement';
+    if(/\bshooting phase\b/.test(phase)) return 'shooting';
+    if(/\bcharge phase\b/.test(phase)) return 'charge';
+    if(/\bfight phase\b|\bcombat phase\b/.test(phase)) return 'fight';
+
+    if(/\bstart of\b|\bend of\b|\bturn\b|\bbattle round\b/.test(phase)) return 'turn';
+    return 'special';
+  }
+
+  // Replace the legacy matcher that searched both phase + full Stratagem text.
+  // renderReference() resolves this function at call time.
+  stratagemPhaseMatches=function(rule,selectedPhase='all'){
+    if(selectedPhase==='all') return true;
+    return formalPhaseCategory(rule?.phase||'')===selectedPhase;
+  };
+
   stratagemCard=function(s){
     const rule=structuredStratagem(s);
     const cp=Number.isFinite(rule.cp)?rule.cp:1;
@@ -35,6 +65,7 @@
     </article>`;
   };
 
-  // Re-render once so an already open Rules view immediately receives the new markup.
+  // Re-render once so an already open Rules view immediately receives the new
+  // card markup and exact phase-filter behaviour.
   if(typeof renderReference==='function') renderReference();
 })();
