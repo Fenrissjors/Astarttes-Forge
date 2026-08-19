@@ -1,5 +1,5 @@
 (function(global){
-  const VERSION='1.0.0';
+  const VERSION='1.1.0-orks-dread-mob';
   const normalise=v=>String(v||'').replace(/[‐‑‒–—−]/g,'-').replace(/\s+/g,' ').trim();
   const uniq=items=>[...new Set((items||[]).filter(Boolean))];
   const schemas={
@@ -7,9 +7,9 @@
       id:'11th',label:'Warhammer 40,000 11th Edition',
       gameSystemPatterns:[/Warhammer\s*40,?000\s*11th\s*Edition/i],
       unitCharacteristics:['M','T','Sv','W','Ld','OC','InSv'],
-      weaponCharacteristics:['Range','A','BS','WS','S','AP','D','Keywords','Abilities','Special','Description','Capacity'],
-      knownProfileTypes:['Unit','Model','Abilities','Ranged Weapons','Melee Weapons','Detachment Rule','Stratagem','Enhancement','Transport'],
-      notes:'Current Astartes Forge reference schema.'
+      weaponCharacteristics:['Range','A','BS','WS','S','AP','D','Keywords','Abilities','Special','Description','Capacity','Button Effect'],
+      knownProfileTypes:['Unit','Model','Abilities','Ranged Weapons','Melee Weapons','Detachment Rule','Stratagem','Enhancement','Transport','Try Dat Button!'],
+      notes:'Current Astartes Forge reference schema. Includes Orks Dread Mob Try Dat Button! table profiles.'
     }
   };
   function rosterMetadata(doc){
@@ -51,7 +51,7 @@
     const unknownCharacteristics=Object.keys(characteristicNames).filter(x=>x!=='(blank)'&&!knownChars.includes(x.toLowerCase())).sort();
     const knownTypes=schema?(schema.knownProfileTypes||[]).map(x=>x.toLowerCase()):[];
     const unknownProfileTypes=Object.keys(profileTypes).filter(x=>x!=='(blank)'&&!knownTypes.some(k=>x.toLowerCase()===k||x.toLowerCase().includes(k.toLowerCase()))).sort();
-    const factionCategories=categories.filter(x=>/^Faction:/i.test(x)||/^(Imperium|Adeptus Astartes|Space Wolves|Blood Angels|Dark Angels|Deathwatch|Black Templars)$/i.test(x));
+    const factionCategories=categories.filter(x=>/^Faction:/i.test(x)||/^(Imperium|Adeptus Astartes|Space Wolves|Blood Angels|Dark Angels|Deathwatch|Black Templars|Orks)$/i.test(x));
     const roles=categories.filter(x=>/^(Character|Leader|Support|Infantry|Vehicle|Monster|Mounted|Battleline|Epic Hero|Psyker|Fly|Walker|Aircraft|Transport|Dedicated Transport)$/i.test(x));
     const warnings=[];
     if(!edition.compatible) warnings.push('Edition/schema is not recognised by the installed Edition Schema Library.');
