@@ -80,7 +80,7 @@
       theme:baseTheme('salamanders',{primary:'#176f45',accent:'#151515',paper:'#ead9bd',ink:'#191812',decorationIntensity:70}),
       printSurface:'#e5f1e9',
       emblem:{remoteFile:'Salamanderssymbol.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Nocturne forge',decorationLabel:'SCALES · SCORCHED PARCHMENT',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Nocturne forge',decorationLabel:'SCALES · SCORCHED PARCHMENT',titleSurface:'#dccfba',a4Frame:'assets/art/salamanders/frames/salamanders-a4-portrait.png',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'white-scars': {
       id:'white-scars', name:'White Scars', aliases:['White Scars'],
@@ -108,7 +108,7 @@
       theme:baseTheme('deathwatch',{primary:'#111318',accent:'#aeb6bf',paper:'#ebe0c9',ink:'#171717',decorationIntensity:54}),
       printSurface:'#eceeef',
       emblem:{remoteFile:'Deathwatchsymbol2.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Watch fortress',decorationLabel:'WATCH HERALDRY · METAL',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Watch fortress',decorationLabel:'WATCH HERALDRY · METAL',titleSurface:'#30343a',a4Frame:'assets/art/deathwatch/frames/deathwatch-a4-portrait.png',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     },
     'crimson-fists': {
       id:'crimson-fists', name:'Crimson Fists', aliases:['Crimson Fists'],
@@ -129,7 +129,7 @@
       theme:baseTheme('generic-astartes'),
       printSurface:'#e9edf1',
       emblem:{remoteFile:'Aquila1transparent.png',local:''},
-      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Astartes gothic',decorationLabel:'AQUILA · PURITY SEALS',a4Frame:'',frameReady:false}
+      artwork:{frameStandard:A4_FRAME_STANDARD,geometryMaster:A4_GEOMETRY_MASTER,label:'Astartes gothic',decorationLabel:'AQUILA · PURITY SEALS',titleSurface:'#30343a',a4Frame:'assets/art/generic-astartes/frames/generic-space-marines-a4-portrait.png',geometryContract:'artwork-geometry-px-v1',renderer:'adaptive-datasheet',frameReady:true,candidateFrame:false,validationStatus:'PASS'}
     }
   };
 
@@ -187,7 +187,7 @@
   }));}
 
   const api={
-    version:'3.0.55-artwork-batch-3',
+    version:'3.0.55-artwork-final-batch',
     genericKey:GENERIC,
     a4GeometryMaster:A4_GEOMETRY_MASTER,a4FrameStandard:A4_FRAME_STANDARD,
     profiles,
