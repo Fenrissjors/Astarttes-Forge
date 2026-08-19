@@ -2,7 +2,7 @@
  * - remove generic keyword-explanation rules from Detachment Rule cards
  * - merge current Orks reference Stratagems into New Recruit detachment data
  * - enforce faction-aware artwork gating on every A4 frame route
- * - keep the Themes artwork control disabled until the active faction has artwork
+ * - enable validated faction artwork only when a production profile is registered
  * - normalise non-breaking punctuation observed in New Recruit Orks exports
  * - use the registered faction palette for clean datasheets and print surfaces
  * - normalise source-integrity coverage for merged/duplicate provenance rows
@@ -14,7 +14,13 @@
     try{return global.ASTARTES_ACTIVE_FACTION?.()||state?.factionKey||state?.importedMeta?.factionKey||'adeptus-astartes';}
     catch(_){return 'adeptus-astartes';}
   };
-  const factionAllowsAstartesArtwork=()=>activeFaction()==='adeptus-astartes';
+  const factionAllowsArtwork=()=>{
+    if(activeFaction()==='adeptus-astartes') return true;
+    const faction=global.ASTARTES_FACTION_LIBRARY?.resolve?.(activeFaction())||null;
+    const visualKey=faction?.presentationFallback||'';
+    const profile=visualKey ? global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.[visualKey] : null;
+    return Boolean(profile?.artwork?.frameReady && profile?.artwork?.a4Frame && profile?.artwork?.validationStatus==='PASS');
+  };
   const factionPresentation=()=>global.ASTARTES_FACTION_LIBRARY?.presentationFor?.(activeFaction())||null;
 
   const ruleIsReferenceExplanation=rule=>{
@@ -58,7 +64,7 @@
   if(engine?.mountSeamlessFrame){
     const originalMountSeamlessFrame=engine.mountSeamlessFrame.bind(engine);
     engine.mountSeamlessFrame=function(card,pack,options={}){
-      if(!factionAllowsAstartesArtwork()){
+      if(!factionAllowsArtwork()){
         card?.removeAttribute?.('data-a4-frame'); card?.removeAttribute?.('data-art-pack');
         card?.querySelectorAll?.(':scope > .print-page-surface,:scope > .codex-seamless-frame,:scope > .codex-art-root,:scope > .codex-art-layer').forEach(x=>x.remove());
         return null;
@@ -68,7 +74,7 @@
   }
   if(engine?.mountFrame){
     const originalMountFrame=engine.mountFrame.bind(engine);
-    engine.mountFrame=function(card,pack,options={}){if(!factionAllowsAstartesArtwork()) return null; return originalMountFrame(card,pack,options);};
+    engine.mountFrame=function(card,pack,options={}){if(!factionAllowsArtwork()) return null; return originalMountFrame(card,pack,options);};
   }
 
   if(typeof printSurfaceFor==='function'){
@@ -91,10 +97,14 @@
       const frame=document.getElementById('printThemeFrame');
       const frameRow=document.getElementById('printThemeFrameRow');
       const hint=document.getElementById('printThemeFormatHint');
-      if(!factionAllowsAstartesArtwork()){
+      if(!factionAllowsArtwork()){
         if(frame){frame.checked=false;frame.disabled=true;}
         if(frameRow) frameRow.hidden=false;
         if(hint) hint.textContent='A4 artwork is not available for this faction yet. A4 clean and A5 clean layouts remain fully supported.';
+      }else if(activeFaction()==='orks'){
+        if(frame) frame.disabled=false;
+        if(frameRow) frameRow.hidden=false;
+        if(hint) hint.textContent='A4 can use the validated Orks artwork frame. A5 always uses the clean datasheet layout without artwork.';
       }
     };
   }
@@ -106,10 +116,6 @@
     };
   }
 
-  // sourceIntegrityReport previously used the raw expected profile array length
-  // as its denominator. New Recruit can repeat the same source profile id in the
-  // graph, while the validator correctly tracks represented ids in a Set. That
-  // produced misleading output such as 23/37 despite complete provenance.
   if(typeof sourceIntegrityReport==='function'){
     const originalSourceIntegrityReport=sourceIntegrityReport;
     sourceIntegrityReport=function(imported,mergedDetachments=[]){
@@ -134,9 +140,35 @@
     };
   }
 
+  // chapter-library deliberately blocks unregistered non-Astartes artwork. Once
+  // its DOMContentLoaded guard has run, re-enable the two generic artwork checks
+  // for a faction that now owns a validated production profile.
+  global.addEventListener('DOMContentLoaded',()=>{
+    if(activeFaction()!=='orks' || !factionAllowsArtwork()) return;
+    if(typeof canUseArtworkPrintPage==='function'){
+      canUseArtworkPrintPage=function(entry,unit){
+        const settings=cleanPrintSettings();
+        if(settings.layout==='a4-two-a5' || settings.frame===false) return false;
+        const profile=global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.orks||null;
+        return Boolean(profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
+      };
+    }
+    if(typeof canUseAdaptiveDatasheetArtwork==='function'){
+      canUseAdaptiveDatasheetArtwork=function(entry,unit){
+        const settings=cleanPrintSettings();
+        if(settings.layout==='a4-two-a5' || settings.frame===false) return false;
+        const profile=global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.orks||null;
+        return Boolean(profile?.artwork?.renderer==='adaptive-datasheet' && profile?.artwork?.frameReady && profile?.artwork?.a4Frame);
+      };
+    }
+    if(typeof syncCleanPrintControls==='function') syncCleanPrintControls();
+    if(typeof renderThemePreview==='function') renderThemePreview();
+    if(typeof renderCards==='function') renderCards();
+  });
+
   cleanPersistedDetachmentRules();
   rehydratePersistedOrksDetachment();
   if(typeof syncCleanPrintControls==='function') syncCleanPrintControls();
   if(typeof renderReference==='function') renderReference();
   if(typeof renderValidation==='function') renderValidation();
-})();
+})(window);
