@@ -1,5 +1,6 @@
 /* Astartes Forge — Orks Phase 2 runtime hardening
  * - remove generic keyword-explanation rules from Detachment Rule cards
+ * - merge current Orks reference Stratagems into New Recruit detachment data
  * - enforce faction-aware artwork gating on every A4 frame route
  * - keep the Themes artwork control disabled until the active faction has artwork
  * - normalise non-breaking punctuation observed in New Recruit Orks exports
@@ -13,6 +14,13 @@
   };
   const factionAllowsAstartesArtwork=()=>activeFaction()==='adeptus-astartes';
 
+  const ruleIsReferenceExplanation=rule=>{
+    const name=String(rule?.name||'').trim();
+    const text=String(rule?.text||rule?.description||'');
+    if(typeof isWeaponKeywordExplanation==='function' && isWeaponKeywordExplanation(name,text)) return true;
+    return /^(sustained hits|lethal hits|devastating wounds|precision|blast|torrent|melta|rapid fire|anti-|ignores cover)$/i.test(name);
+  };
+
   // New Recruit can serialise a detachment rule together with a generic weapon
   // keyword explanation referenced by that rule. Such explanations belong to the
   // shared keyword system, not to the Detachment Rule panel.
@@ -20,35 +28,39 @@
     const originalMergeDetachmentLibrary=mergeDetachmentLibrary;
     mergeDetachmentLibrary=function(detachmentData={}){
       const cleaned={...detachmentData};
-      if(Array.isArray(detachmentData.rules)){
-        cleaned.rules=detachmentData.rules.filter(rule=>{
-          const name=String(rule?.name||'');
-          const text=String(rule?.text||rule?.description||'');
-          if(typeof isWeaponKeywordExplanation==='function' && isWeaponKeywordExplanation(name,text)) return false;
-          // Generic ability definitions such as Sustained Hits are reference
-          // explanations rather than detachment-owned rules.
-          return !/^(sustained hits|lethal hits|devastating wounds|precision|blast|torrent|melta|rapid fire|anti-|ignores cover)$/i.test(name.trim());
-        });
-      }
+      if(Array.isArray(detachmentData.rules)) cleaned.rules=detachmentData.rules.filter(rule=>!ruleIsReferenceExplanation(rule));
       return originalMergeDetachmentLibrary(cleaned);
     };
   }
 
-  // Apply the same cleanup to a roster restored from browser storage so users do
-  // not need to delete/re-import simply to see the corrected Detachment Rule panel.
   function cleanPersistedDetachmentRules(){
     try{
       const meta=state?.importedMeta;
       if(!meta) return;
-      const cleanList=list=>(list||[]).filter(rule=>{
-        const name=String(rule?.name||'').trim();
-        const text=String(rule?.text||rule?.description||'');
-        if(typeof isWeaponKeywordExplanation==='function' && isWeaponKeywordExplanation(name,text)) return false;
-        return !/^(sustained hits|lethal hits|devastating wounds|precision|blast|torrent|melta|rapid fire|anti-|ignores cover)$/i.test(name);
-      });
+      const cleanList=list=>(list||[]).filter(rule=>!ruleIsReferenceExplanation(rule));
       if(Array.isArray(meta.detachmentsData)) meta.detachmentsData=meta.detachmentsData.map(d=>({...d,rules:cleanList(d.rules)}));
       if(meta.detachmentData) meta.detachmentData={...meta.detachmentData,rules:cleanList(meta.detachmentData.rules)};
     }catch(error){console.warn('Could not clean persisted detachment rules.',error);}
+  }
+
+  // The rules extension loads after app.js, so a roster restored from storage may
+  // still carry the pre-Phase-2 merged detachment (0 Stratagems / no library map).
+  // Re-run the shared merge once for Orks so the live state immediately reaches the
+  // same result as a fresh import.
+  function rehydratePersistedOrksDetachment(){
+    try{
+      if(activeFaction()!=='orks' || typeof mergeDetachmentLibrary!=='function' || !state?.importedMeta) return;
+      const meta=state.importedMeta;
+      const raw=Array.isArray(meta.detachmentsData)&&meta.detachmentsData.length
+        ? meta.detachmentsData
+        : (meta.detachmentData?[meta.detachmentData]:[]);
+      if(!raw.length) return;
+      const merged=raw.map(d=>mergeDetachmentLibrary({...d,rules:(d.rules||[]).filter(rule=>!ruleIsReferenceExplanation(rule))}));
+      meta.detachmentsData=merged;
+      meta.detachmentData=merged[0]||meta.detachmentData;
+      meta.detachments=merged.map(d=>d.name).filter(Boolean);
+      if(typeof saveState==='function') saveState();
+    }catch(error){console.warn('Could not rehydrate persisted Orks detachment.',error);}
   }
 
   // Hard block Space Marine frame mounting for non-Astartes factions. This closes
@@ -106,6 +118,8 @@
   }
 
   cleanPersistedDetachmentRules();
+  rehydratePersistedOrksDetachment();
   if(typeof syncCleanPrintControls==='function') syncCleanPrintControls();
   if(typeof renderReference==='function') renderReference();
+  if(typeof renderValidation==='function') renderValidation();
 })(window);
