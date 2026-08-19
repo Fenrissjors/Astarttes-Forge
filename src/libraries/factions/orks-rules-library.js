@@ -30,15 +30,11 @@
       status:'ready',
       availability:'faction-pack',
       sourceType:'new-recruit+current-reference-summary',
-      // The ROSZ contains Here Be Loot directly. Keeping a concise fallback here
-      // means the card still works if a future New Recruit export omits the rule.
       rules:[{
         kind:'detachment',
         name:'Here Be Loot',
         text:'At the start of your Command phase, choose one objective as your loot objective until your next Command phase. Attacks made by Orks Infantry, Mounted or Walker models gain Sustained Hits 1 when the attacking unit or its target is within range of that objective.'
       }],
-      // Selected enhancement data already arrives correctly from New Recruit.
-      // Leave this empty in Phase 2 so the importer preserves that exact data.
       enhancements:[],
       stratagems:[
         stratagem('Bash and Grab',1,'Fight phase','During the Fight phase.','One Orks unit that has not fought this phase.','Until the end of the phase, attacks made by that unit against an enemy within range of the loot objective can re-roll Wound rolls.'),
@@ -56,6 +52,14 @@
   };
 
   const normalise=base.normalise || (value=>String(value||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''));
+
+  // app.js captures ASTARTES_RULES_LIBRARY once at startup. The nested detachments
+  // object is intentionally mutable, so extend it in-place first; the original
+  // lookupDetachment closure will then immediately see Freebooter Krew too.
+  if(base.detachments && typeof base.detachments==='object'){
+    Object.assign(base.detachments,orksDetachments);
+  }
+
   const baseLookup=base.lookupDetachment.bind(base);
   const lookupDetachment=(nameOrId='')=>{
     const key=normalise(nameOrId);
