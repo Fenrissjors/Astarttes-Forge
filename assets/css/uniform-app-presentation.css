@@ -1,0 +1,150 @@
+/* Astartes Forge — fixed application chrome palette
+ * Chapter/faction colours are content-level only.
+ * General app chrome must remain visually stable when the selected army changes.
+ */
+:root {
+  --ui-bg: #111722;
+  --ui-bg-top: #273348;
+  --ui-panel: #1b2432;
+  --ui-panel-2: #222e3e;
+  --ui-panel-3: #111923;
+  --ui-border: rgba(255,255,255,.12);
+  --ui-border-strong: rgba(255,255,255,.18);
+  --ui-text: #f5f7fa;
+  --ui-muted: #aab4c0;
+  --ui-eyebrow: #92a2b4;
+  --ui-action: #3c5874;
+  --ui-action-hover: #4a6887;
+  --ui-action-text: #f6f8fb;
+  --ui-selection: #9bb2cc;
+  --ui-danger: #da6a6a;
+  --ui-warning: #d9a441;
+  --ui-success: #70b07a;
+}
+
+/* Application shell ----------------------------------------------------- */
+body {
+  background: radial-gradient(circle at top, var(--ui-bg-top) 0, var(--ui-bg) 42%) !important;
+  color: var(--ui-text) !important;
+}
+.topbar {
+  background: rgba(7,11,18,.76) !important;
+  border-bottom-color: var(--ui-border) !important;
+  color: var(--ui-text) !important;
+}
+.tabs {
+  background: #0e141e !important;
+  border-bottom-color: var(--ui-border) !important;
+}
+.tab { color: var(--ui-muted) !important; }
+.tab:hover { color: var(--ui-text) !important; background: rgba(255,255,255,.035) !important; }
+.tab.active { color: var(--ui-text) !important; border-color: var(--ui-selection) !important; }
+.eyebrow { color: var(--ui-eyebrow) !important; }
+.muted { color: var(--ui-muted) !important; }
+
+/* Generic panels and toolbars ------------------------------------------ */
+.panel,
+.panel-inset,
+.developer-panel,
+.developer-subpanel,
+.verification-tools,
+.rules-toolbar,
+.theme-toolbar,
+.print-center-toolbar,
+.pack-options,
+.pack-preview-panel,
+.rules-column,
+.clean-theme-controls,
+.preview-panel {
+  border-color: var(--ui-border) !important;
+  color: var(--ui-text) !important;
+}
+.panel {
+  background: linear-gradient(180deg, rgba(34,46,62,.96), rgba(22,30,42,.96)) !important;
+}
+.panel-inset,
+.developer-panel,
+.developer-subpanel,
+.verification-tools {
+  background-color: rgba(8,13,20,.18) !important;
+}
+.points-box,
+.catalogue-item,
+.roster-unit,
+.pack-option,
+.batch-drop-zone,
+.import-box {
+  border-color: var(--ui-border) !important;
+}
+.points-box,
+.catalogue-item,
+.roster-unit {
+  background: rgba(0,0,0,.13) !important;
+}
+.roster-unit { border-left-color: var(--ui-selection) !important; }
+
+/* Controls -------------------------------------------------------------- */
+input:not([type="color"]),
+select,
+textarea {
+  background: var(--ui-panel-3) !important;
+  color: var(--ui-text) !important;
+  border-color: var(--ui-border-strong) !important;
+}
+input:not([type="color"]):focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid color-mix(in srgb, var(--ui-selection) 55%, transparent) !important;
+  outline-offset: 1px;
+}
+.primary,
+.add-button {
+  background: var(--ui-action) !important;
+  color: var(--ui-action-text) !important;
+  border-color: transparent !important;
+}
+.primary:hover,
+.add-button:hover { background: var(--ui-action-hover) !important; }
+.ghost,
+.small-button {
+  background: rgba(255,255,255,.07) !important;
+  color: var(--ui-text) !important;
+  border-color: var(--ui-border) !important;
+}
+.ghost:hover,
+.small-button:hover { background: rgba(255,255,255,.11) !important; }
+.danger { color: #ffb7b7 !important; }
+
+/* Neutral application badges/status chrome. Phase badges are excluded. */
+.badge:not(.phase-badge):not([class*="phase-"]),
+.link-status,
+.dev-summary-hint {
+  background: rgba(255,255,255,.08) !important;
+  color: var(--ui-text) !important;
+  border-color: var(--ui-border) !important;
+}
+.validation.success { color: #bce4c2 !important; background: rgba(112,176,122,.12) !important; border-color: rgba(112,176,122,.35) !important; }
+.validation.warning { color: #ffd98e !important; background: rgba(217,164,65,.12) !important; border-color: rgba(217,164,65,.35) !important; }
+
+/* Rules/reference chrome remains neutral. Stratagem cards retain phase identity. */
+.rule-box:not(.warhammer-stratagem),
+.official-rule:not(.warhammer-stratagem),
+.detachment-reference-group,
+.detachment-group-heading {
+  border-color: var(--ui-border) !important;
+}
+.rules-actions label,
+.datasheet-layout-control,
+.toggle-row,
+.pack-option { color: var(--ui-text) !important; }
+
+/* Datasheet and print content are intentionally NOT neutralised:
+ * .data-card and its descendants keep chapter/user colours;
+ * artwork pages keep chapter artwork;
+ * Stratagem phase classes keep their phase colours.
+ */
+
+@media print {
+  /* This stylesheet governs only the app shell. Print content keeps its own renderer. */
+  body { background: #fff !important; }
+}
