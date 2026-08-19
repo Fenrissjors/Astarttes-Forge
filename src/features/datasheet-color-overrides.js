@@ -20,11 +20,19 @@
     return !canUseAdaptiveDatasheetArtwork(entry,unit) && !canUseArtworkPrintPage(entry,unit);
   }
 
-  function entryPrimaryColour(entry){
+  function defaultChapterPrimary(unit){
+    const detected=chapterPresetForName(detectChapterName([...(unit?.tags||[])]) || factionNameFor(unit));
+    const chapterKey=detected!=='generic-astartes'
+      ? detected
+      : ((state.chapterPreset&&state.chapterPreset!=='custom')?state.chapterPreset:'generic-astartes');
+    return smartTheme(chapterThemes[chapterKey] || chapterThemes['generic-astartes'] || state.theme || defaultTheme).primary;
+  }
+
+  function entryPrimaryColour(entry,unit){
     const stored=String(entry?.primaryOverride||'').trim();
     return /^#[0-9a-f]{6}$/i.test(stored)
       ? normaliseHex(stored)
-      : smartTheme(state.theme||defaultTheme).primary;
+      : defaultChapterPrimary(unit);
   }
 
   function applyPrimaryOverride(card,entry,unit){
@@ -53,12 +61,21 @@
     const picker=document.createElement('input');
     picker.type='color';
     picker.className='datasheet-primary-picker';
-    picker.value=entryPrimaryColour(entry);
+    picker.value=entryPrimaryColour(entry,unit);
     picker.setAttribute('aria-label',`Hoofdkleur voor ${unit.name}`);
     picker.title='Pas alleen de hoofdkleur van deze datasheet aan';
 
+    const reset=document.createElement('button');
+    reset.type='button';
+    reset.className='datasheet-color-reset';
+    reset.textContent='↺ Default';
+    reset.setAttribute('aria-label',`Herstel de standaard Chapter-kleur voor ${unit.name}`);
+    reset.title='Herstel de standaard Chapter-kleur';
+    reset.disabled=!/^#[0-9a-f]{6}$/i.test(String(entry?.primaryOverride||'').trim());
+
     picker.addEventListener('input',event=>{
       entry.primaryOverride=normaliseHex(event.target.value);
+      reset.disabled=false;
       applyPrimaryOverride(card,entry,unit);
     });
     picker.addEventListener('change',()=>{
@@ -67,8 +84,16 @@
       renderPrintCenter();
     });
 
+    reset.addEventListener('click',()=>{
+      delete entry.primaryOverride;
+      saveState();
+      renderCards();
+      renderThemePreview();
+      renderPrintCenter();
+    });
+
     label.append(text,picker);
-    control.append(label);
+    control.append(label,reset);
     return control;
   }
 
