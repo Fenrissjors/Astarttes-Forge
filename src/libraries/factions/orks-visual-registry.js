@@ -26,7 +26,9 @@
       watermark:false
     },
     printSurface:'#d9cfb7',
-    emblem:{remoteFile:'',local:'assets/art/orks/emblems/orks-emblem.svg'},
+    // Use the actual Games Workshop Orks insignia hosted by Lexicanum,
+    // matching the external emblem strategy already used by Astartes chapters.
+    emblem:{remoteFile:'Orks-tiny.png',local:''},
     artwork:{
       frameStandard:registry.a4FrameStandard||'a4-chapter-frame-gold-v1',
       geometryMaster:registry.a4GeometryMaster||'a4-chapter-frame-gold-v1',
@@ -54,19 +56,19 @@
   }
 
   // chapter-library originally suppressed Chapter emblems for every non-Astartes
-  // faction while Orks had no visual pack. Orks now owns a validated local emblem,
+  // faction while Orks had no visual pack. Orks now has a real faction insignia,
   // so restore the shared emblem slot only for Orks while leaving future factions
   // safely opt-in.
   global.addEventListener('DOMContentLoaded',()=>{
     const previous=global.chapterEmblemMarkup;
     if(typeof previous!=='function') return;
-    const emblemSrc=profile.emblem.local;
+    const emblemSrc=registry.emblemUrl?.('orks') || 'https://wh40k.lexicanum.com/wiki/Special:Redirect/file/Orks-tiny.png';
     global.chapterEmblemMarkup=function(chapterKey,label){
       let active='';
       try{ active=global.ASTARTES_ACTIVE_FACTION?.()||global.state?.factionKey||global.state?.importedMeta?.factionKey||''; }catch(_){ /* noop */ }
       const key=String(chapterKey||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
       if(active==='orks'||key==='orks'){
-        return `<img src="${emblemSrc}" alt="" aria-hidden="true" style="display:block;width:100%;height:100%;object-fit:contain;object-position:center">`;
+        return `<img src="${emblemSrc}" alt="" aria-hidden="true" style="display:block;width:100%;height:100%;object-fit:contain;object-position:center;image-rendering:auto">`;
       }
       return previous(chapterKey,label);
     };
