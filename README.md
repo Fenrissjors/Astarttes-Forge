@@ -1,43 +1,81 @@
-# Astartes Forge v3.0.54 — Black Templars Golden Frame
+# Astartes Forge v4.0 — Multifaction Approved
 
 Print-first Warhammer 40,000 army companion for New Recruit `.rosz` rosters.
 
-## v3.0.27
+Astartes Forge has reached its first true multifaction milestone. The application now supports both **Adeptus Astartes** and **Orks** through the same shared import, datasheet, rules, theme and print pipeline.
 
-Chapter visuals now have one source of truth: `chapter-visual-registry.js`. ROSZ Chapter detection, theme colours, Chapter Light backgrounds, emblems, artwork identity and seamless A4 frame paths resolve through the same profile. The approved Space Wolves renderer/artwork is unchanged; every other Chapter now has a ready A4 frame slot that can be populated without renderer changes.
+## Supported factions
 
-## v3.0.17
+### Adeptus Astartes
 
-Two print-layout details are refined: the A5 Chapter emblem is now vertically centred in its existing title band, and clean A4 datasheets now use one consistent top-to-bottom panel flow for both standalone units and units with attached Leader/Support models. No artwork, import or rules-library behavior changed.
+- Full New Recruit roster import and chapter detection.
+- Leaders, Support attachments and Enhancements.
+- Army rules, detachments and Stratagems.
+- Clean A4 and dedicated A5 datasheets.
+- Individual datasheet colour overrides with automatic contrast and reset-to-default.
+- Production artwork frames for the approved Space Marine visual set, including Generic Space Marines.
+- Shared adaptive A4 artwork renderer with locked production geometry.
 
-## v3.0.16
+### Orks
 
-Print surfaces are now consistent across every light information box: Parchment, White or a pale Chapter-specific background. A4 keeps the approved Space Wolves artwork and full-bleed overscan when enabled; with artwork disabled the clean datasheet expands across the physical A4 page. A5 is now always artwork-free and uses a dedicated two-column tabletop datasheet layout instead of a scaled-down A4 card.
+- Full faction detection from New Recruit metadata.
+- Leaders, Support attachments and Enhancements.
+- Army rule and all **13 validated Orks detachments**.
+- Detachment Rules, Enhancements and Stratagems through the Orks Rules Library.
+- Orks-specific default palette while keeping the application UI faction-neutral.
+- Clean A4 and A5 print layouts.
+- Validated Orks A4 artwork frame and faction emblem routing.
+- Full batch and stress-test validation completed before promotion to `main`.
 
-## v3.0.15
+## Core features
 
-The approved Space Wolves A4 frame is now the active A4 Rand Artwork. The v3.0.14 full-bleed renderer is unchanged: the frame overscans the 210 × 297 mm page and is physically clipped at the page edge. The live unit title is aligned with the single integrated top plaque, while side ornaments may intentionally extend underneath content boxes. A5 is unchanged.
+- Import `.rosz`, `.ros`, `.xml` and recognised `.json` roster exports.
+- Automatic faction/chapter, unit, role, attachment, Enhancement and detachment interpretation.
+- Readable datasheets with adaptive fitting for dense unit combinations.
+- Rules & Stratagems view with exact phase filtering and phase-specific visual presentation.
+- Theme controls for clean A4/A5 layouts, artwork availability and chapter/faction emblems.
+- Per-datasheet colour coding for A5 and clean A4 cards, with automatic contrast handling.
+- Forge Army Pack for printable army reference packs and PDF output.
+- Developer validation tools for roster regression, source integrity, edition/schema inspection and artwork geometry.
 
-## v3.0.7
+## Multifaction architecture
 
-This release separates visual identity from the shared datasheet layout. Every card resolves a dedicated Chapter Decoration Pack. Space Wolves are the full benchmark pack: page-scale Fenrisian rune watermark, ice crown, wolf pelt, carved rune-bone and hanging talismans. Other Chapters already resolve to distinct non-Fenris packs, ready to be expanded independently.
+The application no longer assumes that every roster is a Space Marine army.
 
-Theme controls now independently toggle illustrated edge pieces and the background watermark. Card material, palette and banner depth never change the detected Chapter or its decoration pack.
+```text
+New Recruit roster
+      ↓
+Faction detection
+      ↓
+Faction / Chapter presentation registry
+      ↓
+Shared datasheet + rules + print renderers
+      ↓
+Faction-specific rules, palette, emblem and optional artwork pack
+```
 
-The data/import/provenance engine is unchanged from v2.8.2.
+Current implementation:
 
-## Architecture
+- **Adeptus Astartes** uses the Chapter system and Chapter Visual Registry.
+- **Orks** uses the shared faction contract plus its own rules and visual registration.
+- The app UI remains uniform when switching factions; faction colours are limited to roster content and print presentation.
 
-`ROSZ → chapter-visual-registry.js → palette / Chapter Light / emblem / artwork frame → shared A4/A5 renderer`
+## Artwork production standard
 
-See `docs/RELEASE-v3.0.18.md` and `docs/design/CHAPTER-VISUAL-REGISTRY.md`.
+Validated A4 artwork uses the locked 2480×3508 production pipeline with native-pixel title geometry, full-bleed outer edges and a controlled transparent content opening.
 
-### Frame-ready Chapters in this v3.0.18 build
-- Space Wolves — Fenris illustrated A4 frame
-- Ultramarines — Macragge laurels A4 frame
+The shared renderer stays geometry-driven: artwork defines the frame and title/points zones, while the datasheet renderer remains reusable across supported factions.
 
-Importing a matching ROSZ automatically selects the matching Chapter profile and A4 frame.
+Orks now follows the same production process as the approved Astartes frames:
 
-### A4 master frame geometry
+`generation → correction → 2480×3508 → geometry validation → production registration → runtime routing`
 
-Space Wolves, Ultramarines and Blood Angels jointly define the locked A4 Golden Frame Standard. New Chapter frames use `docs/design/A4-CHAPTER-FRAME-GOLD-STANDARD.json`: 2480×3508, exact A4 full bleed, straight opaque page edges, one clear title plaque, a chapter-native connected opening, and the clean renderer stack. The three golden PNGs are SHA-256 locked so unrelated work cannot silently alter them.
+## Current status
+
+**v4.0 — Multifaction Approved**
+
+- Adeptus Astartes: production-ready.
+- Orks: production-ready.
+- Shared import, datasheet, rules, print and theme architecture proven across two substantially different factions.
+
+See `CHANGELOG.md` for release history and `ROADMAP.md` for the next expansion phase.
