@@ -27,7 +27,6 @@
         <section class="panel roster-panel compact-panel">
           <div class="section-head">
             <div><p class="eyebrow">IMPORTED ARMY</p><h2 id="rosterTitle">No army imported</h2></div>
-            
           </div>
           <section class="import-box compact-import">
             <div><p class="eyebrow">NEW RECRUIT IMPORT</p><h3>Import a roster</h3><p class="muted">Supports <code>.rosz</code>, <code>.ros</code>, <code>.xml</code> and recognised <code>.json</code> exports.</p></div>
@@ -110,50 +109,22 @@
         <section class="panel rules-column"><p class="eyebrow">STRATAGEMS</p><h2>Core Stratagems</h2><div id="coreStratagemList" class="stratagem-list"></div><h2 class="reference-subhead">Detachment Stratagems</h2><div id="stratagemList" class="stratagem-list"></div></section>
       </div>
     </section>
-
     <section id="theme" class="view">
-      <div class="theme-toolbar panel">
-        <div>
-          <p class="eyebrow">PRINT APPEARANCE</p>
-          <h2>Print Preview</h2>
-          <p class="muted">This preview uses the exact same datasheet renderer as Forge Army Pack.</p>
-        </div>
-</div>
+      <div class="theme-toolbar panel"><div><p class="eyebrow">PRINT APPEARANCE</p><h2>Print Preview</h2><p class="muted">This preview uses the exact same datasheet renderer as Forge Army Pack.</p></div></div>
       <div class="theme-grid clean-theme-grid">
         <section class="panel clean-theme-controls">
           <h3>Datasheet presentation</h3>
           <label class="toggle-row"><input type="checkbox" id="printThemeEmblem" checked><span>Chapter emblem</span></label>
           <label class="toggle-row" id="printThemeFrameRow"><input type="checkbox" id="printThemeFrame" checked><span>A4 artwork border</span></label>
-          <label>Background
-            <select id="printThemeBackground">
-              <option value="parchment">Parchment</option>
-              <option value="white">White</option>
-              <option value="chapter">Chapter light</option>
-            </select>
-          </label>
-          <label>Output
-            <select id="printThemeLayout">
-              <option value="a4-single">1 datasheet — A4 portrait</option>
-              <option value="a4-two-a5">2 datasheets — A5 landscape on 1 A4 · clean datasheet</option>
-            </select>
-          </label>
+          <label>Background<select id="printThemeBackground"><option value="parchment">Parchment</option><option value="white">White</option><option value="chapter">Chapter light</option></select></label>
+          <label>Output<select id="printThemeLayout"><option value="a4-single">1 datasheet — A4 portrait</option><option value="a4-two-a5">2 datasheets — A5 landscape on 1 A4 · clean datasheet</option></select></label>
           <p class="muted" id="printThemeFormatHint">A4 can use Chapter artwork. A5 always uses the clean datasheet layout without artwork.</p>
         </section>
-        <section class="panel preview-panel clean-print-preview-panel">
-          <div class="section-head preview-heading">
-            <div><p class="eyebrow">LIVE PRINT PREVIEW</p><h3 id="printPreviewTitle">Datasheet</h3></div>
-            <span id="printPreviewBadge" class="badge">A4 portrait</span>
-          </div>
-          <div id="themePreview" class="clean-print-preview"></div>
-        </section>
+        <section class="panel preview-panel clean-print-preview-panel"><div class="section-head preview-heading"><div><p class="eyebrow">LIVE PRINT PREVIEW</p><h3 id="printPreviewTitle">Datasheet</h3></div><span id="printPreviewBadge" class="badge">A4 portrait</span></div><div id="themePreview" class="clean-print-preview"></div></section>
       </div>
     </section>
-
     <section id="print-center" class="view">
-      <div class="panel print-center-toolbar">
-        <div><p class="eyebrow">PRINT-FIRST WORKFLOW</p><h2>Forge Army Pack</h2><p class="muted">Choose the pages you want to take to the table, then print or save the complete pack as one PDF.</p></div>
-        <button id="generateArmyPack" class="primary">⚒ Forge Army Pack</button>
-      </div>
+      <div class="panel print-center-toolbar"><div><p class="eyebrow">PRINT-FIRST WORKFLOW</p><h2>Forge Army Pack</h2><p class="muted">Choose the pages you want to take to the table, then print or save the complete pack as one PDF.</p></div><button id="generateArmyPack" class="primary">⚒ Forge Army Pack</button></div>
       <div class="print-center-grid">
         <section class="panel pack-options">
           <p class="eyebrow">PACK CONTENTS</p><h2>Included pages</h2>
@@ -166,14 +137,11 @@
           <label class="pack-option"><input type="checkbox" data-pack-section="enhancements" checked><span><strong>Enhancements</strong><small>Only selected enhancements in the army.</small></span></label>
           <p class="pack-note">The PDF uses the current Chapter theme and individual datasheet overrides.</p>
         </section>
-        <section class="panel pack-preview-panel">
-          <div class="section-head"><div><p class="eyebrow">PACK PREVIEW</p><h2 id="packPreviewTitle">No army imported</h2></div><span id="packPageEstimate" class="badge">0 sections</span></div>
-          <div id="packPreview" class="pack-preview"></div>
-        </section>
+        <section class="panel pack-preview-panel"><div class="section-head"><div><p class="eyebrow">PACK PREVIEW</p><h2 id="packPreviewTitle">No army imported</h2></div><span id="packPageEstimate" class="badge">0 sections</span></div><div id="packPreview" class="pack-preview"></div></section>
       </div>
       <div id="armyPackPrint" class="army-pack-print" aria-hidden="true"></div>
     </section>
-</main>
+  </main>
   <template id="unitCardTemplate"><article class="data-card"><header class="card-header"><div><p class="card-kicker"></p><h3 class="card-title"></h3></div><div class="card-points"></div></header><div class="card-body"></div></article></template>
   <script src="src/libraries/keywords/keyword-library.js"></script>
   <script src="src/libraries/units/unit-library.js"></script>
@@ -181,12 +149,15 @@
   <script src="src/libraries/chapters/chapter-library.js"></script>
   <script src="src/libraries/art/frame-geometry-library.js"></script>
   <script src="src/libraries/chapters/chapter-visual-registry.js"></script>
+  <script src="src/libraries/factions/orks-visual-registry.js"></script>
   <script src="src/libraries/chapters/decoration-pack-library.js"></script>
   <script src="src/libraries/reference/official-reference-library.js"></script>
   <script src="src/libraries/editions/edition-schema-library.js"></script>
   <script src="src/libraries/rules/rules-library.js"></script>
+  <script src="src/libraries/factions/orks-rules-library.js"></script>
   <script src="src/libraries/art/a4-frame-engine.js"></script>
   <script src="src/core/app.js"></script>
+  <script src="src/features/orks-phase2-runtime.js"></script>
   <script src="src/features/stratagem-phase-presentation.js"></script>
   <script src="src/features/datasheet-color-overrides.js"></script>
 </body>

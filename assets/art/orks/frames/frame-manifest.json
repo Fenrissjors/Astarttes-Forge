@@ -1,0 +1,28 @@
+{
+  "id": "orks",
+  "name": "Orks",
+  "status": "production-ready",
+  "validationStatus": "PASS",
+  "geometryContract": "artwork-geometry-px-v1",
+  "renderer": "adaptive-datasheet",
+  "frameAssets": {
+    "a4Portrait": "assets/art/orks/frames/orks-a4-portrait.png"
+  },
+  "canvasPx": { "width": 2480, "height": 3508 },
+  "titleBoxPx": { "x": 380, "y": 280, "width": 1720, "height": 180 },
+  "titlePaddingPx": { "top": 21, "right": 76, "bottom": 21, "left": 76 },
+  "titleTypography": {
+    "maxTitlePt": 15.0,
+    "minTitlePt": 8.5,
+    "kickerPt": 6.5,
+    "pointsPt": 9.0,
+    "singleLine": true
+  },
+  "panelBoxPx": { "x": 292, "y": 598, "width": 1896, "bottom": 3490 },
+  "openingBoundingBoxPx": { "left": 426, "top": 572, "right": 2054, "bottom": 3291 },
+  "alphaMaskMaster": "blood-angels",
+  "validator": "Astartes Forge artwork validator v1.2",
+  "validatorResult": "PASS",
+  "productionSha256": "976661d8212f2cb13d0f3d804b7f44d88f7861a8da0ce1cd53262f3a91b25539",
+  "alphaSha256": "60062d8cef7f606b138f1da93978345234c292c6c4b16a5e37310af16deef068"
+}
