@@ -1,7 +1,6 @@
-/* Astartes Forge — Tyranids Phase 1 faction foundation
+/* Astartes Forge — Tyranids faction foundation + production visual registration
  * New Recruit remains authoritative for roster identity and rules.
- * Phase 1 registers faction detection + clean presentation only; artwork and
- * reference-completion rules are deliberately deferred to later phases.
+ * Tyranids now owns a validated faction presentation profile and A4 artwork route.
  */
 (function(global){
   'use strict';
@@ -10,14 +9,14 @@
   if(!library?.factions) return;
 
   const presentation=Object.freeze({
-    id:'tyranids-default',
+    id:'tyranids',
     primary:'#5a3472',
     accent:'#9b2f55',
     paper:'#eee2cf',
     ink:'#19131d',
     chapterSurface:'#eadff0',
     pattern:'chapter',
-    chapter:'tyranids-default',
+    chapter:'tyranids',
     decorations:false,
     decorationIntensity:0,
     emblem:false,
@@ -33,7 +32,7 @@
     factionPatterns:[/^tyranids$/i],
     categoryPatterns:[/^faction:\s*tyranids$/i],
     chapterSystem:false,
-    presentationFallback:'tyranids-default',
+    presentationFallback:'tyranids',
     presentation
   };
 
@@ -52,6 +51,37 @@
   }
 
   global.addEventListener('DOMContentLoaded',()=>{
+    // Register Tyranids in the shared visual registry only after all libraries
+    // have loaded. This keeps the existing script order stable and gives the
+    // faction the same adaptive A4 renderer contract as approved factions.
+    const visualRegistry=global.ASTARTES_CHAPTER_VISUAL_REGISTRY;
+    if(visualRegistry?.profiles){
+      visualRegistry.profiles.tyranids={
+        id:'tyranids',
+        name:'Tyranids',
+        aliases:['Tyranids','Xenos - Tyranids'],
+        theme:{...presentation},
+        printSurface:'#eadff0',
+        emblem:{remoteFile:'',local:''},
+        artwork:{
+          frameStandard:visualRegistry.a4FrameStandard||'a4-chapter-frame-gold-v1',
+          geometryMaster:visualRegistry.a4GeometryMaster||'a4-chapter-frame-gold-v1',
+          label:'Tyranid bio-construct',
+          decorationLabel:'CHITIN · TALONS · BIOMASS',
+          titleSurface:'#eee2cf',
+          a4Frame:'assets/art/tyranids/frames/tyranids-a4-portrait.png',
+          frameManifest:'assets/art/tyranids/frames/frame-manifest.json',
+          geometryContract:'artwork-geometry-px-v1',
+          renderer:'adaptive-datasheet',
+          frameReady:true,
+          candidateFrame:false,
+          validationStatus:'PASS'
+        }
+      };
+      library.factions.tyranids.presentationFallback='tyranids';
+      library.factions.tyranids.presentation=Object.freeze({...presentation});
+    }
+
     if(typeof global.ASTARTES_ACTIVE_FACTION!=='function') return;
 
     // Keep non-Astartes faction labels exact on datasheets and print output.
