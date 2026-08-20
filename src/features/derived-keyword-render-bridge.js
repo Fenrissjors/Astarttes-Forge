@@ -1,118 +1,114 @@
-/* Astartes Forge — Derived Keyword Render Bridge
- * Makes permanent detachment-derived keywords first-class datasheet keywords.
+/* Astartes Forge — ROSZ keyword pipeline
+ * New Recruit category/categoryLink data is the source of truth.
  *
- * Core app.js intentionally filters unit keywords through IMPORTANT_UNIT_KEYWORDS.
- * Detachment-granted keywords can be valid without existing in that static core
- * catalogue, so this bridge extends that recognition path and projects derived
- * values into unit.unitKeywords before any screen/print renderer runs.
+ * Audit finding: normalizeArmyFromSourceGraph only copied categories owned by
+ * the unit root. Effective keywords can live on model selections beneath that
+ * root, and the datasheet renderer then hid unfamiliar keywords behind a static
+ * whitelist. This bridge fixes both losses generically without faction rules.
  */
 (function(global){
   'use strict';
 
-  const normalise=value=>String(value||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  const clean=value=>String(value||'').replace(/[‐‑‒–—−]/g,'-').replace(/\s+/g,' ').trim();
+  const key=value=>clean(value).toLowerCase();
   const unique=values=>{
     const out=[]; const seen=new Set();
-    (values||[]).filter(Boolean).forEach(value=>{
-      const text=String(value).trim(); const key=normalise(text);
-      if(!key||seen.has(key)) return;
-      seen.add(key); out.push(text);
+    (values||[]).forEach(value=>{
+      const text=clean(value); const id=key(text);
+      if(!id||seen.has(id)) return;
+      seen.add(id); out.push(text);
     });
     return out;
   };
 
-  function stateUnits(){
-    try{return Array.isArray(state?.importedUnits)?state.importedUnits:[];}catch(_){return [];}
+  const technicalPatterns=[
+    /^configuration$/i,/^detachment$/i,/^detachment choice$/i,/^army$/i,
+    /^roster$/i,/^force$/i,/^uncategorised$/i,/^uncategorized$/i,
+    /^shared$/i,/^root$/i,/^selection$/i
+  ];
+  const isTechnical=value=>technicalPatterns.some(pattern=>pattern.test(clean(value)));
+
+  function sourceCategoriesForUnit(sourceGraph,unit){
+    const rootId=unit?.sourceSelectionId;
+    if(!rootId||!sourceGraph) return unique(unit?.tags||[]);
+    const allowedIds=new Set(
+      (sourceGraph.selections||[])
+        .filter(selection=>(selection.id===rootId||selection.topId===rootId) && /^(unit|model)$/i.test(selection.type||''))
+        .map(selection=>selection.id)
+    );
+    allowedIds.add(rootId);
+    return unique((sourceGraph.categories||[])
+      .filter(category=>allowedIds.has(category.ownerSelectionId))
+      .map(category=>category.name)
+      .filter(name=>!isTechnical(name)));
   }
 
-  function knownDerivedKeywords(){
-    const fromEffects=(global.ASTARTES_DERIVED_KEYWORD_ENGINE?.effects?.()||[]).flatMap(effect=>effect?.add||[]);
-    const fromUnits=stateUnits().flatMap(unit=>unit?.derivedKeywords||[]);
-    return unique([...fromEffects,...fromUnits]);
+  function projectSourceKeywords(imported,sourceGraph){
+    if(!imported||!Array.isArray(imported.units)) return imported;
+    imported.units.forEach(unit=>{
+      const sourceKeywords=sourceCategoriesForUnit(sourceGraph,unit);
+      unit.sourceKeywords=sourceKeywords;
+      const relationship=(unit.tags||[]).filter(value=>/^(leader|support)$/i.test(clean(value)));
+      unit.tags=unique([...sourceKeywords,...relationship]);
+    });
+    return imported;
   }
 
-  function installKeywordRecognition(){
-    // IMPORTANT_UNIT_KEYWORDS is a global lexical binding from app.js, not a
-    // window property. Classic scripts can still access and extend its mutable
-    // test method. This is the actual gate used by unitKeywordData().
-    try{
-      if(typeof IMPORTANT_UNIT_KEYWORDS==='undefined'||!IMPORTANT_UNIT_KEYWORDS||IMPORTANT_UNIT_KEYWORDS.__derivedExtended) return;
-      const previousTest=typeof IMPORTANT_UNIT_KEYWORDS.test==='function'
-        ? IMPORTANT_UNIT_KEYWORDS.test.bind(IMPORTANT_UNIT_KEYWORDS)
-        : (()=>false);
-      IMPORTANT_UNIT_KEYWORDS.test=function(value=''){
-        if(previousTest(value)) return true;
-        const key=normalise(value);
-        return knownDerivedKeywords().some(keyword=>normalise(keyword)===key);
-      };
-      IMPORTANT_UNIT_KEYWORDS.__derivedExtended=true;
-    }catch(error){
-      console.warn('Could not extend unit-keyword recognition for derived keywords.',error);
-    }
-  }
-
-  function projectUnit(unit){
-    const engine=global.ASTARTES_DERIVED_KEYWORD_ENGINE;
-    const base=unique(unit?.baseKeywords||unit?.tags||[]);
-    const derived=unique(unit?.derivedKeywords||[]);
-    const effective=unique(engine?.effectiveKeywords?.(unit)||[...base,...derived]);
-
-    // tags is the effective semantic set used by eligibility/filter logic.
-    unit.tags=effective;
-
-    // unitKeywordData() renders from unit.unitKeywords plus unit.tags, with the
-    // IMPORTANT_UNIT_KEYWORDS gate above. Keep factionKeywords untouched:
-    // Burrower/Battleline/etc are UNIT keywords, not faction keywords.
-    unit.unitKeywords=unique([...(Array.isArray(unit.unitKeywords)?unit.unitKeywords:[]),...derived]);
-    unit.keywords=unique([...(Array.isArray(unit.keywords)?unit.keywords:[]),...derived]);
-
-    if(Array.isArray(unit.categories)) unit.categories=unique([...unit.categories,...derived]);
-    if(unit.sourceMeta&&typeof unit.sourceMeta==='object'){
-      if(Array.isArray(unit.sourceMeta.keywords)) unit.sourceMeta.keywords=unique([...unit.sourceMeta.keywords,...derived]);
-      if(Array.isArray(unit.sourceMeta.categories)) unit.sourceMeta.categories=unique([...unit.sourceMeta.categories,...derived]);
-    }
-  }
-
-  function projectAll(){
-    installKeywordRecognition();
-    try{global.ASTARTES_DERIVED_KEYWORD_ENGINE?.apply?.({persist:false});}catch(_){ }
-    stateUnits().forEach(projectUnit);
-  }
-
-  function wrapRenderer(name){
-    let fn;
-    try{fn=eval(name);}catch(_){fn=global[name];}
-    if(typeof fn!=='function'||fn.__derivedKeywordWrapped) return;
-    const wrapped=function(...args){
-      projectAll();
-      return fn.apply(this,args);
+  // Wrap the source-graph normalizer before the user imports a roster.
+  if(typeof global.normalizeArmyFromSourceGraph==='function'){
+    const previous=global.normalizeArmyFromSourceGraph;
+    global.normalizeArmyFromSourceGraph=function(sourceGraph,...args){
+      return projectSourceKeywords(previous.call(this,sourceGraph,...args),sourceGraph);
     };
-    wrapped.__derivedKeywordWrapped=true;
-    // Top-level function declarations in app.js are also window properties in
-    // this non-module build, so assigning here updates normal UI calls.
-    try{global[name]=wrapped;}catch(_){ }
   }
 
-  function refresh(){
-    projectAll();
-    try{if(typeof renderCards==='function') renderCards();}catch(_){ }
-    try{if(typeof renderThemePreview==='function') renderThemePreview();}catch(_){ }
-    try{if(typeof renderPrintCenter==='function') renderPrintCenter();}catch(_){ }
+  function activeFactionLabels(){
+    const labels=new Set(['imperium','adeptus astartes','space marines','orks','tyranids']);
+    try{
+      const meta=global.state?.importedMeta||{};
+      [meta.faction,meta.factionName,meta.factionKey,global.ASTARTES_ACTIVE_FACTION?.()].filter(Boolean).forEach(value=>labels.add(key(value)));
+    }catch(_){ }
+    return labels;
+  }
+  function sourceFactionKeyword(value=''){
+    const text=clean(value);
+    if(/^faction(?: keyword)?\s*:/i.test(text)) return true;
+    try{if(typeof global.isFactionKeyword==='function'&&global.isFactionKeyword(text)) return true;}catch(_){ }
+    return activeFactionLabels().has(key(text));
+  }
+  const canonicalFaction=value=>clean(value).replace(/^faction(?: keyword)?\s*:\s*/i,'');
+  function canonicalUnit(value=''){
+    try{return global.KEYWORD_LIBRARY?.canonicalUnit?.(value)||clean(value);}catch(_){return clean(value);}
+  }
+  function sort(values=[]){
+    const order=Array.isArray(global.KEYWORD_DISPLAY_ORDER)?global.KEYWORD_DISPLAY_ORDER:[];
+    return unique(values.map(canonicalUnit)).sort((a,b)=>{
+      const ai=order.findIndex(item=>a===item||a.startsWith(item+' '));
+      const bi=order.findIndex(item=>b===item||b.startsWith(item+' '));
+      const av=ai<0?999:ai, bv=bi<0?999:bi;
+      return av-bv||a.localeCompare(b);
+    });
   }
 
-  function install(){
-    installKeywordRecognition();
-    projectAll();
-    ['renderAll','renderCards','renderThemePreview','renderPrintCenter','generateArmyPack'].forEach(wrapRenderer);
-    // A final render is intentional: the normal card renderer now sees the
-    // derived keyword as a legitimate unit keyword and puts it in its own
-    // existing KEYWORDS footer. No DOM text fallback is used anymore.
-    refresh();
-  }
+  // The old renderer admitted only KEYWORD_LIBRARY.isUnit(...) values. For ROSZ
+  // imports the source category itself is authoritative, so unfamiliar but valid
+  // keywords (Vanguard Invader, Burrower, future faction keywords, etc.) render
+  // automatically instead of requiring library updates.
+  global.unitKeywordData=function(unit){
+    if(!unit) return {core:[],faction:[]};
+    const values=unique([...(unit.sourceKeywords||unit.tags||[]),...(unit.leader?['Leader','Character']:[]),...(unit.support?['Support']:[])]);
+    const core=[]; const faction=[];
+    values.filter(value=>!isTechnical(value)).forEach(value=>{
+      if(sourceFactionKeyword(value)) faction.push(canonicalFaction(value));
+      else core.push(value);
+    });
+    return {core:sort(core),faction:sort(faction)};
+  };
 
-  global.ASTARTES_DERIVED_KEYWORD_RENDER_BRIDGE=Object.freeze({
-    projectAll,
-    refresh,
-    recognised:knownDerivedKeywords
+  global.ASTARTES_ROSZ_KEYWORD_PIPELINE=Object.freeze({
+    version:'1.0.0',
+    project:projectSourceKeywords,
+    sourceCategoriesForUnit,
+    isTechnical
   });
-  global.addEventListener('DOMContentLoaded',install);
 })(window);
