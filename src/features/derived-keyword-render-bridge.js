@@ -76,7 +76,6 @@
     try{if(typeof global.isFactionKeyword==='function'&&global.isFactionKeyword(text)) return true;}catch(_){ }
     return activeFactionLabels().has(key(text));
   }
-  const canonicalFaction=value=>clean(value).replace(/^faction(?: keyword)?\s*:\s*/i,'');
   function canonicalUnit(value=''){
     try{return global.KEYWORD_LIBRARY?.canonicalUnit?.(value)||clean(value);}catch(_){return clean(value);}
   }
@@ -94,21 +93,25 @@
   // imports the source category itself is authoritative, so unfamiliar but valid
   // keywords (Vanguard Invader, Burrower, future faction keywords, etc.) render
   // automatically instead of requiring library updates.
+  //
+  // Faction keywords remain preserved in sourceKeywords/unit.tags for rules,
+  // filters and eligibility, but are deliberately omitted from the datasheet
+  // footer because the faction identity is already shown in the card header.
   global.unitKeywordData=function(unit){
     if(!unit) return {core:[],faction:[]};
     const values=unique([...(unit.sourceKeywords||unit.tags||[]),...(unit.leader?['Leader','Character']:[]),...(unit.support?['Support']:[])]);
-    const core=[]; const faction=[];
+    const core=[];
     values.filter(value=>!isTechnical(value)).forEach(value=>{
-      if(sourceFactionKeyword(value)) faction.push(canonicalFaction(value));
-      else core.push(value);
+      if(!sourceFactionKeyword(value)) core.push(value);
     });
-    return {core:sort(core),faction:sort(faction)};
+    return {core:sort(core),faction:[]};
   };
 
   global.ASTARTES_ROSZ_KEYWORD_PIPELINE=Object.freeze({
-    version:'1.0.0',
+    version:'1.0.1-hide-faction-footer',
     project:projectSourceKeywords,
     sourceCategoriesForUnit,
-    isTechnical
+    isTechnical,
+    isFactionKeyword:sourceFactionKeyword
   });
 })(window);
