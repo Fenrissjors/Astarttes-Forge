@@ -1,5 +1,23 @@
 # Changelog
 
+## v4.1 — Tyranids Expansion
+
+- Added full **Tyranids** faction support to the production multifaction architecture.
+- Added Tyranids faction detection and presentation registration from New Recruit roster metadata.
+- Added a Tyranids Rules Library covering the validated detachment batch, including Detachment Rules, Enhancements and Stratagems.
+- Added Tyranids detachment reference cleanup while keeping New Recruit authoritative for roster facts and effective unit state.
+- Replaced one-off detachment keyword derivation with a generic ROSZ keyword import pipeline that reads effective unit/model categories from the source graph.
+- Preserved imported keywords such as `Vanguard Invader` and other detachment-provided keywords without hardcoding faction-specific rules.
+- Kept faction keywords available to rules/eligibility logic while omitting redundant faction keywords from the datasheet footer.
+- Added shared cleanup for escaped New Recruit rich-text markers such as `**` and `^^` in datasheets and print output.
+- Added a Tyranids-specific visual palette while preserving the uniform faction-neutral application UI.
+- Added a validated **2480×3508 Tyranids A4 artwork frame** and registered it in the Visual Registry, frame manifest and Geometry Library.
+- Fixed the shared artwork routing so validated non-Astartes factions can use the same adaptive A4 renderer as validated Astartes frames.
+- Removed the old hardcoded non-Astartes artwork block from the faction/chapter runtime contract and replaced it with validated-profile gating.
+- Verified Tyranids Theme Preview and Forge Army Pack rendering on the shared adaptive artwork path.
+- Removed obsolete Crimson Fists and Flesh Tearers standalone artwork placeholder folders/presets from the current presentation set.
+- Confirmed existing Adeptus Astartes and Orks behaviour remains operational after the shared keyword and artwork-routing changes.
+
 ## v4.0 — Multifaction Approved
 
 - Promoted Astartes Forge from a Space Marine-focused application to a proven multifaction architecture.
@@ -21,7 +39,7 @@
 
 ## v3.x — Astartes production baseline
 
-The v3 series established the production-ready Space Marine experience that v4.0 now generalises across factions:
+The v3 series established the production-ready Space Marine experience that v4.x now generalises across factions:
 
 - Unified Chapter Visual Registry and chapter-aware presentation.
 - Production A4 artwork frames and geometry validation.
