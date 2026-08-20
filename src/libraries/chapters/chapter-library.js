@@ -34,7 +34,7 @@
   for(const module of Object.values(modules)) for(const name of [...module.verificationDetachments,...module.readyExtras]) detachmentScopeIndex[normalise(name)]={moduleId:module.id,moduleName:module.name,source:module.scopeSource||'library'};
 
   global.ASTARTES_CHAPTER_LIBRARY=Object.freeze({
-    version:'2.9.1-faction-presentation', modules, verificationGroups, detachmentScopeIndex,
+    version:'2.9.2-faction-artwork-gating', modules, verificationGroups, detachmentScopeIndex,
     resolveScope:(name='')=>detachmentScopeIndex[normalise(name)]?{...detachmentScopeIndex[normalise(name)]}:null,
     listModules:()=>Object.values(modules).map(m=>({...m,verificationDetachments:[...m.verificationDetachments],readyExtras:[...m.readyExtras]}))
   });
@@ -87,7 +87,7 @@
   }
 
   global.ASTARTES_FACTION_LIBRARY=Object.freeze({
-    version:'1.1.0-faction-presentation', factions, detect:detectFaction,
+    version:'1.2.0-validated-faction-artwork', factions, detect:detectFaction,
     resolve:id=>factions[id]||null,
     presentationFor:id=>factions[id]?.presentation?{...factions[id].presentation}:null,
     list:()=>Object.values(factions).map(f=>({id:f.id,name:f.name,family:f.family,chapterSystem:f.chapterSystem,presentationFallback:f.presentationFallback,presentation:f.presentation?{...f.presentation}:null}))
@@ -108,6 +108,20 @@
       state.theme={...palette};
       if(typeof applyTheme==='function') applyTheme();
     };
+
+    const validatedFactionArtworkProfile=()=>{
+      const id=activeFaction();
+      if(id==='adeptus-astartes') return null;
+      const faction=global.ASTARTES_FACTION_LIBRARY?.resolve?.(id)||null;
+      const visualKey=faction?.presentationFallback||id;
+      // Exact lookup only: an unregistered faction must never inherit the generic
+      // Astartes profile through resolve() and accidentally pass production gating.
+      const profile=global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.[visualKey]||null;
+      const artwork=profile?.artwork||{};
+      if(artwork.renderer!=='adaptive-datasheet' || !artwork.frameReady || !artwork.a4Frame || artwork.validationStatus!=='PASS') return null;
+      return profile;
+    };
+    const factionAllowsValidatedArtwork=()=>activeFaction()==='adeptus-astartes' || Boolean(validatedFactionArtworkProfile());
 
     const restored=detectFromState();
     if(restored){
@@ -133,11 +147,17 @@
     }
     if(typeof canUseArtworkPrintPage==='function'){
       const originalCanUseArtworkPrintPage=canUseArtworkPrintPage;
-      canUseArtworkPrintPage=function(entry,unit){ if(activeFaction()!=='adeptus-astartes') return false; return originalCanUseArtworkPrintPage(entry,unit); };
+      canUseArtworkPrintPage=function(entry,unit){
+        if(!factionAllowsValidatedArtwork()) return false;
+        return originalCanUseArtworkPrintPage(entry,unit);
+      };
     }
     if(typeof canUseAdaptiveDatasheetArtwork==='function'){
       const originalCanUseAdaptiveDatasheetArtwork=canUseAdaptiveDatasheetArtwork;
-      canUseAdaptiveDatasheetArtwork=function(entry,unit){ if(activeFaction()!=='adeptus-astartes') return false; return originalCanUseAdaptiveDatasheetArtwork(entry,unit); };
+      canUseAdaptiveDatasheetArtwork=function(entry,unit){
+        if(!factionAllowsValidatedArtwork()) return false;
+        return originalCanUseAdaptiveDatasheetArtwork(entry,unit);
+      };
     }
     if(typeof chapterEmblemMarkup==='function'){
       const originalChapterEmblemMarkup=chapterEmblemMarkup;
