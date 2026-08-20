@@ -1,0 +1,10 @@
+{
+  "id": "tyranids",
+  "status": "PASS",
+  "frame": "tyranids-a4-portrait.png",
+  "canvasPx": {"width": 2480, "height": 3508},
+  "geometryContract": "artwork-geometry-px-v1",
+  "openingBoundingBoxPx": {"left": 418, "top": 551, "right": 2063, "bottom": 3298},
+  "alphaMaskMaster": "blood-angels",
+  "notes": "Production-approved Tyranids A4 artwork frame. Place tyranids-a4-portrait.png in this folder."
+}
