@@ -53,14 +53,33 @@
 
   registry.profiles.tyranids=profile;
 
-  // The shared renderer writes --art-title-text inline. Force the validated
-  // Tyranids plaque colour at the faction boundary so both Theme Preview and
-  // Forge Army Pack use the same readable title treatment.
-  const titleStyle=document.createElement('style');
-  titleStyle.id='tyranids-adaptive-title-contract';
-  titleStyle.textContent=`
+  // Tyranids production fit contract.
+  // The source artwork has substantially thicker side growths than the Chapter
+  // masters. Render the frame slightly wider inside the clipped A4 page so its
+  // usable opening matches the same ~160.5mm datasheet canvas used elsewhere.
+  // The live panels themselves remain on the shared A4 master width and scale.
+  const visualStyle=document.createElement('style');
+  visualStyle.id='tyranids-adaptive-artwork-contract';
+  visualStyle.textContent=`
     .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"]{
       --art-title-text:#4d2a61!important;
+      --adaptive-body-top:50.6mm!important;
+      --adaptive-body-width:160.5mm!important;
+    }
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .codex-seamless-frame{
+      transform:scaleX(1.19)!important;
+      transform-origin:50% 50%!important;
+    }
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header{
+      left:26mm!important;
+      top:20mm!important;
+      width:158mm!important;
+      height:18mm!important;
+      padding:1.8mm 6.4mm!important;
+      color:#4d2a61!important;
+      background:transparent!important;
+      border:0!important;
+      box-shadow:none!important;
     }
     .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header .card-title,
     .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header .card-kicker,
@@ -68,8 +87,15 @@
       color:#4d2a61!important;
       text-shadow:none!important;
     }
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-body{
+      left:50%!important;
+      width:160.5mm!important;
+      max-width:160.5mm!important;
+      top:50.6mm!important;
+      transform:translateX(-50%)!important;
+    }
   `;
-  document.head.appendChild(titleStyle);
+  document.head.appendChild(visualStyle);
 
   // Keep faction routing in sync with the production visual profile.
   const faction=global.ASTARTES_FACTION_LIBRARY?.factions?.tyranids;
