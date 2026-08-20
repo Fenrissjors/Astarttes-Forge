@@ -51,11 +51,17 @@
   }
 
   global.addEventListener('DOMContentLoaded',()=>{
-    // Register Tyranids in the shared visual registry only after all libraries
-    // have loaded. This keeps the existing script order stable and gives the
-    // faction the same adaptive A4 renderer contract as approved factions.
+    // Register Tyranids before the app's DOMContentLoaded renderer builds theme
+    // controls. app.js snapshots themeMap() at script evaluation time, so mirror
+    // the late faction registration into that live theme map as well.
     const visualRegistry=global.ASTARTES_CHAPTER_VISUAL_REGISTRY;
     if(visualRegistry?.profiles){
+      // Crimson Fists and Flesh Tearers are no longer offered as separate
+      // presentation presets. Existing imported source labels can still remain
+      // in roster data, but they resolve through the generic Astartes fallback.
+      delete visualRegistry.profiles['crimson-fists'];
+      delete visualRegistry.profiles['flesh-tearers'];
+
       visualRegistry.profiles.tyranids={
         id:'tyranids',
         name:'Tyranids',
@@ -81,6 +87,17 @@
       library.factions.tyranids.presentationFallback='tyranids';
       library.factions.tyranids.presentation=Object.freeze({...presentation});
     }
+
+    // app.js creates chapterThemes before DOMContentLoaded. Keep that snapshot in
+    // sync so the Themes UI immediately shows Tyranids and drops the two retired
+    // chapter presets without requiring a separate renderer hack.
+    try{
+      if(typeof chapterThemes!=='undefined' && chapterThemes){
+        delete chapterThemes['crimson-fists'];
+        delete chapterThemes['flesh-tearers'];
+        chapterThemes.tyranids={...presentation};
+      }
+    }catch(error){console.warn('Could not synchronise Tyranids theme preset.',error);}
 
     if(typeof global.ASTARTES_ACTIVE_FACTION!=='function') return;
 
