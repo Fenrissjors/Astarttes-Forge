@@ -40,6 +40,7 @@
       label:'Tyranid bio-construct',
       decorationLabel:'CHITIN · TALONS · BIOMASS',
       titleSurface:'#eee2cf',
+      titleText:'#4d2a61',
       a4Frame:'assets/art/tyranids/frames/tyranids-a4-portrait.png',
       frameManifest:'assets/art/tyranids/frames/frame-manifest.json',
       geometryContract:'artwork-geometry-px-v1',
