@@ -1,6 +1,7 @@
-/* Astartes Forge — Tyranids faction foundation + production visual registration
+/* Astartes Forge — Tyranids faction foundation
  * New Recruit remains authoritative for roster identity and rules.
- * Tyranids now owns a validated faction presentation profile and A4 artwork route.
+ * Visual artwork registration lives in tyranids-visual-registry.js so it is
+ * available before the shared print/theme libraries snapshot their registries.
  */
 (function(global){
   'use strict';
@@ -36,83 +37,32 @@
     presentation
   };
 
-  // Shared cleanup for escaped New Recruit rich-text markers. This is intentionally
-  // faction-agnostic because the same residue can appear in Astartes/Orks exports.
+  // Shared New Recruit rich-text cleanup. Accept both literal markdown markers
+  // and their backslash-escaped ROSZ forms, e.g. \*\*^^Infantry^^\*\*.
   function stripImportedMarkup(value=''){
     return String(value||'')
-      .replace(/\\\*\\\*/g,'')
-      .replace(/\\\^\\\^/g,'')
-      .replace(/\*\*/g,'')
-      .replace(/\^\^/g,'')
-      .replace(/\|\^\^/g,'')
+      .replace(/\\?\*\\?\*/g,'')
+      .replace(/\\?\^\\?\^/g,'')
+      .replace(/\|\s*/g,' ')
       .replace(/\u00a0/g,' ')
       .replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g,'-')
-      .replace(/\s+([,.;:!?])/g,'$1');
+      .replace(/\s+([,.;:!?])/g,'$1')
+      .replace(/[ \t]{2,}/g,' ');
   }
+  global.ASTARTES_STRIP_IMPORTED_MARKUP=stripImportedMarkup;
 
   global.addEventListener('DOMContentLoaded',()=>{
-    // Register Tyranids before the app's DOMContentLoaded renderer builds theme
-    // controls. app.js snapshots themeMap() at script evaluation time, so mirror
-    // the late faction registration into that live theme map as well.
-    const visualRegistry=global.ASTARTES_CHAPTER_VISUAL_REGISTRY;
-    if(visualRegistry?.profiles){
-      // Crimson Fists and Flesh Tearers are no longer offered as separate
-      // presentation presets. Existing imported source labels can still remain
-      // in roster data, but they resolve through the generic Astartes fallback.
-      delete visualRegistry.profiles['crimson-fists'];
-      delete visualRegistry.profiles['flesh-tearers'];
-
-      visualRegistry.profiles.tyranids={
-        id:'tyranids',
-        name:'Tyranids',
-        aliases:['Tyranids','Xenos - Tyranids'],
-        theme:{...presentation},
-        printSurface:'#eadff0',
-        emblem:{remoteFile:'',local:''},
-        artwork:{
-          frameStandard:visualRegistry.a4FrameStandard||'a4-chapter-frame-gold-v1',
-          geometryMaster:visualRegistry.a4GeometryMaster||'a4-chapter-frame-gold-v1',
-          label:'Tyranid bio-construct',
-          decorationLabel:'CHITIN · TALONS · BIOMASS',
-          titleSurface:'#eee2cf',
-          a4Frame:'assets/art/tyranids/frames/tyranids-a4-portrait.png',
-          frameManifest:'assets/art/tyranids/frames/frame-manifest.json',
-          geometryContract:'artwork-geometry-px-v1',
-          renderer:'adaptive-datasheet',
-          frameReady:true,
-          candidateFrame:false,
-          validationStatus:'PASS'
-        }
-      };
-      library.factions.tyranids.presentationFallback='tyranids';
-      library.factions.tyranids.presentation=Object.freeze({...presentation});
-    }
-
-    // app.js creates chapterThemes before DOMContentLoaded. Keep that snapshot in
-    // sync so the Themes UI immediately shows Tyranids and drops the two retired
-    // chapter presets without requiring a separate renderer hack.
-    try{
-      if(typeof chapterThemes!=='undefined' && chapterThemes){
-        delete chapterThemes['crimson-fists'];
-        delete chapterThemes['flesh-tearers'];
-        chapterThemes.tyranids={...presentation};
-      }
-    }catch(error){console.warn('Could not synchronise Tyranids theme preset.',error);}
-
     if(typeof global.ASTARTES_ACTIVE_FACTION!=='function') return;
 
-    // Keep non-Astartes faction labels exact on datasheets and print output.
+    // Keep the faction label exact for Tyranid datasheets and print output.
     if(typeof global.factionNameFor==='function'){
       const previous=global.factionNameFor;
       global.factionNameFor=function(unit){
-        const active=global.ASTARTES_ACTIVE_FACTION?.();
-        if(active==='tyranids') return 'Tyranids';
+        if(global.ASTARTES_ACTIVE_FACTION?.()==='tyranids') return 'Tyranids';
         return previous(unit);
       };
     }
 
-    // Extend the existing central text cleaner rather than adding a Tyranid-only
-    // renderer exception. This also cleans the same residual markers for existing factions.
     if(typeof global.cleanCodexText==='function'){
       const previousClean=global.cleanCodexText;
       global.cleanCodexText=function(text=''){
@@ -120,8 +70,6 @@
       };
     }
 
-    // Safety-net for text paths that render imported description text without going
-    // through cleanCodexText. Restrict this to user-facing rules/datasheet/print areas.
     const cleanRenderedTree=root=>{
       if(!root) return;
       const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
@@ -132,6 +80,7 @@
         if(cleaned!==textNode.nodeValue) textNode.nodeValue=cleaned;
       }
     };
+
     const cleanUserFacing=()=>{
       document.querySelectorAll('#cardsContainer,#themePreview,#armyPackPrint,#armyRules,#referenceRules,#stratagemList,#coreStratagemList').forEach(cleanRenderedTree);
       if(global.ASTARTES_ACTIVE_FACTION?.()==='tyranids'){
@@ -141,8 +90,18 @@
       }
     };
 
-    const observer=new MutationObserver(()=>cleanUserFacing());
+    // Keep normal UI clean continuously and force a synchronous cleanup at the
+    // two print boundaries so detached/generated print pages cannot race the observer.
+    const observer=new MutationObserver(cleanUserFacing);
     observer.observe(document.body,{subtree:true,childList:true,characterData:true});
+    global.addEventListener('beforeprint',cleanUserFacing);
+    document.addEventListener('click',event=>{
+      if(event.target?.closest?.('#generateArmyPack,#printRules')){
+        cleanUserFacing();
+        queueMicrotask(cleanUserFacing);
+        requestAnimationFrame(cleanUserFacing);
+      }
+    },true);
 
     if(global.ASTARTES_ACTIVE_FACTION?.()==='tyranids'){
       if(typeof global.syncCleanPrintControls==='function') global.syncCleanPrintControls();
