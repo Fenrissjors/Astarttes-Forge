@@ -150,9 +150,8 @@
     }
   }
 
-  // First production testcase: Subterranean Assault changes these units at
-  // army construction. The effect is intentionally data-driven; future factions
-  // register more effects through the same API rather than changing renderers.
+  // Tyranids permanent detachment keyword effects -------------------------
+  // Subterranean Assault: Mawloc and Trygon gain BURROWER at army construction.
   registerKeywordEffects({
     id:'tyranids-subterranean-assault-burrower',
     faction:'tyranids',
@@ -163,8 +162,27 @@
     add:['Burrower']
   });
 
+  // Warrior Bioform Onslaught: both Tyranid Warrior datasheets gain the
+  // TYRANID WARRIORS and BATTLELINE keywords for the duration of the battle.
+  // Match by canonical datasheet names; patterns tolerate punctuation/case
+  // differences from New Recruit without matching unrelated Warrior units.
+  registerKeywordEffects({
+    id:'tyranids-warrior-bioform-onslaught-warrior-keywords',
+    faction:'tyranids',
+    detachment:'warrior-bioform-onslaught',
+    sourceRule:'Leader-beasts',
+    timing:'battle-permanent',
+    targets:{
+      unitNamePatterns:[
+        '^Tyranid Warriors with Melee Bio[- ]?weapons$',
+        '^Tyranid Warriors with Ranged Bio[- ]?weapons$'
+      ]
+    },
+    add:['Tyranid Warriors','Battleline']
+  });
+
   global.ASTARTES_DERIVED_KEYWORD_ENGINE=Object.freeze({
-    version:'1.0.0',
+    version:'1.1.0',
     register:registerKeywordEffects,
     apply:applyDerivedKeywords,
     effects:()=>effectRegistry.map(effect=>({...effect,add:[...(effect.add||[])]})),
