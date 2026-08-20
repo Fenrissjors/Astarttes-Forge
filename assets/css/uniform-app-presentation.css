@@ -144,6 +144,30 @@ textarea:focus {
  * Stratagem phase classes keep their phase colours.
  */
 
+/* Temporary diagnostic: Tyranids is the first non-Astartes faction to expose
+ * legacy A4/illustrated-codex spacing bleeding into the adaptive renderer.
+ * Reset only the inherited box-model values so we can verify the divergence
+ * without changing any other faction. If this proves the cause, this block
+ * will be promoted into the shared adaptive renderer contract. */
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body {
+  margin: 0 !important;
+  padding: 4mm !important;
+  padding-right: 4mm !important;
+  width: var(--adaptive-body-width,160.5mm) !important;
+  max-width: var(--adaptive-body-width,160.5mm) !important;
+}
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-body > .codex-panel-layout {
+  width: 100% !important;
+  max-width: none !important;
+}
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header,
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-title,
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-kicker,
+.data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"][data-render-mode="print"][data-physical-format="a4Portrait"] > .card-header .card-points {
+  color: var(--art-title-text,#4d2a61) !important;
+  text-shadow: none !important;
+}
+
 @media print {
   /* This stylesheet governs only the app shell. Print content keeps its own renderer. */
   body { background: #fff !important; }
