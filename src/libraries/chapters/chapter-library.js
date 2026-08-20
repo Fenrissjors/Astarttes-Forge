@@ -114,7 +114,9 @@
       if(id==='adeptus-astartes') return null;
       const faction=global.ASTARTES_FACTION_LIBRARY?.resolve?.(id)||null;
       const visualKey=faction?.presentationFallback||id;
-      const profile=global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.resolve?.(visualKey)||global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.[visualKey]||null;
+      // Exact lookup only: an unregistered faction must never inherit the generic
+      // Astartes profile through resolve() and accidentally pass production gating.
+      const profile=global.ASTARTES_CHAPTER_VISUAL_REGISTRY?.profiles?.[visualKey]||null;
       const artwork=profile?.artwork||{};
       if(artwork.renderer!=='adaptive-datasheet' || !artwork.frameReady || !artwork.a4Frame || artwork.validationStatus!=='PASS') return null;
       return profile;
