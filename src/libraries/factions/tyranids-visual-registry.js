@@ -53,6 +53,24 @@
 
   registry.profiles.tyranids=profile;
 
+  // The shared renderer writes --art-title-text inline. Force the validated
+  // Tyranids plaque colour at the faction boundary so both Theme Preview and
+  // Forge Army Pack use the same readable title treatment.
+  const titleStyle=document.createElement('style');
+  titleStyle.id='tyranids-adaptive-title-contract';
+  titleStyle.textContent=`
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"]{
+      --art-title-text:#4d2a61!important;
+    }
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header .card-title,
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header .card-kicker,
+    .data-card.adaptive-datasheet-artwork[data-artwork-chapter="tyranids"] > .card-header .card-points{
+      color:#4d2a61!important;
+      text-shadow:none!important;
+    }
+  `;
+  document.head.appendChild(titleStyle);
+
   // Keep faction routing in sync with the production visual profile.
   const faction=global.ASTARTES_FACTION_LIBRARY?.factions?.tyranids;
   if(faction){
